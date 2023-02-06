@@ -1,0 +1,22 @@
+{
+  "CompaniesHouseApi": {
+    "Token": "ndfkdn-f889e4tuhdfv-fdllfdn",
+    "BaseUrl": "https://api.company-information.service.gov.uk",
+    "SearchCompaniesPerRequest": 5,
+    "RequestLimit": {
+      "Count": 600,
+      "Interval": "00:00:00.7000000"
+    }
+  },
+  "Smtp": {
+    "Email": "simple@gmail.com",
+    "UserName": "Fox",
+    "Password": "password",
+    "Host": "gmail.com",
+    "Port": 333
+  },
+  "Filters": [
+    { "Officer": { "Nationality": "British" } },
+    { "Officer": { "Nationality": "Israeli" } }
+  ]
+}

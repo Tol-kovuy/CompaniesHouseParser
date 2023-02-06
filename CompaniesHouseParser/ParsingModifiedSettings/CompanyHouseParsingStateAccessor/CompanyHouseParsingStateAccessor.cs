@@ -5,7 +5,7 @@
        ICompanyHouseParsingStateAccessor
     {
         public CompanyHouseParsingStateAccessor()
-            : base("ParsingSettings.json")
+            : base("ModifiedSettings.json")
         {
         }
     }

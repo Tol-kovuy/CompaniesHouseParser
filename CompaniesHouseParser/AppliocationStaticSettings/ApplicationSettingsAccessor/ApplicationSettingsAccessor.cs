@@ -5,7 +5,7 @@
         IApplicationSettingsAccessor
     {
         public ApplicationSettingsAccessor()
-            : base("AppSettings.json")
+            : base("StaticSettings.json")
         {
         }
     }
