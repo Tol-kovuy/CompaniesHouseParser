@@ -12,8 +12,8 @@ namespace CompaniesHouseParser
         {
             #region Deserialize
 
-            //var accessorAppSettings = new ApplicationSettingsAccessor();
-            //var getAppSettings = accessorAppSettings.Get();
+            var accessorAppSettings = new ApplicationSettingsAccessor();
+            var getAppSettings = accessorAppSettings.Get();
 
             //var accessorParsSettings = new CompanyHouseParsingStateAccessor();
             //var getParsSettings = accessorParsSettings.Get();

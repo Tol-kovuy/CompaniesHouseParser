@@ -22,9 +22,9 @@ namespace CompaniesHouseParser
             TClass? jsonToObj = null;
             try
             {
-                // todo :read docs
                 jsonToObj = JsonConvert.DeserializeObject<TClass>(settings);
-                // todo: check for null and throw ex
+                if (jsonToObj == null)
+                    throw new Exception("Sorry, but json file can not deserialize to object");
             }
             catch (Exception ex)
             {
