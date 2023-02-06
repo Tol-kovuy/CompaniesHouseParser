@@ -1,6 +1,4 @@
-﻿using CompaniesHouseParser.Settings;
-
-namespace CompaniesHouseParser
+﻿namespace CompaniesHouseParser.Settings
 {
     public interface ICompaniesHouseApiSettings
     {

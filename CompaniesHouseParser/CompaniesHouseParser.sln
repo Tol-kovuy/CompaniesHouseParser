@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser", "CompaniesHouseParser.csproj", "{483468BB-3570-4C1F-875A-758AFEBDEAAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB4062C4-B77D-46E8-B4BD-638E2807AC5B}
+	EndGlobalSection
+EndGlobal

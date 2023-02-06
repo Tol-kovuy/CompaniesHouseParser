@@ -1,6 +1,7 @@
 ﻿namespace CompaniesHouseParser.Settings
 {
-    internal interface IApplicationSettingsAccessor
+    public interface IApplicationSettingsAccessor
     {
+        IApplicationSettings Get();
     }
 }
