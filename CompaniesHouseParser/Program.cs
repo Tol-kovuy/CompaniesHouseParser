@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace CompaniesHouseParser
 {
-    //todo: CompaniesHouseParser.Settings -> 
+    //todo: CompaniesHouseParser.Settings -> Done.
     //todo: CompaniesHouseParser.Api
     //todo: CompaniesHouseParser.App
     class Program

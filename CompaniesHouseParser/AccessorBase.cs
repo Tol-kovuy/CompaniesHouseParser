@@ -3,7 +3,7 @@
 namespace CompaniesHouseParser
 {
     public class AccessorBase<TClass, TInterface>
-        // TODO: tell me class, new,  TClass : TInterface
+
         where TClass : class, TInterface
     {
         private string _path;
@@ -31,7 +31,6 @@ namespace CompaniesHouseParser
                 Console.WriteLine(ex.Message);
             }
 
-            // todo: jsonToObj can be null?
             return jsonToObj;
         }
     }
