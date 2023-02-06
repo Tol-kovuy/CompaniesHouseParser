@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser", "CompaniesHouseParser.csproj", "{483468BB-3570-4C1F-875A-758AFEBDEAAA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Settings", "..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj", "{28F600D9-C837-43B9-9DAA-C18A07957C36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Api", "..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj", "{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483468BB-3570-4C1F-875A-758AFEBDEAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F600D9-C837-43B9-9DAA-C18A07957C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F600D9-C837-43B9-9DAA-C18A07957C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F600D9-C837-43B9-9DAA-C18A07957C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F600D9-C837-43B9-9DAA-C18A07957C36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
