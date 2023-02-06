@@ -12,11 +12,11 @@ namespace CompaniesHouseParser
         {
             #region Deserialize
 
-            var accessorAppSettings = new ApplicationSettingsAccessor();
-            var getAppSettings = accessorAppSettings.Get();
+            //var accessorAppSettings = new ApplicationSettingsAccessor();
+            //var getAppSettings = accessorAppSettings.Get();
 
-            var accessorParsSettings = new CompanyHouseParsingStateAccessor();
-            var getParsSettings = accessorParsSettings.Get();
+            //var accessorParsSettings = new CompanyHouseParsingStateAccessor();
+            //var getParsSettings = accessorParsSettings.Get();
 
             #endregion
 
@@ -47,24 +47,30 @@ namespace CompaniesHouseParser
             //var jsonStringStaticSettings = JsonConvert.SerializeObject(staticSettings);
             //WriteToFile("StaticSettings.json", jsonStringStaticSettings);
 
-            //ApplicationParsingState modifiedSettings = new ApplicationParsingState
-            //{
-            //    Companies = new ApplicationCompaniesParsingState
-            //    {
-            //        ILastIncorporatedFrom = DateTime.Now
-            //    }
-            //};
+            ApplicationParsingState modifiedSettings = new ApplicationParsingState
+            {
+                Companies = new ApplicationCompaniesParsingState
+                {
+                    ILastIncorporatedFrom = DateTime.Now
+                },
+                Email = new NotificationFor
+                {
+                    EmailAddresses = new[] { new ResultMailingAddress { EmailAddress = "recipient1@gmail.com"}, 
+                                             new ResultMailingAddress { EmailAddress = "recipient2@gmail.com"},
+                                             new ResultMailingAddress { EmailAddress = "recipient3@gmail.com"}},
+                }
+            };
 
-            //var jsonStringModifiedSettings = JsonConvert.SerializeObject(modifiedSettings);
-            //WriteToFile("ModifiedSettings.json", jsonStringModifiedSettings);
+            var jsonStringModifiedSettings = JsonConvert.SerializeObject(modifiedSettings);
+            WriteToFile("ModifiedSettings.json", jsonStringModifiedSettings);
 
-            //void WriteToFile(string filePath, string text)
-            //{
-            //    using (StreamWriter writer = new StreamWriter(filePath, false))
-            //    {
-            //        writer.WriteLine(text);
-            //    }
-            //}
+            void WriteToFile(string filePath, string text)
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, false))
+                {
+                    writer.WriteLine(text);
+                }
+            }
 
             #endregion
         }

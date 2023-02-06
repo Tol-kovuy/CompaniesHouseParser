@@ -2,7 +2,7 @@
 {
     public interface ICompaniesHouseApiRequestLimit
     {
-        int Count { get; set; }
-        TimeSpan Interval { get; set; }
+        int Count { get; }
+        TimeSpan Interval { get; }
     }
 }
