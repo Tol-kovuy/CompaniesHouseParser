@@ -2,6 +2,6 @@
 {
     public interface IApplicationCompanyFilter
     {
-        IApplicationCompanyOfficerFilter Officer { get; set; }
+        IApplicationCompanyOfficerFilter Officer { get; }
     }
 }

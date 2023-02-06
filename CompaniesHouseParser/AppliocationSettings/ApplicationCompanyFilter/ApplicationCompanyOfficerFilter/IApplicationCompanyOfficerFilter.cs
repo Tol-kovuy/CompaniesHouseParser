@@ -2,6 +2,6 @@
 {
     public interface IApplicationCompanyOfficerFilter
     {
-        string Nationality { get; set; }
+        string Nationality { get; }
     }
 }
