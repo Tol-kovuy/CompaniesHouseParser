@@ -1,0 +1,37 @@
+{
+  "links": { "self": "/company/14640202/officers" },
+  "items_per_page": 35,
+  "kind": "officer-list",
+  "etag": "a8b414d02f21dcef33f0b960cd6d8140577a5e1d",
+  "items": [
+    {
+      "officer_role": "director",
+      "address": {
+        "country": "England",
+        "address_line_1": "Mitcham Grove",
+        "locality": "Telford",
+        "premises": "16",
+        "postal_code": "TF2 9WN",
+        "address_line_2": "Priorslee"
+      },
+      "country_of_residence": "England",
+      "name": "MANGCO, Janine Pena",
+      "links": {
+        "self": "/company/14640202/appointments/mYO6spobyleb71KCjSzV4UcXzbQ",
+        "officer": { "appointments": "/officers/cIJc0OJ95mQwfbzIMNABPItG5p8/appointments" }
+      },
+      "nationality": "British",
+      "date_of_birth": {
+        "year": 1991,
+        "month": 5
+      },
+      "occupation": "Director",
+      "appointed_on": "2023-02-06"
+    }
+  ],
+  "total_results": 1,
+  "inactive_count": 0,
+  "resigned_count": 0,
+  "active_count": 1,
+  "start_index": 0
+}

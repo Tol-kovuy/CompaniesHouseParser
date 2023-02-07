@@ -19,7 +19,7 @@ namespace CompaniesHouseParser.Api
             return await base.SendAsync(request, cancellationToken);
         }
 
-        private string? Base64Encode(string apiToken)
+        private string Base64Encode(string apiToken)
         {
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(apiToken));
         }

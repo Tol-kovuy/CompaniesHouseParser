@@ -11,33 +11,46 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
+            #region Getting 5 companies from Api
+
             HttpClientFactory authorizeClient = new HttpClientFactory();
             var forSeeThatVariable = authorizeClient.CreateHttpClient();
-            await GetAllCompaniesFromDto();
 
-            async Task GetAllCompaniesFromDto()
+            //await GetAllCompaniesFromDto();
+
+            //async Task GetAllCompaniesFromDto()
+            //{
+            //    var url = $"https://api.company-information.service.gov.uk/" +
+            //        $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+            //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5}";
+
+            //    var response = await forSeeThatVariable.GetAsync(url);
+            //    Console.WriteLine(response.ToString());
+
+            //    var request = await response.Content.ReadAsStringAsync();
+            //    Console.WriteLine(request);
+            //}
+
+            #endregion
+
+            #region Get Officer with one company id
+
+            await GetAllOfficersDto("14640202");
+
+            async Task GetAllOfficersDto(string idCompany)
             {
-                var incorporatedFrom = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
-                var incorporatedTo = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
-                // TODO use takeCountm
-                var countCompanies = 5;
-                var url = $"https://api.company-information.service.gov.uk/advanced-search/companies?incorporated_from={incorporatedFrom}&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
 
-                var response = new HttpResponseMessage();
-                try
-                {
-                    response = await forSeeThatVariable.GetAsync(url);
-                    Console.WriteLine(response.ToString());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine($"Message : {ex}");
-                }
+                var companyUrl = $"https://api.company-information.service.gov.uk/company/{idCompany}";
+                var officersUrl = $"{companyUrl}/officers";
+
+                var response = await forSeeThatVariable.GetAsync(officersUrl);
+                Console.WriteLine(response.ToString());
 
                 var request = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(request);
             }
+
+            #endregion
 
             #region Deserialize
 

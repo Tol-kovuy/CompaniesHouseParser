@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ModelsDTO\" />
-  </ItemGroup>
-
 </Project>
