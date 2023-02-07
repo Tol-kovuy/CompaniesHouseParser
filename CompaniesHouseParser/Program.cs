@@ -14,15 +14,14 @@ namespace CompaniesHouseParser
             HttpClientFactory authorizeClient = new HttpClientFactory();
             var forSeeThatVariable = authorizeClient.CreateHttpClient();
             await GetAllCompaniesFromDto();
-             async Task<IList<CompanyModelDto>> GetAllCompaniesFromDto()
+
+            async Task GetAllCompaniesFromDto()
             {
                 var incorporatedFrom = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
                 var incorporatedTo = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
                 // TODO use takeCountm
                 var countCompanies = 5;
                 var url = $"https://api.company-information.service.gov.uk/advanced-search/companies?incorporated_from={incorporatedFrom}&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
-
-                var companies = new List<CompanyModelDto>();
 
                 var response = new HttpResponseMessage();
                 try
@@ -38,19 +37,6 @@ namespace CompaniesHouseParser
 
                 var request = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(request);
-
-                try
-                {
-                    var companyList = JsonConvert.DeserializeObject<CompaniesListModelDto>(request);
-                    companies.AddRange(companyList.CompaniesDto);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine($"Message : {ex}");
-                }
-
-                return companies;
             }
 
             #region Deserialize
