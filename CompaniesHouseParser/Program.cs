@@ -13,8 +13,8 @@ namespace CompaniesHouseParser
         {
             #region Getting 5 companies from Api
 
-            HttpClientFactory authorizeClient = new HttpClientFactory();
-            var forSeeThatVariable = authorizeClient.CreateHttpClient();
+            //HttpClientFactory authorizeClient = new HttpClientFactory();
+            //var forSeeThatVariable = authorizeClient.CreateHttpClient();
 
             //await GetAllCompaniesFromDto();
 
@@ -35,20 +35,20 @@ namespace CompaniesHouseParser
 
             #region Get Officer with one company id
 
-            await GetAllOfficersDto("14640202");
+            //await GetAllOfficersDto("14640202");
 
-            async Task GetAllOfficersDto(string idCompany)
-            {
+            //async Task GetAllOfficersDto(string idCompany)
+            //{
 
-                var companyUrl = $"https://api.company-information.service.gov.uk/company/{idCompany}";
-                var officersUrl = $"{companyUrl}/officers";
+            //    var companyUrl = $"https://api.company-information.service.gov.uk/company/{idCompany}";
+            //    var officersUrl = $"{companyUrl}/officers";
 
-                var response = await forSeeThatVariable.GetAsync(officersUrl);
-                Console.WriteLine(response.ToString());
+            //    var response = await forSeeThatVariable.GetAsync(officersUrl);
+            //    Console.WriteLine(response.ToString());
 
-                var request = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(request);
-            }
+            //    var request = await response.Content.ReadAsStringAsync();
+            //    Console.WriteLine(request);
+            //}
 
             #endregion
 

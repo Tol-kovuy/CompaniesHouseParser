@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace CompaniesHouseParser.Api
 {
@@ -10,7 +9,7 @@ namespace CompaniesHouseParser.Api
         [JsonProperty(PropertyName = "locality")]
         public string City { get; set; }
         [JsonProperty(PropertyName = "postal_code")]
-        public string PostCode { get; set; }
+        public string PostalCode { get; set; }
         [JsonProperty(PropertyName = "country")]
         public string Country { get; set; }
         [JsonProperty(PropertyName = "sic_codes")]
