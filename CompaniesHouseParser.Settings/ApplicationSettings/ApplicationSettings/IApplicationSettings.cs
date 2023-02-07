@@ -5,5 +5,6 @@
         ICompaniesHouseApiSettings CompaniesHouseApi { get; }
         IApplicationCompanyFilter[] Filters { get; }
         ISmtp Smtp { get; }
+        INotificationFor Email { get; }
     }
 }

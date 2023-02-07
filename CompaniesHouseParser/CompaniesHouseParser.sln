@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser", "CompaniesHouseParser.csproj", "{483468BB-3570-4C1F-875A-758AFEBDEAAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.App", "CompaniesHouseParser.App.csproj", "{483468BB-3570-4C1F-875A-758AFEBDEAAA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Settings", "..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj", "{28F600D9-C837-43B9-9DAA-C18A07957C36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Api", "..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj", "{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Api", "..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj", "{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

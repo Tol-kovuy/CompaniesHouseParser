@@ -10,5 +10,7 @@
 
         public ApplicationCompanyFilter[] Filters { get; set; }
         IApplicationCompanyFilter[] IApplicationSettings.Filters  { get => Filters; }
+        public NotificationFor Email { get; set; }
+        INotificationFor IApplicationSettings.Email => Email;
     }
 }
