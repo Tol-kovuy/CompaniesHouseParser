@@ -4,7 +4,6 @@ namespace CompaniesHouseParser.Api
 {
     public class OfficerDto
     {
-
         [JsonProperty(PropertyName = "name")]
         public string FullName { get; set; }
         [JsonProperty(PropertyName = "officer_role")]

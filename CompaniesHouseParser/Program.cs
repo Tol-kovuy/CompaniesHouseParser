@@ -11,25 +11,32 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
+            //var companiesDto = new CompaniesHouseApi();
+            //var companies = await companiesDto.GetAllCompanies();
+
             #region Getting 5 companies from Api
 
-            //HttpClientFactory authorizeClient = new HttpClientFactory();
-            //var forSeeThatVariable = authorizeClient.CreateHttpClient();
+            HttpClientFactory client = new HttpClientFactory();
+            var createHttpClient = client.CreateHttpClient();
 
-            //await GetAllCompaniesFromDto();
+            await GetAllCompaniesFromDto();
 
-            //async Task GetAllCompaniesFromDto()
-            //{
-            //    var url = $"https://api.company-information.service.gov.uk/" +
-            //        $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
-            //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5}";
+            async Task GetAllCompaniesFromDto()
+            {
+                var url = $"https://api.company-information.service.gov.uk/" +
+                    $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+                    $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
 
-            //    var response = await forSeeThatVariable.GetAsync(url);
-            //    Console.WriteLine(response.ToString());
+                var response = await createHttpClient.GetAsync(url);
+                Console.WriteLine(response.ToString());
 
-            //    var request = await response.Content.ReadAsStringAsync();
-            //    Console.WriteLine(request);
-            //}
+                var request = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(request);
+
+                var companies = new List<CompanyDto>();
+                var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
+                companies.AddRange(companyList.CompaniesDto);
+            }
 
             #endregion
 
@@ -43,7 +50,7 @@ namespace CompaniesHouseParser
             //    var companyUrl = $"https://api.company-information.service.gov.uk/company/{idCompany}";
             //    var officersUrl = $"{companyUrl}/officers";
 
-            //    var response = await forSeeThatVariable.GetAsync(officersUrl);
+            //    var response = await createHttpClient.GetAsync(officersUrl);
             //    Console.WriteLine(response.ToString());
 
             //    var request = await response.Content.ReadAsStringAsync();

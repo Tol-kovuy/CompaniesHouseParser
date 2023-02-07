@@ -4,7 +4,7 @@ namespace CompaniesHouseParser.Api
 {
     public class CompanyDto
     {
-        [JsonProperty(PropertyName = "company_numbe")]
+        [JsonProperty(PropertyName = "company_number")]
         public string Id { get; set;}
         [JsonProperty(PropertyName = "company_name")]
         public string Name { get; set;}

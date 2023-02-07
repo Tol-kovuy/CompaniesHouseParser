@@ -4,10 +4,6 @@ namespace CompaniesHouseParser.Settings
 {
     public class CompaniesHouseApiSettings : ICompaniesHouseApiSettings
     {
-        //public static readonly Func<HttpMessageHandler> DefaultHttpMessageHandlerCreator = () => new HttpClientHandler
-        //{
-        //    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-        //};
         public string Token { get; set; }
         public Uri BaseUrl { get; set; }
         Uri ICompaniesHouseApiSettings.BaseUrl => BaseUrl;
@@ -19,5 +15,9 @@ namespace CompaniesHouseParser.Settings
         }
         public Func<HttpMessageHandler> HttpMessageHandlerCreator = () => new HttpClientHandler();
         Func<HttpMessageHandler> ICompaniesHouseApiSettings.HttpMessageHandlerCreator => HttpMessageHandlerCreator;
+        //public static readonly Func<HttpMessageHandler> DefaultHttpMessageHandlerCreator = () => new HttpClientHandler
+        //{
+        //    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate *********** ask Mania from decompressing **********
+        //};
     }
 }
