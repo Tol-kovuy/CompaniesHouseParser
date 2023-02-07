@@ -1,4 +1,5 @@
-﻿using CompaniesHouseParser.Settings;
+﻿using CompaniesHouseParser.Api;
+using CompaniesHouseParser.Settings;
 using Newtonsoft.Json;
 
 namespace CompaniesHouseParser
@@ -8,12 +9,54 @@ namespace CompaniesHouseParser
     //todo: CompaniesHouseParser.App
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
+            HttpClientFactory authorizeClient = new HttpClientFactory();
+            var forSeeThatVariable = authorizeClient.CreateHttpClient();
+            await GetAllCompaniesFromDto();
+             async Task<IList<CompanyModelDto>> GetAllCompaniesFromDto()
+            {
+                var incorporatedFrom = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
+                var incorporatedTo = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
+                // TODO use takeCountm
+                var countCompanies = 5;
+                var url = $"https://api.company-information.service.gov.uk/advanced-search/companies?incorporated_from={incorporatedFrom}&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
+
+                var companies = new List<CompanyModelDto>();
+
+                var response = new HttpResponseMessage();
+                try
+                {
+                    response = await forSeeThatVariable.GetAsync(url);
+                    Console.WriteLine(response.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine($"Message : {ex}");
+                }
+
+                var request = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(request);
+
+                try
+                {
+                    var companyList = JsonConvert.DeserializeObject<CompaniesListModelDto>(request);
+                    companies.AddRange(companyList.CompaniesDto);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine($"Message : {ex}");
+                }
+
+                return companies;
+            }
+
             #region Deserialize
 
-            var accessorAppSettings = new ApplicationSettingsAccessor();
-            var getAppSettings = accessorAppSettings.Get();
+            //var accessorAppSettings = new ApplicationSettingsAccessor();
+            //var getAppSettings = accessorAppSettings.Get();
 
             //var accessorParsSettings = new CompanyHouseParsingStateAccessor();
             //var getParsSettings = accessorParsSettings.Get();

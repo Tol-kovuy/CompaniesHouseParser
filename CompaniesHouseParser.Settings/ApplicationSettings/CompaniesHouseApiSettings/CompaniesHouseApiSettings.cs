@@ -1,9 +1,15 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿using System.Net;
+
+namespace CompaniesHouseParser.Settings
 {
     public class CompaniesHouseApiSettings : ICompaniesHouseApiSettings
     {
+        public static readonly Func<HttpMessageHandler> DefaultHttpMessageHandlerCreator = () => new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+        };
         public string Token { get; set; }
-        Uri BaseUrl { get; set; }
+        public Uri BaseUrl { get; set; }
         Uri ICompaniesHouseApiSettings.BaseUrl => BaseUrl;
         public int SearchCompaniesPerRequest { get; set; }
         public CompaniesHouseApiRequestLimit RequestLimit { get; set; }
@@ -11,6 +17,6 @@
         {
             get => RequestLimit;
         }
-        public Func<HttpMessageHandler> HttpMessageHandlerCreator { get; }
+        public Func<HttpMessageHandler> HttpMessageHandlerCreator { get=> DefaultHttpMessageHandlerCreator; }
     }
 }
