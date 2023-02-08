@@ -9,15 +9,8 @@ namespace CompaniesHouseParser.Settings
         Uri ICompaniesHouseApiSettings.BaseUrl => BaseUrl;
         public int SearchCompaniesPerRequest { get; set; }
         public CompaniesHouseApiRequestLimit RequestLimit { get; set; }
-        ICompaniesHouseApiRequestLimit ICompaniesHouseApiSettings.RequestLimit
-        {
-            get => RequestLimit;
-        }
+        ICompaniesHouseApiRequestLimit ICompaniesHouseApiSettings.RequestLimit => RequestLimit;
         public Func<HttpMessageHandler> HttpMessageHandlerCreator = () => new HttpClientHandler();
         Func<HttpMessageHandler> ICompaniesHouseApiSettings.HttpMessageHandlerCreator => HttpMessageHandlerCreator;
-        //public static readonly Func<HttpMessageHandler> DefaultHttpMessageHandlerCreator = () => new HttpClientHandler
-        //{
-        //    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate *********** ask Mania from decompressing **********
-        //};
     }
 }

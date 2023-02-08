@@ -2,6 +2,6 @@
 {
     public class ApplicationCompaniesParsingState : IApplicationCompaniesParsingState
     {
-        public string ILastIncorporatedFrom { get; set; }
+        public DateTime ILastIncorporatedFrom { get; set; }
     }
 }

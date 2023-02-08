@@ -5,48 +5,50 @@ using Newtonsoft.Json;
 namespace CompaniesHouseParser
 {
     //todo: CompaniesHouseParser.Settings -> Done.
-    //todo: CompaniesHouseParser.Api
+    //todo: CompaniesHouseParser.Api -> 
     //todo: CompaniesHouseParser.App
     class Program
     {
         static async Task Main()
         {
-            //var companiesDto = new CompaniesHouseApi();
-            //var companies = await companiesDto.GetAllCompanies();
+            var companiesDto = new CompaniesHouseApi();
+            var companies = await companiesDto.GetAllCompanies();
 
             #region Getting 5 companies from Api
 
-            HttpClientFactory client = new HttpClientFactory();
-            var createHttpClient = client.CreateHttpClient();
+            //HttpClientFactory client = new HttpClientFactory();
+            //var createHttpClient = client.CreateHttpClient();
 
-            await GetAllCompaniesFromDto();
+            //await GetAllCompaniesFromDto();
 
-            async Task GetAllCompaniesFromDto()
-            {
-                var url = $"https://api.company-information.service.gov.uk/" +
-                    $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
-                    $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
+            //async Task GetAllCompaniesFromDto()
+            //{
+            //    var url = $"https://api.company-information.service.gov.uk/" +
+            //        $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+            //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
 
-                var response = await createHttpClient.GetAsync(url);
-                Console.WriteLine(response.ToString());
+            //    var response = await createHttpClient.GetAsync(url);
+            //    Console.WriteLine(response.ToString());
 
-                var request = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(request);
+            //    var request = await response.Content.ReadAsStringAsync();
+            //    Console.WriteLine(request);
 
-                var companies = new List<CompanyDto>();
-                var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
-                companies.AddRange(companyList.CompaniesDto);
-            }
+            //    var companies = new List<CompanyDto>();
+            //    var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
+            //    companies.AddRange(companyList.CompaniesDto);
+            //}
 
             #endregion
 
             #region Get Officer with one company id
 
-            //await GetAllOfficersDto("14640202");
+            //HttpClientFactory client = new HttpClientFactory();
+            //var createHttpClient = client.CreateHttpClient();
 
-            //async Task GetAllOfficersDto(string idCompany)
+            //var officer = await GetOfficers("14564685");
+
+            //async Task<IList<OfficerDto>> GetOfficers(string idCompany)
             //{
-
             //    var companyUrl = $"https://api.company-information.service.gov.uk/company/{idCompany}";
             //    var officersUrl = $"{companyUrl}/officers";
 
@@ -55,6 +57,12 @@ namespace CompaniesHouseParser
 
             //    var request = await response.Content.ReadAsStringAsync();
             //    Console.WriteLine(request);
+
+            //    var officerList = JsonConvert.DeserializeObject<OfficersListDto>(request);
+            //    var officers = new List<OfficerDto>();
+            //    officers.AddRange(officerList.Officers);
+
+            //    return officers;
             //}
 
             #endregion

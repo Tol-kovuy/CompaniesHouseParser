@@ -7,17 +7,16 @@ namespace CompaniesHouseParser.Api
     {
         private readonly IApplicationSettingsAccessor _appSettings = new ApplicationSettingsAccessor();
         private readonly ICompanyHouseParsingStateAccessor _parsSettings = new CompanyHouseParsingStateAccessor();
-        private HttpClientFactory _client = new HttpClientFactory();
+        private readonly HttpClientFactory _client = new HttpClientFactory();
 
         public async Task<IList<CompanyDto>> GetAllCompanies()
         {
-            var incorporatedFrom = _parsSettings.Get().Companies.ILastIncorporatedFrom;
-            var incorporatedTo = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
-            var getSettings = _appSettings.Get();
-            var countCompanies = getSettings.CompaniesHouseApi.SearchCompaniesPerRequest;
+            var incorporatedFrom = _parsSettings.Get().Companies.ILastIncorporatedFrom.ToString("yyyy-MM-dd");
+            var incorporatedTo = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
+            var countCompanies = _appSettings.Get().CompaniesHouseApi.SearchCompaniesPerRequest;
             var apiBaseUrl = _appSettings.Get().CompaniesHouseApi.BaseUrl;
-            var url = $"{apiBaseUrl}advanced-search/companies?incorporated_from={incorporatedFrom}&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
-
+            var url = $"{apiBaseUrl}advanced-search/companies?incorporated_from={incorporatedFrom}" +
+                             $"&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
             var createHttpClient = _client.CreateHttpClient();
             var response = new HttpResponseMessage();
             try
@@ -78,7 +77,7 @@ namespace CompaniesHouseParser.Api
                 var request = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(request);
 
-                var officerList = JsonConvert.DeserializeObject<OfficerListDto>(request);
+                var officerList = JsonConvert.DeserializeObject<OfficersListDto>(request);
                 officers.AddRange(officerList.Officers);
             }
             catch (Exception ex)

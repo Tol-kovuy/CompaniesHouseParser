@@ -7,6 +7,6 @@ namespace CompaniesHouseParser.Api
         [JsonProperty(PropertyName = "self")]
         public string Self { get; set; }
         [JsonProperty(PropertyName = "officer")]
-        public IList<AppointmentDto> OfficerAppointments { get; set; }
+        public AppointmentDto? OfficerAppointments { get; set; }
     }
 }
