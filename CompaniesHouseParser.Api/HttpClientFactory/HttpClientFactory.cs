@@ -1,25 +1,32 @@
-﻿using CompaniesHouseParser.Settings;
+﻿using System.Net.Http.Headers;
+using System.Text;
 
 namespace CompaniesHouseParser.Api
 {
     public class HttpClientFactory
     {
-        public HttpClient CreateHttpClient()
+        private HttpClient _httpClient;
+
+        public HttpClient GetHttpClient(string token)
         {
-            var accessorAppSettings = new ApplicationSettingsAccessor();
-            var getApiSettings = accessorAppSettings.Get();
-
-            var companiesHouseAuthorizationHandler = new CompaniesHouseAuthorizationHandler
+            if (_httpClient != null)
             {
-                InnerHandler = getApiSettings.CompaniesHouseApi.HttpMessageHandlerCreator()
-            };
+                return _httpClient;
+            }
 
-            var httpClient = new HttpClient(companiesHouseAuthorizationHandler)
+            _httpClient = new HttpClient();
+
+            try
             {
-                BaseAddress = getApiSettings.CompaniesHouseApi.BaseUrl
-            };
-
-            return httpClient;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Basic", token.Base64Encode());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine($"Message : {ex}");
+            }
+            return _httpClient;
         }
     }
 }

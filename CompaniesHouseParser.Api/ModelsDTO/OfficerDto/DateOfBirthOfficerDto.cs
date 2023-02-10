@@ -7,6 +7,6 @@ namespace CompaniesHouseParser.Api
         [JsonProperty(PropertyName = "year")]
         public int Year { get; set; }
         [JsonProperty(PropertyName = "month")]
-        public string Month { get; set; }
+        public int Month { get; set; }
     }
 }

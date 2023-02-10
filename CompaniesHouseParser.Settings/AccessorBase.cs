@@ -24,11 +24,12 @@ namespace CompaniesHouseParser
             {
                 jsonToObj = JsonConvert.DeserializeObject<TClass>(settings);
                 if (jsonToObj == null)
-                    throw new Exception("Sorry, but json file can not deserialize to object");
+                    throw new Exception("Sorry, but json file can not be deserialize to object");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine($"Message : {ex}");
             }
 
             return jsonToObj;

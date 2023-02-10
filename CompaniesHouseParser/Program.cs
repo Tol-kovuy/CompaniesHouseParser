@@ -11,8 +11,11 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
+            IInitializerSettings initSettings = new InitializerSettings();
+            var apiSettings = initSettings.InitializeSettingsForCompanies();
+
             var companiesDto = new CompaniesHouseApi();
-            var companies = await companiesDto.GetAllCompanies();
+            var companies = await companiesDto.GetCompanies(apiSettings);
 
             #region Getting 5 companies from Api
 
@@ -35,7 +38,7 @@ namespace CompaniesHouseParser
 
             //    var companies = new List<CompanyDto>();
             //    var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
-            //    companies.AddRange(companyList.CompaniesDto);
+            //    companies.AddRange(companyList.Companies);
             //}
 
             #endregion
@@ -43,7 +46,7 @@ namespace CompaniesHouseParser
             #region Get Officer with one company id
 
             //HttpClientFactory client = new HttpClientFactory();
-            //var createHttpClient = client.CreateHttpClient();
+            //var createHttpClient = client.GetHttpClient();
 
             //var officer = await GetOfficers("14564685");
 

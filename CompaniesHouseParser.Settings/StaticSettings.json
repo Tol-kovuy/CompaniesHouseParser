@@ -1,7 +1,6 @@
 {
   "CompaniesHouseApi": {
     "Token": "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
-    "BaseUrl": "https://api.company-information.service.gov.uk",
     "SearchCompaniesPerRequest": 5000,
     "RequestLimit": {
       "Count": 600,

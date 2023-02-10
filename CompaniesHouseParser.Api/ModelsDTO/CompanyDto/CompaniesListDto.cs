@@ -5,6 +5,6 @@ namespace CompaniesHouseParser.Api
     public class CompaniesListDto
     {
         [JsonProperty(PropertyName = "items")]
-        public IList<CompanyDto> CompaniesDto { get; set; }
+        public List<CompanyDto> Companies { get; set; }
     }
 }

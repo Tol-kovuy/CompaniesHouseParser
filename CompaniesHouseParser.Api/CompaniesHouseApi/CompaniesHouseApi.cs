@@ -1,92 +1,66 @@
-﻿using CompaniesHouseParser.Settings;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace CompaniesHouseParser.Api
 {
     public class CompaniesHouseApi : ICompaniesHouseApi
     {
-        private readonly IApplicationSettingsAccessor _appSettings = new ApplicationSettingsAccessor();
-        private readonly ICompanyHouseParsingStateAccessor _parsSettings = new CompanyHouseParsingStateAccessor();
-        private readonly HttpClientFactory _client = new HttpClientFactory();
+        private const string _apiBaseUrl = "https://api.company-information.service.gov.uk";
 
-        public async Task<IList<CompanyDto>> GetAllCompanies()
+        private readonly HttpClientFactory _clientFactory = new HttpClientFactory();
+
+        public async Task<IList<CompanyDto>> GetCompanies(IGetCompaniesRequest requestApi)
         {
-            var incorporatedFrom = _parsSettings.Get().Companies.ILastIncorporatedFrom.ToString("yyyy-MM-dd");
-            var incorporatedTo = DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd");
-            var countCompanies = _appSettings.Get().CompaniesHouseApi.SearchCompaniesPerRequest;
-            var apiBaseUrl = _appSettings.Get().CompaniesHouseApi.BaseUrl;
-            var url = $"{apiBaseUrl}advanced-search/companies?incorporated_from={incorporatedFrom}" +
-                             $"&incorporated_to={incorporatedTo}&countCompanies={countCompanies}";
-            var createHttpClient = _client.CreateHttpClient();
-            var response = new HttpResponseMessage();
-            try
-            {
-                response = await createHttpClient.GetAsync(url);
-                Console.WriteLine(response.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine($"Message : {ex}");
-            }
+            var incorporatedFrom = GetDate(requestApi.IncorporatedFrom);
+            var incorporatedTo = GetDate(DateTime.UtcNow.AddDays(1)); 
+            var countCompanies = requestApi.CompaniesCount;
+            var url = $"{_apiBaseUrl}//advanced-search/companies?incorporated_from={incorporatedFrom}" +
+                             $"&incorporated_to={incorporatedTo}&size={countCompanies}";
+
+            var response = await GetResponse<CompaniesListDto>(url, requestApi.ApiToken);
+
+
+            return response.Companies;
+        }
+
+        public async Task<IList<OfficerDto>> GetOfficers(IGetOfficerRequest requestApi)
+        {
+            var url = $"{_apiBaseUrl}/company/{requestApi.CompanyId}/officers";
+
+            var response = await GetResponse<OfficersListDto>(url, requestApi.ApiToken);
+
+
+            return response.Officers;
+        }
+
+        private async Task<TClass> GetResponse<TClass>(string url, string token)
+        {
+            var httpClient = _clientFactory.GetHttpClient(token);
+
+            using var response = await httpClient.GetAsync(url);
 
             var request = await response.Content.ReadAsStringAsync();
             Console.WriteLine(request);
 
-            var companies = new List<CompanyDto>();
+            TClass? jsonToObj = default(TClass);
             try
             {
-                var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
-                companies.AddRange(companyList.CompaniesDto);
+                jsonToObj = JsonConvert.DeserializeObject<TClass>(request);
+                if (jsonToObj == null)
+                    throw new Exception("Sorry, but json file can not be deserialize to object");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine($"Message : {ex}");
+                throw;
             }
 
-            return companies;
+            
+            return jsonToObj;
         }
-
-        public async Task<IList<OfficerDto>> GetOfficers(string idCompany)
+        private string GetDate(DateTime date) // maybe is this extension method also? to do like Base64Encode?
         {
-            var apiBaseUrl = _appSettings.Get().CompaniesHouseApi.BaseUrl;
-            var companyUrl = $"{apiBaseUrl}company/{idCompany}";
-            var officersUrl = $"{companyUrl}/officers";
-
-            var createHttpClient = _client.CreateHttpClient();
-
-            var officers = new List<OfficerDto>();
-
-            var response = new HttpResponseMessage();
-            try
-            {
-                response = await createHttpClient.GetAsync(officersUrl);
-                Console.WriteLine(response.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine($"Message : {ex}");
-            }
-
-            await Task.Delay(_appSettings.Get().CompaniesHouseApi.RequestLimit.Interval);
-
-            try
-            {
-                var request = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(request);
-
-                var officerList = JsonConvert.DeserializeObject<OfficersListDto>(request);
-                officers.AddRange(officerList.Officers);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine($"Message : {ex}");
-            }
-
-            return officers;
+            return date.ToString("yyyy-MM-dd");
         }
     }
 }

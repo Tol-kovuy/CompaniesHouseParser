@@ -7,7 +7,7 @@ namespace CompaniesHouseParser.Api
         [JsonProperty(PropertyName = "address_line_1")]
         public string AddresLine1 { get; set; }
         [JsonProperty(PropertyName = "address_line_2")]
-        public string? AddresLine2 { get; set; }
+        public string AddresLine2 { get; set; }
         [JsonProperty(PropertyName = "premises")]
         public string Apartments { get; set; }
         [JsonProperty(PropertyName = "postal_code")]
