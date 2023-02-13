@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 
 namespace CompaniesHouseParsing.EmailSending
 {
@@ -14,20 +16,32 @@ namespace CompaniesHouseParsing.EmailSending
 
         public void SendMessage()
         {
+            var mailWithImg = GetMailWithImg();
             var smtpClient = CreateSmtpClient();
-            try
-            {
-                smtpClient.Send(_emailForm.Sender, _emailForm.Recipient,
-                    _emailForm.Subject, _emailForm.Content);
-                Console.WriteLine("Email was sent...");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine($"Message : {ex}");
-                throw;
-            }
+            smtpClient.Send(mailWithImg);
+        }
+        private MailMessage GetMailWithImg()
+        {
+            MailMessage mail = new MailMessage();
+            mail.IsBodyHtml = true;
+            var htmlView = GetImageHtml(_emailForm.Content, "C:\\CH_for_mail.png");
+            mail.AlternateViews.Add(htmlView);
+            mail.From = new MailAddress(_emailForm.Sender);
+            mail.To.Add(_emailForm.Recipient);
+            mail.Subject = _emailForm.Subject;
 
+            return mail;
+        }
+
+        private AlternateView GetImageHtml(string text, string nameImage)
+        {
+            var linkedImage = new LinkedResource("C:\\CH_for_mail.png");
+            linkedImage.ContentType = new ContentType(MediaTypeNames.Image.Jpeg);
+
+            var htmlView = AlternateView.CreateAlternateViewFromString(
+                text, null, "text/html");
+            htmlView.LinkedResources.Add(linkedImage);
+            return htmlView;
         }
 
         private SmtpClient CreateSmtpClient()

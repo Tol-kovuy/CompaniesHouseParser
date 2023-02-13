@@ -18,13 +18,13 @@ namespace CompaniesHouseParser
                 Content = "Hi from Max!",
                 Sender = "krotkrotowskij@gmail.com",
                 Recipient = "smarty.maks13@gmail.com",
-                Subject = "Test",
+                Subject = "Companies House Test",
                 Smtp = new Smtp
                 {
                     Email = "krotkrotowskij@gmail.com",
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    Password = "qigkqtcgivtjpaux"
+                    Password = "qvduonzgilrgwigj"
                 }
             };
 
