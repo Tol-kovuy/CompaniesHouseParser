@@ -6,5 +6,6 @@
         string Host { get; }
         string Password { get; }
         int Port { get; }
+        // TODO: enable SSL???
     }
 }
