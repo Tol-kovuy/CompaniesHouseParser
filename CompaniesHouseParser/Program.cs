@@ -1,6 +1,8 @@
 ﻿using CompaniesHouseParser.Api;
 using CompaniesHouseParser.Settings;
+using CompaniesHouseParsing.EmailSending;
 using Newtonsoft.Json;
+using Smtp = CompaniesHouseParsing.EmailSending.Smtp;
 
 namespace CompaniesHouseParser
 {
@@ -11,11 +13,30 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
-            IInitializerSettings initSettings = new InitializerSettings();
-            var apiSettings = initSettings.InitializeSettingsForCompanies();
+            var emailSettings = new EmailForm
+            {
+                Content = "Hi from Max!",
+                Sender = "krotkrotowskij@gmail.com",
+                Recipient = "smarty.maks13@gmail.com",
+                Subject = "Test",
+                Smtp = new Smtp
+                {
+                    Email = "krotkrotowskij@gmail.com",
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Password = "qigkqtcgivtjpaux"
+                }
+            };
 
-            var companiesDto = new CompaniesHouseApi();
-            var companies = await companiesDto.GetCompanies(apiSettings);
+            var sender = new EmailSender(emailSettings);
+            sender.SendMessage();
+
+
+            //IInitializerSettings initSettings = new InitializerSettings();
+            //var apiSettings = initSettings.InitializeSettingsForCompanies();
+
+            //var companiesDto = new CompaniesHouseApi();
+            //var companies = await companiesDto.GetCompanies(apiSettings);
 
             #region Getting 5 companies from Api
 
