@@ -23,7 +23,11 @@ namespace CompaniesHouseParser
 
             var emailSmtpFactory = new EmailSmtpClientFactory();
             var emailSmtpClient = emailSmtpFactory.Create("smtp.gmail.com", 587,
-                new NetworkCredential { UserName = "krotkrotowskij@gmail.com", Password = "cwztcchhlltrzskg" }, true);
+                new NetworkCredential 
+                { 
+                    UserName = "krotkrotowskij@gmail.com", 
+                    Password = "cwztcchhlltrzskg" 
+                }, true);
             emailSmtpClient.Send(message);
 
 
