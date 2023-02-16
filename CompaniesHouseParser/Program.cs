@@ -13,7 +13,7 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
-            var emailBiulder = new EmailMessageBuilder();
+            var emailBiulder = new EmailMessageBuilder(); //with out commit
             var message = emailBiulder
                 .WithText("Hello World")
                 .WithSubject("READ MOTHER FUCKER")
@@ -27,7 +27,9 @@ namespace CompaniesHouseParser
                 { 
                     UserName = "krotkrotowskij@gmail.com", 
                     Password = "cwztcchhlltrzskg" 
-                }, true);
+                }, 
+                true);
+
             emailSmtpClient.Send(message);
 
 
