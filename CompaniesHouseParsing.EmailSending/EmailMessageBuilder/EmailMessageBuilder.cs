@@ -4,28 +4,44 @@ namespace CompaniesHouseParsing.EmailSending
 {
     public class EmailMessageBuilder : IEmailMessageBuilder
     {
+        private string _text;
+        private string _subject;
+        private string _to;
+        private string _from;
+
         public IEmailMessage Build()
         {
-            return new EmailMessage()
+            return new EmailMessage
             {
-                Sender = "krotkrotowskij@gmail.com",
-                Recipient = "smarty.maks13#gmail.com",
-                Subject = "Test",
-                Text = "Test text"
+                Sender = _from,
+                Recipient = _to,
+                Subject = _subject,
+                Text = _text
             };
         }
-
+        
         public IEmailMessageBuilder WithText(string text)
         {
-            var message = Build();
-            var client = new EmailSmtpClientFactory();
-            var createClient = client.Create("smtp.gmail.com", 587, new NetworkCredential { Password = "cwztcchhlltrzskg" }, true);
-            var sendMess = createClient.Send(message);
+            _text = text;
+            return this;
+        }
+        
+        public IEmailMessageBuilder WithSubject(string subject)
+        {
+            _subject = subject;
+            return this;
         }
 
         public IEmailMessageBuilder ToRcepient(string recepientEmailAddress)
         {
-            
+            _to = recepientEmailAddress;
+            return this;
+        }
+
+        public IEmailMessageBuilder From(string sender)
+        { 
+            _from = sender; 
+            return this;
         }
     }
 }

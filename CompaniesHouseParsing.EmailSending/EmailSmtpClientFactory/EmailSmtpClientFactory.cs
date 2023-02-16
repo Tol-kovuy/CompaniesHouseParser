@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Mail;
 
 namespace CompaniesHouseParsing.EmailSending
 {
