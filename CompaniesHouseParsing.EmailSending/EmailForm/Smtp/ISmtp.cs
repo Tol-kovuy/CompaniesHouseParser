@@ -7,5 +7,6 @@
         string Password { get; }
         int Port { get; }
         // TODO: enable SSL???
+        bool EnableSsl { get; }
     }
 }

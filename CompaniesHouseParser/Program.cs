@@ -16,15 +16,15 @@ namespace CompaniesHouseParser
             var emailSettings = new EmailForm
             {
                 Content = "Hi from Max!",
-                Sender = "",
-                Recipient = "",
+                Sender = "krotkrotowskij@gmail.com",
+                Recipient = "smarty.maks13@gmail.com",
                 Subject = "Companies House Test",
                 Smtp = new Smtp
                 {
-                    Email = "",
+                    Email = "krotkrotowskij@gmail.com",
                     Host = "smtp.gmail.com",
                     Port = 587,
-                    Password = ""
+                    Password = "cwztcchhlltrzskg"
                 }
             };
 
