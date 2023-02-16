@@ -2,7 +2,7 @@
 using CompaniesHouseParser.Settings;
 using CompaniesHouseParsing.EmailSending;
 using Newtonsoft.Json;
-using Smtp = CompaniesHouseParsing.EmailSending.Smtp;
+using System.Net;
 
 namespace CompaniesHouseParser
 {
@@ -13,23 +13,24 @@ namespace CompaniesHouseParser
     {
         static async Task Main()
         {
-            var emailSettings = new EmailForm
-            {
-                Content = "Hi from Max!",
-                Sender = "krotkrotowskij@gmail.com",
-                Recipient = "smarty.maks13@gmail.com",
-                Subject = "Companies House Test",
-                Smtp = new Smtp
-                {
-                    Email = "krotkrotowskij@gmail.com",
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    Password = "qvduonzgilrgwigj"
-                }
-            };
+            var emailBiulder = new EmailMessageBuilder(); 
+            var message = emailBiulder
+                .WithText("Hello World")
+                .WithSubject("READ MOTHER FUCKER")
+                .From("krotkrotowskij@gmail.com")
+                .ToRcepient("smarty.maks13@gmail.com")
+                .Build();
 
-            var sender = new EmailSender(emailSettings);
-            sender.SendMessage();
+            var emailSmtpFactory = new EmailSmtpClientFactory();
+            var emailSmtpClient = emailSmtpFactory.Create("smtp.gmail.com", 587,
+                new NetworkCredential 
+                { 
+                    UserName = "krotkrotowskij@gmail.com", 
+                    Password = "cwztcchhlltrzskg" 
+                }, 
+                true);
+
+            emailSmtpClient.Send(message);
 
 
             //IInitializerSettings initSettings = new InitializerSettings();

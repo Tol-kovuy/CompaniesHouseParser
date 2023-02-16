@@ -17,10 +17,4 @@
     <ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParsing.EmailSending.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="CH_for_mail.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
