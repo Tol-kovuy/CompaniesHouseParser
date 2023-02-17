@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Settin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Api", "..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj", "{4ECA0C37-63B5-4AE9-9672-C9DDB05C7D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParsing.EmailSending", "..\CompaniesHouseParsing.EmailSending\CompaniesHouseParsing.EmailSending.csproj", "{C3689857-CBC0-4D25-A5E1-8FD627AC8109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Email", "..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj", "{C3689857-CBC0-4D25-A5E1-8FD627AC8109}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Storage", "..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj", "{A9CD2B0B-B2F3-45F6-A9FF-8872EACA7414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C3689857-CBC0-4D25-A5E1-8FD627AC8109}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3689857-CBC0-4D25-A5E1-8FD627AC8109}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3689857-CBC0-4D25-A5E1-8FD627AC8109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9CD2B0B-B2F3-45F6-A9FF-8872EACA7414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9CD2B0B-B2F3-45F6-A9FF-8872EACA7414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9CD2B0B-B2F3-45F6-A9FF-8872EACA7414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9CD2B0B-B2F3-45F6-A9FF-8872EACA7414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

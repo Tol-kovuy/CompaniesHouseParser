@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CompaniesHouseParsing.EmailSending
+namespace CompaniesHouseParser.Email
 {
     // todo: read about patter factory
     public class EmailSmtpClientFactory : IEmailSmtpClientFactory
