@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.Settings;
+using CompaniesHouseParser.Storage;
 
 namespace CompaniesHouseParser.Api
 {
