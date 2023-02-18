@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.Settings;
+using CompaniesHouseParser.Storage;
 
 namespace CompaniesHouseParser.Api
 {
@@ -18,7 +19,7 @@ namespace CompaniesHouseParser.Api
             var settings = new GetAllCompaniesRequest()
             {
                 CompaniesCount = _settingsAccessor.Get().CompaniesHouseApi.SearchCompaniesPerRequest,
-                IncorporatedFrom = _stateAccessor.Get().Companies.ILastIncorporatedFrom,
+                IncorporatedFrom = _stateAccessor.Get().Companies.LastIncorporatedFrom,
                 ApiToken = _settingsAccessor.Get().CompaniesHouseApi.Token
             };
 

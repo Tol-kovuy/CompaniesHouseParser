@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace CompaniesHouseParsing.EmailSending
+namespace CompaniesHouseParser.Email
 {
     public class EmailSmtpClient : IEmailSmtpClient
     {

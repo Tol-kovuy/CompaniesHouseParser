@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <Compile Include="ParsingSettings\ApplicationCompaniesParsingState\ApplicationCompaniesParsingState.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="StaticSettings.json">
+    <None Update="ParsingSettings\ModifiedSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

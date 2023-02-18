@@ -1,4 +1,4 @@
-﻿namespace CompaniesHouseParsing.EmailSending;
+﻿namespace CompaniesHouseParser.Email;
 
 public interface IEmailMessage
 {
