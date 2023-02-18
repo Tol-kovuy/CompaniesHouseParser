@@ -25,7 +25,8 @@ class Program
         list.Add("00000F");
         list.Add("00000G");
 
-        var storage = new ApplicationStorageCompanyIds();
+        var storage = new ApplicationStorageCompanyIds();  
+
         storage.AddRange(list);
 
         var arrayOfIds = storage.GetAll();
