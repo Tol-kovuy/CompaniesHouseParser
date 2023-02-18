@@ -1,4 +1,6 @@
-﻿namespace CompaniesHouseParser.Storage
+﻿
+
+namespace CompaniesHouseParser.Settings
 {
     public class ApplicationCompaniesParsingState : IApplicationCompaniesParsingState
     {
