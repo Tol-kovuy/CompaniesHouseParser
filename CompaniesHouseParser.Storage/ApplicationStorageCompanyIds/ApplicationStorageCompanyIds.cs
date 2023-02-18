@@ -10,10 +10,10 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 
     public IList<string> GetAll()
     {
-        if (_allIds != null) //или я что-то делаю не то или тут кеширование противопоказано
+        if (_allIds != null) 
             return _allIds;
        
-        //_allIds = new List<string>();
+        _allIds = new List<string>();
         var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
         foreach (var id in allCompanyIds)
         {
