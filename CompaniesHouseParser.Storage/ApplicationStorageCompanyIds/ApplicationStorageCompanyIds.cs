@@ -12,7 +12,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
     {
         if (_allIds != null) 
             return _allIds;
-       
+
         var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
 
         _allIds = new List<string>();
