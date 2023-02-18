@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CompaniesHouseParser
+namespace CompaniesHouseParser.Settings
 {
     public class AccessorBase<TClass, TInterface>
         where TClass : class, TInterface

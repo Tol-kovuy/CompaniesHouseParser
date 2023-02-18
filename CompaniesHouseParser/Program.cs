@@ -16,7 +16,7 @@ class Program
     {
         #region Testing to save/read file
 
-        var list = new List<string>();
+        var list = new List<string>(); 
         list.Add("00000A");
         list.Add("00000B");
         //list.Add("00000C");
