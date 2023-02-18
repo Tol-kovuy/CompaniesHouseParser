@@ -13,8 +13,9 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
         if (_allIds != null) 
             return _allIds;
        
-        _allIds = new List<string>();
         var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
+
+        _allIds = new List<string>();
         foreach (var id in allCompanyIds)
         {
             _allIds.Add(id);
