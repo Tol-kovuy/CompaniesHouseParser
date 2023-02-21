@@ -2,6 +2,6 @@
 {
     public interface IApplicationCompaniesParsingState
     {
-        DateTime LastIncorporatedFrom { get; }
+        DateTime LastIncorporatedFrom { get; set; }
     }
 }
