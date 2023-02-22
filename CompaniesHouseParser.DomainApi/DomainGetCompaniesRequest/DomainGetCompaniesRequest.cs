@@ -1,4 +1,4 @@
-﻿namespace CompaniesHouseParser.DomainApi.DomainGetCompaniesRequest
+﻿namespace CompaniesHouseParser.DomainApi
 {
     public class DomainGetCompaniesRequest : IDomainGetCompaniesRequest
     {

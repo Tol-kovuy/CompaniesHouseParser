@@ -5,7 +5,6 @@ using System.Net;
 using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Storage;
 using CompaniesHouseParser.DomainApi;
-using CompaniesHouseParser.DomainApi.DomainGetCompaniesRequest;
 
 namespace CompaniesHouseParser;
 
@@ -94,12 +93,6 @@ class Program
         //emailSmtpClient.Send(message);
 
         #endregion
-
-        //IInitializerSettings initSettings = new InitializerSettings();
-        //var apiSettings = initSettings.InitializeSettingsForCompanies();
-
-        //var companiesDto = new CompaniesHouseApi();
-        //var getCompanies = await companiesDto.GetCompaniesAsync(apiSettings);
 
         #region Getting 5 companies from Api
 
@@ -217,5 +210,5 @@ class Program
         //}
 
         #endregion
-    }
+     }
 }
