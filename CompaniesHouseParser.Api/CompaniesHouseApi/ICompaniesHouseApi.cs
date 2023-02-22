@@ -2,7 +2,7 @@
 {
     public interface ICompaniesHouseApi
     {
-        Task<IList<CompanyDto>> GetCompanies(IGetCompaniesRequest request);
+        Task<IList<CompanyDto>> GetCompaniesAsync(IGetCompaniesRequest request);
         Task<IList<OfficerDto>> GetOfficers(IGetOfficerRequest request);
     }
 }

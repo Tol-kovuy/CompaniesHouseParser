@@ -11,9 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ModifiedSettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="StaticSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

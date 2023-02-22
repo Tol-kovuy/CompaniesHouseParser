@@ -8,15 +8,16 @@ namespace CompaniesHouseParser.Api
 
         private readonly HttpClientFactory _clientFactory = new HttpClientFactory();
 
-        public async Task<IList<CompanyDto>> GetCompanies(IGetCompaniesRequest requestApi)
+        public async Task<IList<CompanyDto>> GetCompaniesAsync(IGetCompaniesRequest requestApi)
         {
             var incorporatedFrom = GetDate(requestApi.IncorporatedFrom);
             var incorporatedTo = GetDate(DateTime.UtcNow.AddDays(1)); 
             var countCompanies = requestApi.CompaniesCount;
-            var url = $"{_apiBaseUrl}//advanced-search/companies?incorporated_from={incorporatedFrom}" +
+            var url = $"{_apiBaseUrl}/advanced-search/companies?incorporated_from={incorporatedFrom}" +
                              $"&incorporated_to={incorporatedTo}&size={countCompanies}";
 
-            var response = await GetResponse<CompaniesListDto>(url, requestApi.ApiToken);
+            var apiToken = requestApi.ApiToken;
+            var response = await GetResponse<CompaniesListDto>(url, apiToken);
 
 
             return response.Companies;

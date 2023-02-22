@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Net;
 using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Storage;
+using CompaniesHouseParser.DomainApi;
 
 namespace CompaniesHouseParser;
 
@@ -14,24 +15,59 @@ class Program
 {
     static async Task Main()
     {
+        #region Testing Domain
+
+        ICompaniesHouseApi companiesHouseApi = new CompaniesHouseApi();
+        ICompanyHouseParsingStateAccessor companyHouseParsingStateAccessor = new CompanyHouseParsingStateAccessor();
+        IApplicationSettingsAccessor applicationSettingsAccessor = new ApplicationSettingsAccessor();
+
+
+        var domainRequest = new DomainGetCompaniesRequest
+        {
+            CompaniesCount = applicationSettingsAccessor.Get().CompaniesHouseApi.SearchCompaniesPerRequest, 
+            IncorporatedFrom = companyHouseParsingStateAccessor.Get().Companies.LastIncorporatedFrom
+        };
+        var domain = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
+        var getCompanies = await domain.GetCompaniesAsync(domainRequest);
+
+        var companies = new List<Company>();
+        foreach (var company in getCompanies)
+        {
+            companies.Add(new Company(companiesHouseApi, applicationSettingsAccessor)
+            {
+                Id = company.Id,
+                Name = company.Name,
+                CreatedDate = company.CreatedDate
+            });
+        }
+
+        var officers = new List<IOfficer>();
+        foreach (var company in companies)
+        {
+            var getOfficer = await company.GetOfficersAsync();
+            officers.AddRange(getOfficer);
+        }
+
+        #endregion
+
         #region Testing to save/read file
 
-        var list = new List<string>(); 
-        list.Add("00000A");
-        list.Add("00000B");
-        list.Add("00000C");
-        list.Add("00000D");
-        list.Add("00000E");
-        list.Add("00000F");
-        list.Add("00000G");
+        //var list = new List<string>(); 
+        //list.Add("00000A");
+        //list.Add("00000B");
+        //list.Add("00000C");
+        //list.Add("00000D");
+        //list.Add("00000E"); 
+        //list.Add("00000F");
+        //list.Add("00000G");
 
 
-        var storage = new ApplicationStorageCompanyIds();  
+        //var storage = new ApplicationStorageCompanyIds();  
 
 
-        storage.AddRange(list);
+        //storage.AddRange(list);
 
-        var arrayOfIds = storage.GetAll();
+        //var arrayOfIds = storage.GetAll();
 
         #endregion
 
@@ -58,12 +94,6 @@ class Program
 
         #endregion
 
-        //IInitializerSettings initSettings = new InitializerSettings();
-        //var apiSettings = initSettings.InitializeSettingsForCompanies();
-
-        //var companiesDto = new CompaniesHouseApi();
-        //var companies = await companiesDto.GetCompanies(apiSettings);
-
         #region Getting 5 companies from Api
 
         //HttpClientFactory client = new HttpClientFactory();
@@ -74,7 +104,7 @@ class Program
         //async Task GetAllCompaniesFromDto()
         //{
         //    var url = $"https://api.company-information.service.gov.uk/" +
-        //        $"advanced-search/companies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+        //        $"advanced-search/getCompanies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
         //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
 
         //    var response = await createHttpClient.GetAsync(url);
@@ -83,9 +113,9 @@ class Program
         //    var request = await response.Content.ReadAsStringAsync();
         //    Console.WriteLine(request);
 
-        //    var companies = new List<CompanyDto>();
+        //    var getCompanies = new List<CompanyDto>();
         //    var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
-        //    companies.AddRange(companyList.Companies);
+        //    getCompanies.AddRange(companyList.Companies);
         //}
 
         #endregion
@@ -180,5 +210,5 @@ class Program
         //}
 
         #endregion
-    }
+     }
 }

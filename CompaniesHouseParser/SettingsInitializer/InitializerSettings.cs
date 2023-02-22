@@ -5,8 +5,8 @@ namespace CompaniesHouseParser.Api
 {
     public class InitializerSettings : IInitializerSettings
     {
-        private readonly IApplicationSettingsAccessor _settingsAccessor;
-        private readonly ICompanyHouseParsingStateAccessor _stateAccessor;
+        private IApplicationSettingsAccessor _settingsAccessor;
+        private ICompanyHouseParsingStateAccessor _stateAccessor;
 
         public InitializerSettings()
         {
@@ -30,7 +30,6 @@ namespace CompaniesHouseParser.Api
             var settings = new GetOfficerRequest()
             {
                 ApiToken = _settingsAccessor.Get().CompaniesHouseApi.Token
-                //CompanyId = ???
             };
 
             return settings;
