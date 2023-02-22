@@ -24,7 +24,7 @@ class Program
 
         var domainRequest = new DomainGetCompaniesRequest
         {
-            CompaniesCount = applicationSettingsAccessor.Get().CompaniesHouseApi.SearchCompaniesPerRequest,
+            CompaniesCount = applicationSettingsAccessor.Get().CompaniesHouseApi.SearchCompaniesPerRequest, 
             IncorporatedFrom = companyHouseParsingStateAccessor.Get().Companies.LastIncorporatedFrom
         };
         var domain = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
