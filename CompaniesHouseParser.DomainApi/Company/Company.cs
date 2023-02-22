@@ -18,7 +18,7 @@ namespace CompaniesHouseParser.DomainApi
             )
         {
             _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = settingsAccessor.Get();//???
+            _applicationSettings = settingsAccessor.Get();
         }
 
         public async Task<IList<IOfficer>> GetOfficersAsync()
@@ -33,6 +33,7 @@ namespace CompaniesHouseParser.DomainApi
                 ApiToken = _applicationSettings.CompaniesHouseApi.Token,
                 CompanyId = Id
             };
+
             _officers = new List<IOfficer>();
             var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
             foreach (var officerFromDto in officersFromDto)

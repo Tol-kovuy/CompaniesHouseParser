@@ -17,12 +17,21 @@ namespace CompaniesHouseParser.DomainApi
             _settingsAccessor = settingsAccessor;
         }
 
+        // 1. Get incorporated date from storage
+        // 2. Get Companies from APi using incorporated date from 
+        // 3. Get list of all parsed companies from storage
+        // 4. Filter returned companies from API that was already parsed (use step 3.)
+        // 5. Save newly prased companies id
+        // 6. Save last incorporated from id
+        // 7. return companies
+
         public async Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi)
         {
             var request = new GetAllCompaniesRequest
             {
+                // TODO:  _settingsAccessor.Get().CompaniesHouseApi;
                 ApiToken = _settingsAccessor.Get().CompaniesHouseApi.Token,
-                CompaniesCount = requestApi.CompaniesCount,
+                CompaniesCount = _settingsAccessor.Get().CompaniesHouseApi.CompaniesCount,
                 IncorporatedFrom = requestApi.IncorporatedFrom
             };
 

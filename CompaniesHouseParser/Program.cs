@@ -8,9 +8,7 @@ using CompaniesHouseParser.DomainApi;
 
 namespace CompaniesHouseParser;
 
-//todo: CompaniesHouseParser.Settings -> Done.
-//todo: CompaniesHouseParser.Api -> 
-//todo: CompaniesHouseParser.App
+
 class Program
 {
     static async Task Main()
@@ -31,7 +29,7 @@ class Program
         var getCompanies = await domain.GetCompaniesAsync(domainRequest);
 
         var companies = new List<Company>();
-        foreach (var company in getCompanies)
+        foreach (ICompany company in getCompanies)
         {
             companies.Add(new Company(companiesHouseApi, applicationSettingsAccessor)
             {
@@ -42,7 +40,7 @@ class Program
         }
 
         var officers = new List<IOfficer>();
-        foreach (var company in companies)
+        foreach (ICompany company in companies)
         {
             var getOfficer = await company.GetOfficersAsync();
             officers.AddRange(getOfficer);

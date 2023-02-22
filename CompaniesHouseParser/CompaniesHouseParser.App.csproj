@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainApi\CompaniesHouseParser.DomainApi.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />

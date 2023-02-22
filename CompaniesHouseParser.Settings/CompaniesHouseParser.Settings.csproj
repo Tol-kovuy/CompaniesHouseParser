@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="StaticSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

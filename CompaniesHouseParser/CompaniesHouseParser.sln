@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Storag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.DomainApi", "..\CompaniesHouseParser.DomainApi\CompaniesHouseParser.DomainApi.csproj", "{F85576A7-768A-43D8-9B7D-3804AB0E7E26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Common", "..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj", "{1203231A-8D97-413A-BF9C-B126AF799F56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F85576A7-768A-43D8-9B7D-3804AB0E7E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F85576A7-768A-43D8-9B7D-3804AB0E7E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F85576A7-768A-43D8-9B7D-3804AB0E7E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1203231A-8D97-413A-BF9C-B126AF799F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1203231A-8D97-413A-BF9C-B126AF799F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1203231A-8D97-413A-BF9C-B126AF799F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1203231A-8D97-413A-BF9C-B126AF799F56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

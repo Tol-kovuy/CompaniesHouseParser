@@ -1,4 +1,6 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿using CompaniesHouseParser.Common;
+
+namespace CompaniesHouseParser.Settings
 {
     public class ApplicationSettingsAccessor  
        : AccessorBase<ApplicationSettings, IApplicationSettings>,

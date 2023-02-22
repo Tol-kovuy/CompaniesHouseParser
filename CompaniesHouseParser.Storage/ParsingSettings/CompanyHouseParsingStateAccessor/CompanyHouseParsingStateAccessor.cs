@@ -1,4 +1,6 @@
-﻿namespace CompaniesHouseParser.Storage;
+﻿using CompaniesHouseParser.Common;
+
+namespace CompaniesHouseParser.Storage;
 
 public class CompanyHouseParsingStateAccessor
     : AccessorBase<ApplicationParsingState, IApplicationParsingState>

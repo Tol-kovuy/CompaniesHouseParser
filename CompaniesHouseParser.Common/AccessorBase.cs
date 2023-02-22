@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace CompaniesHouseParser.Storage;
+namespace CompaniesHouseParser.Common;
 
 public class AccessorBase<TClass, TInterface>
-    where TClass : class, TInterface
+where TClass : class, TInterface
 {
     private readonly string _path;
     public AccessorBase(string path)
