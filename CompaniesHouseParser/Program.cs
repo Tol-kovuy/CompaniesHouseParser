@@ -5,6 +5,7 @@ using System.Net;
 using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Storage;
 using CompaniesHouseParser.DomainApi;
+using CompaniesHouseParser.Search;
 
 namespace CompaniesHouseParser;
 
@@ -13,38 +14,81 @@ class Program
 {
     static async Task Main()
     {
-        #region Testing Domain
-
         ICompaniesHouseApi companiesHouseApi = new CompaniesHouseApi();
         ICompanyHouseParsingStateAccessor companyHouseParsingStateAccessor = new CompanyHouseParsingStateAccessor();
         IApplicationSettingsAccessor applicationSettingsAccessor = new ApplicationSettingsAccessor();
+        IApplicationSettings applicationSettings = new ApplicationSettings();
+        IApplicationStorageCompanyIds applicationStorageCompanyIds = new ApplicationStorageCompanyIds();
+
+        IDomainCompaniesApi _domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
+        ICompanyHouseParsingStateAccessor _parsingStateAccessor = new CompanyHouseParsingStateAccessor();
+        IApplicationStorageCompanyIds _applicationStorageCompanyIds = new ApplicationStorageCompanyIds();
+        ApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
+
+        ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
+        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _parsingStateAccessor, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
+
+        // IList<DateTime> dateTimes = new List<DateTime>
+        // {
+        //     new DateTime(2023, 1, 1),
+        //     new DateTime(2023, 1, 2),
+        //     new DateTime(2023, 1, 3),
+        //     new DateTime(2023, 1, 4),
+        //     new DateTime(2023, 1, 5)
+        // };
+
+        // //dateCompany.AddRange(dateTimes);
+        //var date = dateCompany.GetDates();
+
+        // var lastDate = domain.GetLastDate(dateTimes);
 
 
-        var domainRequest = new DomainGetCompaniesRequest
+
+        IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
+            applicationSettingsAccessor);
+
+        var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
+            applicationStorageCompanyIds, _applicationStorageCreatedDate);
+        var companies = await d.GetCompanies(d.GetIncorporatedDate());//(DateTime.UtcNow.AddDays(-1));
+        d.SaveNewCompanyValuesToFile(companies);
+
+        using (StreamReader read = new StreamReader("CreatedDate.txt"))
         {
-            CompaniesCount = applicationSettingsAccessor.Get().CompaniesHouseApi.SearchCompaniesPerRequest, 
-            IncorporatedFrom = companyHouseParsingStateAccessor.Get().Companies.LastIncorporatedFrom
-        };
-        var domain = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
-        var getCompanies = await domain.GetCompaniesAsync(domainRequest);
-
-        var companies = new List<Company>();
-        foreach (ICompany company in getCompanies)
-        {
-            companies.Add(new Company(companiesHouseApi, applicationSettingsAccessor)
-            {
-                Id = company.Id,
-                Name = company.Name,
-                CreatedDate = company.CreatedDate
-            });
+            var str = read.ReadToEnd();
         }
 
-        var officers = new List<IOfficer>();
-        foreach (ICompany company in companies)
-        {
-            var getOfficer = await company.GetOfficersAsync();
-            officers.AddRange(getOfficer);
-        }
+
+
+
+        #region Testing Domain
+
+
+
+
+        //var domainRequest = new DomainGetCompaniesRequest
+        //{
+        //    IncorporatedFrom = companyHouseParsingStateAccessor.Get().Companies.LastIncorporatedFrom
+        //};
+        //var domain = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
+        //var getCompanies = await domain.GetCompaniesAsync(domainRequest);
+
+        //var companies = new List<Company>();
+        //foreach (ICompany company in getCompanies)
+        //{
+        //    companies.Add(new Company(companiesHouseApi, applicationSettingsAccessor.Get())
+        //    {
+        //        Id = company.Id,
+        //        Name = company.Name,
+        //        CreatedDate = company.CreatedDate
+        //    });
+        //}
+
+        //var officers = new List<IOfficer>();
+        //foreach (ICompany company in companies)
+        //{
+        //    var getOfficer = await company.GetOfficersAsync();
+        //    officers.AddRange(getOfficer);
+        //}
 
         #endregion
 
@@ -65,7 +109,7 @@ class Program
 
         //storage.AddRange(list);
 
-        //var arrayOfIds = storage.GetAll();
+        //var arrayOfIds = storage.GetIdsExistCompanies();
 
         #endregion
 
@@ -208,5 +252,5 @@ class Program
         //}
 
         #endregion
-     }
+    }
 }

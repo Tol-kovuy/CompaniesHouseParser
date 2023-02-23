@@ -7,18 +7,18 @@ namespace CompaniesHouseParser.DomainApi
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         private readonly ICompaniesHouseApi _companiesHouseApi;
         private readonly IApplicationSettings _applicationSettings;
         private IList<IOfficer> _officers;
 
         public Company(
             ICompaniesHouseApi companiesHouseApi,
-            IApplicationSettingsAccessor settingsAccessor
+            IApplicationSettings applicationSettings
             )
         {
             _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = settingsAccessor.Get();
+            _applicationSettings = applicationSettings;
         }
 
         public async Task<IList<IOfficer>> GetOfficersAsync()

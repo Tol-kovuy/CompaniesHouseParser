@@ -8,7 +8,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 
     private IList<string> _allIds;
 
-    public IList<string> GetAll()
+    public IList<string> GetIdsExistCompanies()
     {
         if (_allIds != null) 
             return _allIds;
@@ -29,7 +29,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
         if (!File.Exists(pathToExistingCompanyIds))
         {
             File.AppendAllLines(pathToExistingCompanyIds, ids);
-            _allIds = GetAll();
+            _allIds = GetIdsExistCompanies();
         }
         else
         {
@@ -47,7 +47,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 
     private bool CompareCompanyIds(string id)
     {
-        string[] existCompanyIds = GetAll().ToArray();
+        string[] existCompanyIds = GetIdsExistCompanies().ToArray();
         foreach (var existId in existCompanyIds)
             if (existId == id)
                 return true;

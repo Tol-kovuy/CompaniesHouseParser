@@ -4,7 +4,7 @@
     {
         string Id { get; }
         string Name { get; }
-        string CreatedDate { get; }
+        DateTime CreatedDate { get; }
         Task<IList<IOfficer>> GetOfficersAsync();
     }
 }
