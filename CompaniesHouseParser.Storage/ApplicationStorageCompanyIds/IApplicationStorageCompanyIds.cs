@@ -3,6 +3,6 @@
     public interface IApplicationStorageCompanyIds
     {
         void AddRange(IList<string> ids);
-        IList<string> GetIdsExistCompanies();
+        IList<string> GetValuesExistCompanies();
     }
 }

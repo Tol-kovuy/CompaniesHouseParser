@@ -109,7 +109,7 @@ class Program
 
         //storage.AddRange(list);
 
-        //var arrayOfIds = storage.GetIdsExistCompanies();
+        //var arrayOfIds = storage.GetValuesExistCompanies();
 
         #endregion
 

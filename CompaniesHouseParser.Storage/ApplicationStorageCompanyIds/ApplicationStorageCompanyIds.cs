@@ -1,56 +1,63 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿namespace CompaniesHouseParser.Storage;
 
-namespace CompaniesHouseParser.Storage;
-
-public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
+public class ApplicationStorageCompanyIds 
+    : BaseApplicationStorage<string>
+    , IApplicationStorageCompanyIds
 {
-    private string pathToExistingCompanyIds = @"ExistingCompanyNumbers.txt";
-
-    private IList<string> _allIds;
-
-    public IList<string> GetIdsExistCompanies()
+    public ApplicationStorageCompanyIds() 
+        : base("ExistingCompanyNumbers.txt")
     {
-        if (_allIds != null) 
-            return _allIds;
 
-        var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
-
-        _allIds = new List<string>();
-        foreach (var id in allCompanyIds)
-        {
-            _allIds.Add(id);
-        }
-
-        return _allIds;
     }
 
-    public void AddRange(IList<string> ids)
-    {
-        if (!File.Exists(pathToExistingCompanyIds))
-        {
-            File.AppendAllLines(pathToExistingCompanyIds, ids);
-            _allIds = GetIdsExistCompanies();
-        }
-        else
-        {
-            foreach (var id in ids)
-            {
-                if (!CompareCompanyIds(id))
-                {
-                    using var file = File.AppendText(pathToExistingCompanyIds);
-                    file.WriteLine(id);
-                    _allIds.Add(id);
-                }
-            }
-        }
-    }
+ 
+    //private string pathToExistingCompanyIds = @"ExistingCompanyNumbers.txt";
 
-    private bool CompareCompanyIds(string id)
-    {
-        string[] existCompanyIds = GetIdsExistCompanies().ToArray();
-        foreach (var existId in existCompanyIds)
-            if (existId == id)
-                return true;
-        return false;
-    }
+    //private IList<string> _allIds;
+
+    //public IList<string> GetValuesExistCompanies()
+    //{
+    //    if (_allIds != null)
+    //        return _allIds;
+
+    //    var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
+
+    //    _allIds = new List<string>();
+    //    foreach (var id in allCompanyIds)
+    //    {
+    //        _allIds.Add(id);
+    //    }
+
+    //    return _allIds;
+    //}
+
+    //public void AddRange(IList<string> ids)
+    //{
+    //    if (!File.Exists(pathToExistingCompanyIds))
+    //    {
+    //        File.AppendAllLines(pathToExistingCompanyIds, ids);
+    //        _allIds = GetValuesExistCompanies();
+    //    }
+    //    else
+    //    {
+    //        foreach (var id in ids)
+    //        {
+    //            if (!CompareCompanyIds(id))
+    //            {
+    //                using var file = File.AppendText(pathToExistingCompanyIds);
+    //                file.WriteLine(id);
+    //                _allIds.Add(id);
+    //            }
+    //        }
+    //    }
+    //}
+
+    //private bool CompareCompanyIds(string id)
+    //{
+    //    string[] existCompanyIds = GetValuesExistCompanies().ToArray();
+    //    foreach (var existId in existCompanyIds)
+    //        if (existId == id)
+    //            return true;
+    //    return false;
+    //}
 }

@@ -18,12 +18,12 @@ public class DomainSearch
     private readonly IDomainCompaniesApi _domainCompaniesApi;
     private readonly ICompanyHouseParsingStateAccessor _parsingStateAccessor;
     private readonly IApplicationStorageCompanyIds _applicationStorageCompanyIds;
-    private readonly ApplicationStorageCreatedDateCompany _applicationStorageCreatedDate;
+    private readonly IApplicationStorageCreatedDateCompany _applicationStorageCreatedDate;
 
     public DomainSearch(IDomainCompaniesApi domainCompaniesApi,
         ICompanyHouseParsingStateAccessor parsingStateAccessor,
         IApplicationStorageCompanyIds applicationStorageCompanyIds,
-        ApplicationStorageCreatedDateCompany applicationStorageCreatedDate)
+        IApplicationStorageCreatedDateCompany applicationStorageCreatedDate)
     {
         _domainCompaniesApi = domainCompaniesApi;
         _parsingStateAccessor = parsingStateAccessor;
@@ -56,20 +56,18 @@ public class DomainSearch
             ids.Add(company.Id);
             dates.Add(company.CreatedDate);
         }
-        
         _applicationStorageCompanyIds.AddRange(ids);
         _applicationStorageCreatedDate.AddRange(dates);
     }
 
-    public DateTime GetLastDate(IList<DateTime> companies)
+    public DateTime GetLastDate(IList<DateTime> dates)
     {
         var datesList = new List<DateTime>();
-        foreach (var date in companies)
+        foreach (var date in dates)
         {
             datesList.Add(date);
         }
         var nowDate = DateTime.Now;
-
         var lastDate = datesList.OrderBy(date => Math.Abs((nowDate - date).TotalSeconds)).First();
 
         return lastDate;
