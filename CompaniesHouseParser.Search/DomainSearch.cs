@@ -31,7 +31,7 @@ public class DomainSearch
         _applicationStorageCreatedDate = applicationStorageCreatedDate;
     }
 
-    public DateTime GetIncorporatedDate()
+    private DateTime GetIncorporatedDate()
     {
         return _parsingStateAccessor.Get().Companies.LastIncorporatedFrom;
     }
