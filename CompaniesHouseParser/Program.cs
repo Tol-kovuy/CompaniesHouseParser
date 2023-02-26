@@ -28,35 +28,14 @@ class Program
         ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
         DomainSearch domain = new DomainSearch(_domainCompaniesApi, _parsingStateAccessor, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        // IList<DateTime> dateTimes = new List<DateTime>
-        // {
-        //     new DateTime(2023, 1, 1),
-        //     new DateTime(2023, 1, 2),
-        //     new DateTime(2023, 1, 3),
-        //     new DateTime(2023, 1, 4),
-        //     new DateTime(2023, 1, 5)
-        // };
-
-        // //dateCompany.AddNewIds(dateTimes);
-        //var date = dateCompany.GetIds();
-
-        // var lastDate = domain.GetLastDate(dateTimes);
-
-
 
         IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
             applicationSettingsAccessor);
 
         var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
-        var companies = await d.GetCompanies(d.GetIncorporatedDate());//(DateTime.UtcNow.AddDays(-1));
-        d.SaveNewCompanyValuesToFile(companies);
 
-        using (StreamReader read = new StreamReader("CreatedDate.txt"))
-        {
-            var str = read.ReadToEnd();
-        }
-
+        var companies = await d.GetNewlyIncorporatedCompanies();
 
 
 

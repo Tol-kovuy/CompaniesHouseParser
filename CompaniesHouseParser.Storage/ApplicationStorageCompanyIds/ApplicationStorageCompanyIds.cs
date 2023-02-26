@@ -49,7 +49,10 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
         string[] existCompanyIds = GetIds().ToArray();
         foreach (var existId in existCompanyIds)
             if (existId == id)
+            {
                 return true;
+            }
+
         return false;
     }
 }

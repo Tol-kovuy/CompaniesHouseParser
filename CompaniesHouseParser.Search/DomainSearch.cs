@@ -1,19 +1,9 @@
-﻿using CompaniesHouseParser.Api;
-using CompaniesHouseParser.DomainApi;
-using CompaniesHouseParser.Settings;
+﻿using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Storage;
-using System.Collections.Specialized;
 
 namespace CompaniesHouseParser.Search;
 
-// 1. Get incorporated date from storage
-// 2. Get Companies from APi using incorporated date from 
-// 3. Get list of all parsed companies from storage
-// 4. Filter returned companies from API that was already parsed (use step 3.)
-// 5. Save newly parsed companies id
-// 6. Save last incorporated from id
-// 7. return companies
-public class DomainSearch
+public class DomainSearch : IDomainSearch
 {
     private readonly IDomainCompaniesApi _domainCompaniesApi;
     private readonly ICompanyHouseParsingStateAccessor _parsingStateAccessor;
@@ -31,23 +21,57 @@ public class DomainSearch
         _applicationStorageCreatedDate = applicationStorageCreatedDate;
     }
 
-    private DateTime GetIncorporatedDate()
+    public async Task<IList<ICompany>> GetNewlyIncorporatedCompanies()
     {
-        return _parsingStateAccessor.Get().Companies.LastIncorporatedFrom;
+        var newlyIncorporatedCompanies = await GetCompaniesAsync();
+        var filterredCompanites = FilterIncorporatedCompanies(newlyIncorporatedCompanies);
+        SaveNewCompanyValuesToFile(filterredCompanites);
+
+        return filterredCompanites;
     }
 
-    public async Task<IList<ICompany>> GetCompanies(DateTime incorporatedFrom)
+    private async Task<IList<ICompany>> GetCompaniesAsync()
     {
         var domainRequest = new DomainGetCompaniesRequest
         {
-            IncorporatedFrom = incorporatedFrom
+            IncorporatedFrom = _applicationStorageCreatedDate.GetDate()
         };
         var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
-        
+
         return getCompanies;
     }
 
-    public void SaveNewCompanyValuesToFile(IList<ICompany> companies)
+    private IList<ICompany> FilterIncorporatedCompanies(IList<ICompany> newlyIncorporatedCompanies)
+    {
+        if (!File.Exists("ExistingCompanyNumbers.txt")) // first parsing
+        {
+            var ids = new List<string>();
+            foreach (var newlycompany in newlyIncorporatedCompanies)
+            {
+                ids.Add(newlycompany.Id);
+            }
+            _applicationStorageCompanyIds.AddNewIds(ids);
+
+            return newlyIncorporatedCompanies;
+        }
+        else // second(n...) parsing 
+        {
+            var parsedCompaniesIds = _applicationStorageCompanyIds.GetIds();
+            var filteredCompanies = new List<ICompany>();
+
+            foreach (var newlycompany in newlyIncorporatedCompanies)
+            {
+                if (!(parsedCompaniesIds.Contains(newlycompany.Id)))
+                {
+                    filteredCompanies.Add(newlycompany);
+                }
+            }
+
+            return filteredCompanies;
+        }
+    }
+
+    private void SaveNewCompanyValuesToFile(IList<ICompany> companies)
     {
         var ids = new List<string>();
         var dates = new List<DateTime>();
@@ -57,19 +81,6 @@ public class DomainSearch
             dates.Add(company.CreatedDate);
         }
         _applicationStorageCompanyIds.AddNewIds(ids);
-        _applicationStorageCreatedDate.AddRange(dates);
-    }
-
-    public DateTime GetLastDate(IList<DateTime> dates)
-    {
-        var datesList = new List<DateTime>();
-        foreach (var date in dates)
-        {
-            datesList.Add(date);
-        }
-        var nowDate = DateTime.Now;
-        var lastDate = datesList.OrderBy(date => Math.Abs((nowDate - date).TotalSeconds)).First();
-
-        return lastDate;
+        _applicationStorageCreatedDate.ReWriteIncorporatedFrom(dates);
     }
 }

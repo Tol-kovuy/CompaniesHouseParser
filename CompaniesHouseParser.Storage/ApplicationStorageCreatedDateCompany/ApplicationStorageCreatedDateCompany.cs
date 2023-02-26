@@ -4,8 +4,8 @@ namespace CompaniesHouseParser.Storage;
 
 public class ApplicationStorageCreatedDateCompany : IApplicationStorageCreatedDateCompany
 {
-    private string pathToCreatedDates = @"ModifiedSettings.json";
-
+    private string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
+    private DateTime _lastIncorporatedDate;
     public DateTime GetDate()
     {
         var settings = File.ReadAllText(pathToCreatedDates);
@@ -23,8 +23,9 @@ public class ApplicationStorageCreatedDateCompany : IApplicationStorageCreatedDa
             Console.WriteLine($"Message : {ex}");
             throw;
         }
+        _lastIncorporatedDate = jsonToObj.Companies.LastIncorporatedFrom;
 
-        return jsonToObj.Companies.LastIncorporatedFrom;
+        return _lastIncorporatedDate;
     }
 
     public void ReWriteIncorporatedFrom(IList<DateTime> dates)
@@ -36,19 +37,31 @@ public class ApplicationStorageCreatedDateCompany : IApplicationStorageCreatedDa
         };
 
         string json = JsonConvert.SerializeObject(parsingState);
-        File.WriteAllText(pathToCreatedDates, json);
+        //File.WriteAllText(pathToCreatedDates, json);
+        using (StreamWriter write = new StreamWriter(pathToCreatedDates, false))
+        {
+            write.WriteLine(json);
+        }
     }
 
     private DateTime GetLastDate(IList<DateTime> dates)
     {
-        var datesList = new List<DateTime>();
-        foreach (var date in dates)
+        if (dates == null || dates.Count == 0)
         {
-            datesList.Add(date);
+            return _lastIncorporatedDate = GetDate();
         }
-        var nowDate = DateTime.Now;
-        var lastDate = datesList.OrderBy(date => Math.Abs((nowDate - date).TotalSeconds)).First();
+        else
+        {
+            _lastIncorporatedDate = GetDate();
+            for (int i = 1; i < dates.Count; i++)
+            {
+                if (dates[i] > _lastIncorporatedDate)
+                {
+                    _lastIncorporatedDate = dates[i];
+                }
+            }
 
-        return lastDate;
+            return _lastIncorporatedDate;
+        }
     }
 }
