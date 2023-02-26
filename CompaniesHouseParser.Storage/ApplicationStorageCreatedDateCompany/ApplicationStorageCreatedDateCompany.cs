@@ -1,69 +1,55 @@
-﻿namespace CompaniesHouseParser.Storage
+﻿using Newtonsoft.Json;
+
+namespace CompaniesHouseParser.Storage;
+
+public class ApplicationStorageCreatedDateCompany
 {
-    public class ApplicationStorageCreatedDateCompany 
-        : BaseApplicationStorage<DateTime>
-        , IApplicationStorageCreatedDateCompany
+    private string pathToCreatedDates = @"ModifiedSettings.json";
+
+    private IList<DateTime> _dateCreation;
+
+    public DateTime GetDate()
     {
-        public ApplicationStorageCreatedDateCompany() 
-            : base("CreatedDate.txt")
+        var settings = File.ReadAllText(pathToCreatedDates);
+
+        IApplicationParsingState? jsonToObj = null;
+        try
         {
-
+            jsonToObj = JsonConvert.DeserializeObject<ApplicationParsingState>(settings);
+            if (jsonToObj == null)
+                throw new Exception("Sorry, but json file can not be deserialize to object");
         }
-    //    private string pathToCreatedDates = @"CreatedDate.txt";
+        catch (Exception ex)
+        {
+            Console.WriteLine("\nException Caught!");
+            Console.WriteLine($"Message : {ex}");
+            throw;
+        }
 
-    //    private IList<DateTime> _dateCreation;
+        return jsonToObj.Companies.LastIncorporatedFrom;
+    }
 
-    //    public IList<DateTime> GetDates()
-    //    {
-    //        if (_dateCreation != null)
-    //            return _dateCreation;
+    public void ReWriteIncorporatedFrom(IList<DateTime> dates)
+    {
+        var lastDate = GetLastDate(dates);
+        ApplicationParsingState parsingState = new ApplicationParsingState
+        {
+            Companies = new ApplicationCompaniesParsingState { LastIncorporatedFrom = lastDate }
+        };
 
-    //        var allCreatedDate = File.ReadAllLines(pathToCreatedDates);
+        string json = JsonConvert.SerializeObject(parsingState);
+        File.WriteAllText(pathToCreatedDates, json);
+    }
+    private DateTime GetLastDate(IList<DateTime> dates)
+    {
+        var datesList = new List<DateTime>();
+        foreach (var date in dates)
+        {
+            datesList.Add(date);
+        }
+        var nowDate = DateTime.Now;
+        var lastDate = datesList.OrderBy(date => Math.Abs((nowDate - date).TotalSeconds)).First();
 
-    //        _dateCreation = new List<DateTime>();
-    //        foreach (var date in allCreatedDate)
-    //        {
-    //            DateTime dateTime = DateTime.Parse(date);
-    //            _dateCreation.Add(dateTime);
-    //        }
-
-    //        return _dateCreation;
-    //    }
-
-    //    public void AddRange(IList<DateTime> dates)
-    //    {
-    //        if (!File.Exists(pathToCreatedDates))
-    //        {
-    //            using (StreamWriter writer = new StreamWriter(pathToCreatedDates))
-    //            {
-    //                foreach (var date in dates)
-    //                {
-    //                    writer.WriteLine(date);
-    //                }
-    //            }
-    //            _dateCreation = GetDates();
-    //        }
-    //        else
-    //        {
-    //            foreach (var date in dates)
-    //            {
-    //                if (!CompareCompanyIds(date))
-    //                {
-    //                    using var file = File.AppendText(pathToCreatedDates);
-    //                    file.WriteLine(date);
-    //                    _dateCreation.Add(date);
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    private bool CompareCompanyIds(DateTime newDate)
-    //    {
-    //        IList<DateTime> dates = GetDates();
-    //        foreach (var date in dates)
-    //            if (date == newDate)
-    //                return true;
-    //        return false;
-    //    }
+        return lastDate;
     }
 }

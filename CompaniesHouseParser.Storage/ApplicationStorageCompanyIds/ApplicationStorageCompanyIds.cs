@@ -31,7 +31,7 @@ public class ApplicationStorageCompanyIds
     //    return _allIds;
     //}
 
-    //public void AddRange(IList<string> ids)
+    //public void ReWriteIncorporatedFrom(IList<string> ids)
     //{
     //    if (!File.Exists(pathToExistingCompanyIds))
     //    {
