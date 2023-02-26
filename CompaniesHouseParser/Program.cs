@@ -37,8 +37,8 @@ class Program
         //     new DateTime(2023, 1, 5)
         // };
 
-        // //dateCompany.ReWriteIncorporatedFrom(dateTimes);
-        //var date = dateCompany.GetDate();
+        // //dateCompany.AddNewIds(dateTimes);
+        //var date = dateCompany.GetIds();
 
         // var lastDate = domain.GetLastDate(dateTimes);
 
@@ -87,7 +87,7 @@ class Program
         //foreach (ICompany company in companies)
         //{
         //    var getOfficer = await company.GetOfficersAsync();
-        //    officers.ReWriteIncorporatedFrom(getOfficer);
+        //    officers.AddNewIds(getOfficer);
         //}
 
         #endregion
@@ -107,9 +107,9 @@ class Program
         //var storage = new ApplicationStorageCompanyIds();  
 
 
-        //storage.ReWriteIncorporatedFrom(list);
+        //storage.AddNewIds(list);
 
-        //var arrayOfIds = storage.GetValuesExistCompanies();
+        //var arrayOfIds = storage.GetIds();
 
         #endregion
 
@@ -157,7 +157,7 @@ class Program
 
         //    var getCompanies = new List<CompanyDto>();
         //    var companyList = JsonConvert.DeserializeObject<CompaniesListDto>(request);
-        //    getCompanies.ReWriteIncorporatedFrom(companyList.Companies);
+        //    getCompanies.AddNewIds(companyList.Companies);
         //}
 
         #endregion
@@ -182,7 +182,7 @@ class Program
 
         //    var officerList = JsonConvert.DeserializeObject<OfficersListDto>(request);
         //    var officers = new List<OfficerDto>();
-        //    officers.ReWriteIncorporatedFrom(officerList.Officers);
+        //    officers.AddNewIds(officerList.Officers);
 
         //    return officers;
         //}

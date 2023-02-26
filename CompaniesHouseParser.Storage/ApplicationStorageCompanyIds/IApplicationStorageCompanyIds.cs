@@ -2,7 +2,7 @@
 {
     public interface IApplicationStorageCompanyIds
     {
-        void AddRange(IList<string> ids);
-        IList<string> GetValuesExistCompanies();
+        void AddNewIds(IList<string> ids);
+        IList<string> GetIds();
     }
 }

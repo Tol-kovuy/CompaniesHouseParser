@@ -2,7 +2,7 @@
 {
     public interface IApplicationStorageCreatedDateCompany
     {
-        void AddRange(IList<DateTime> dates);
-        IList<DateTime> GetValuesExistCompanies();
+        DateTime GetDate();
+        void ReWriteIncorporatedFrom(IList<DateTime> dates);
     }
 }

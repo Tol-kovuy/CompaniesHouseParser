@@ -56,7 +56,7 @@ public class DomainSearch
             ids.Add(company.Id);
             dates.Add(company.CreatedDate);
         }
-        _applicationStorageCompanyIds.AddRange(ids);
+        _applicationStorageCompanyIds.AddNewIds(ids);
         _applicationStorageCreatedDate.AddRange(dates);
     }
 

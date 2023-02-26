@@ -2,11 +2,9 @@
 
 namespace CompaniesHouseParser.Storage;
 
-public class ApplicationStorageCreatedDateCompany
+public class ApplicationStorageCreatedDateCompany : IApplicationStorageCreatedDateCompany
 {
     private string pathToCreatedDates = @"ModifiedSettings.json";
-
-    private IList<DateTime> _dateCreation;
 
     public DateTime GetDate()
     {
@@ -40,6 +38,7 @@ public class ApplicationStorageCreatedDateCompany
         string json = JsonConvert.SerializeObject(parsingState);
         File.WriteAllText(pathToCreatedDates, json);
     }
+
     private DateTime GetLastDate(IList<DateTime> dates)
     {
         var datesList = new List<DateTime>();
