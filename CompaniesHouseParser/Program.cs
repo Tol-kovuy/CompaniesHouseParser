@@ -35,7 +35,24 @@ class Program
         var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        var companies = await d.GetNewlyIncorporatedCompanies();
+        //var companies = await d.GetNewlyIncorporatedCompanies();
+
+        IList<DateTime> list = new List<DateTime>();
+        list.Add(new DateTime(2023, 1, 1));
+        list.Add(new DateTime(2023, 1, 3));
+        list.Add(new DateTime(2023, 1, 5));
+        list.Add(new DateTime(2023, 1, 7));
+        list.Add(new DateTime(2023, 2, 25));
+
+        GetLastDate(list);
+
+        DateTime GetLastDate(IList<DateTime> dates)
+        {
+            var date = dates.Max();
+            return date;
+        }
+
+
 
 
 

@@ -1,67 +1,47 @@
-﻿using Newtonsoft.Json;
+﻿using CompaniesHouseParser.Common;
+using Newtonsoft.Json;
 
 namespace CompaniesHouseParser.Storage;
 
-public class ApplicationStorageCreatedDateCompany : IApplicationStorageCreatedDateCompany
+public class ApplicationStorageCreatedDateCompany
+    : AccessorBase<ApplicationParsingState, IApplicationParsingState>
+    , IApplicationStorageCreatedDateCompany
 {
-    private string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
+    private static string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
     private DateTime _lastIncorporatedDate;
+    public ApplicationStorageCreatedDateCompany()
+        : base(pathToCreatedDates)
+    {
+    }
+
+    private void CheckIsFileUploaded()
+    {
+        _lastIncorporatedDate = Get().Companies.LastIncorporatedFrom;
+    }
+
     public DateTime GetDate()
     {
-        var settings = File.ReadAllText(pathToCreatedDates);
-
-        IApplicationParsingState? jsonToObj = null;
-        try
-        {
-            jsonToObj = JsonConvert.DeserializeObject<ApplicationParsingState>(settings);
-            if (jsonToObj == null)
-                throw new Exception("Sorry, but json file can not be deserialize to object");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("\nException Caught!");
-            Console.WriteLine($"Message : {ex}");
-            throw;
-        }
-        _lastIncorporatedDate = jsonToObj.Companies.LastIncorporatedFrom;
-
+        CheckIsFileUploaded();
         return _lastIncorporatedDate;
     }
 
-    public void ReWriteIncorporatedFrom(IList<DateTime> dates)
+    public void ReWriteIncorporatedDateFrom(DateTime dates)
     {
-        var lastDate = GetLastDate(dates);
+        _lastIncorporatedDate = Get().Companies.LastIncorporatedFrom;
         ApplicationParsingState parsingState = new ApplicationParsingState
         {
-            Companies = new ApplicationCompaniesParsingState { LastIncorporatedFrom = lastDate }
+            Companies = new ApplicationCompaniesParsingState { LastIncorporatedFrom = _lastIncorporatedDate }
         };
 
-        string json = JsonConvert.SerializeObject(parsingState);
-        //File.WriteAllText(pathToCreatedDates, json);
-        using (StreamWriter write = new StreamWriter(pathToCreatedDates, false))
-        {
-            write.WriteLine(json);
-        }
+        //_parstingState.Companies.LastIncorporatedFrom = lastDate;
+        //Save();
+
+
     }
 
-    private DateTime GetLastDate(IList<DateTime> dates)
+    private void Save(ApplicationParsingState parsingState)
     {
-        if (dates == null || dates.Count == 0)
-        {
-            return _lastIncorporatedDate = GetDate();
-        }
-        else
-        {
-            _lastIncorporatedDate = GetDate();
-            for (int i = 1; i < dates.Count; i++)
-            {
-                if (dates[i] > _lastIncorporatedDate)
-                {
-                    _lastIncorporatedDate = dates[i];
-                }
-            }
-
-            return _lastIncorporatedDate;
-        }
+        string json = JsonConvert.SerializeObject(parsingState);
+        File.WriteAllText(pathToCreatedDates, json);
     }
 }

@@ -34,7 +34,7 @@ public class DomainSearch : IDomainSearch
     {
         var domainRequest = new DomainGetCompaniesRequest
         {
-            IncorporatedFrom = _applicationStorageCreatedDate.GetDate()
+            IncorporatedFrom = _applicationStorageCreatedDate.Get().Companies.LastIncorporatedFrom
         };
         var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
 
@@ -61,10 +61,11 @@ public class DomainSearch : IDomainSearch
 
             foreach (var newlycompany in newlyIncorporatedCompanies)
             {
-                if (!(parsedCompaniesIds.Contains(newlycompany.Id)))
+                if (parsedCompaniesIds.Contains(newlycompany.Id))
                 {
-                    filteredCompanies.Add(newlycompany);
+                    continue;
                 }
+                filteredCompanies.Add(newlycompany);
             }
 
             return filteredCompanies;
@@ -81,6 +82,6 @@ public class DomainSearch : IDomainSearch
             dates.Add(company.CreatedDate);
         }
         _applicationStorageCompanyIds.AddNewIds(ids);
-        _applicationStorageCreatedDate.ReWriteIncorporatedFrom(dates);
+        _applicationStorageCreatedDate.ReWriteIncorporatedDateFrom(dates.Max());
     }
 }

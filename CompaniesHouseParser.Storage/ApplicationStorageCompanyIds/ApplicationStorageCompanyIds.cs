@@ -5,54 +5,51 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 
     private string pathToExistingCompanyIds = @"ExistingCompanyNumbers.txt";
 
-    private IList<string> _allIds;
+    private List<string> _allIds;
 
     public IList<string> GetIds()
     {
+        CheckIsFileUploaded();
+        return _allIds;
+    }
+
+    private void CheckIsFileUploaded()
+    {
         if (_allIds != null)
-            return _allIds;
+        {
+            return;
+        }
 
         var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
 
         _allIds = new List<string>();
-        foreach (var id in allCompanyIds)
-        {
-            _allIds.Add(id);
-        }
-
-        return _allIds;
+        _allIds.AddRange(allCompanyIds);
     }
 
     public void AddNewIds(IList<string> ids)
     {
-        if (!File.Exists(pathToExistingCompanyIds))
+        CheckIsFileUploaded();
+        var newIds = GetNewIds(ids);
+        File.AppendAllLines(pathToExistingCompanyIds, newIds);
+        _allIds.AddRange(newIds);
+    }
+
+    private IList<string> GetNewIds(IList<string> ids)
+    {
+        var newIds = new List<string>();
+        foreach (var id in ids)
         {
-            File.AppendAllLines(pathToExistingCompanyIds, ids);
-            _allIds = GetIds();
-        }
-        else
-        {
-            foreach (var id in ids)
+            if (CompareCompanyIds(id))
             {
-                if (!CompareCompanyIds(id))
-                {
-                    using var file = File.AppendText(pathToExistingCompanyIds);
-                    file.WriteLine(id);
-                    _allIds.Add(id);
-                }
+                continue;
             }
+           newIds.Add(id);
         }
+        return newIds;
     }
 
     private bool CompareCompanyIds(string id)
     {
-        string[] existCompanyIds = GetIds().ToArray();
-        foreach (var existId in existCompanyIds)
-            if (existId == id)
-            {
-                return true;
-            }
-
-        return false;
+       return _allIds.Contains(id);
     }
 }
