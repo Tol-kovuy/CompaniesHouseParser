@@ -43,7 +43,7 @@ public class DomainSearch : IDomainSearch
 
     private IList<ICompany> FilterIncorporatedCompanies(IList<ICompany> newlyIncorporatedCompanies)
     {
-        if (!File.Exists("ExistingCompanyNumbers.txt")) // first parsing
+        if (!File.Exists("ExistingCompanyNumbers.txt")) // first parsing 
         {
             var ids = new List<string>();
             foreach (var newlycompany in newlyIncorporatedCompanies)
