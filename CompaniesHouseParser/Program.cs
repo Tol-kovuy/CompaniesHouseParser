@@ -55,28 +55,10 @@ class Program
         var ids = File.ReadAllLines("ExistingCompanyNumbers.txt");
         var listIds = new List<string>();
         listIds.AddRange(ids);
-        //var repeatsIdsInList = listIds.GroupBy(group => group)
-        //                             .Where(group => group.Count() > 1)
-        //                            .Select(group => group.Key);
+        var repeatsIdsInList = listIds.GroupBy(group => group)
+                                      .Where(group => group.Count() > 1)
+                                      .Select(group => group.Key);
 
-        var repeatsIdsInList = new List<int>();
-        var groups = new Dictionary<string, int>();
-        foreach (var id in listIds)
-        {
-            if (!groups.ContainsKey(id))
-            {
-                groups[id] = 0;
-            }
-            groups[id]++;
-        }
-
-        foreach (var pair in groups)
-        {
-            if (pair.Value > 1)
-            {
-                repeatsIdsInList.Add(pair.Value);
-            }
-        }
 
         Console.WriteLine(string.Join(Environment.NewLine, repeatsIdsInList));
 
