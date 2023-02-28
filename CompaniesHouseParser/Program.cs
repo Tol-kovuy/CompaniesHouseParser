@@ -6,6 +6,7 @@ using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Storage;
 using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Search;
+using System.Text.RegularExpressions;
 
 namespace CompaniesHouseParser;
 
@@ -35,7 +36,7 @@ class Program
         var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        var companies = await d.GetNewlyIncorporatedCompanies();
+        //var companies = await d.GetNewlyIncorporatedCompanies();
 
         //IList<DateTime> list = new List<DateTime>();
         //list.Add(new DateTime(2023, 1, 1));
@@ -51,8 +52,33 @@ class Program
         //    var date = dates.Max();
         //    return date;
         //}
+        var ids = File.ReadAllLines("ExistingCompanyNumbers.txt");
+        var listIds = new List<string>();
+        listIds.AddRange(ids);
+        //var repeatsIdsInList = listIds.GroupBy(group => group)
+        //                             .Where(group => group.Count() > 1)
+        //                            .Select(group => group.Key);
 
+        var repeatsIdsInList = new List<int>();
+        var groups = new Dictionary<string, int>();
+        foreach (var id in listIds)
+        {
+            if (!groups.ContainsKey(id))
+            {
+                groups[id] = 0;
+            }
+            groups[id]++;
+        }
 
+        foreach (var pair in groups)
+        {
+            if (pair.Value > 1)
+            {
+                repeatsIdsInList.Add(pair.Value);
+            }
+        }
+
+        Console.WriteLine(string.Join(Environment.NewLine, repeatsIdsInList));
 
 
 

@@ -1,4 +1,6 @@
-﻿namespace CompaniesHouseParser.Storage;
+﻿using System.Collections.Generic;
+
+namespace CompaniesHouseParser.Storage;
 
 public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 {
@@ -39,21 +41,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
 
     private IList<string> GetNewIds(IList<string> ids)
     {
-        var newIds = new List<string>();
-        foreach (var id in ids)
-        {
-            if (IsExistingCompanyId(id))
-            {
-                continue;
-            }
-            newIds.Add(id);
-        }
-        var newIdss = ids.Where(id => !_allIds.Contains(id)).ToList();
+        var newIds = ids.Where(id => !_allIds.Contains(id)).ToList();
         return newIds;
-    }
-
-    private bool IsExistingCompanyId(string id)
-    {
-       return _allIds.Contains(id);
     }
 }
