@@ -8,7 +8,7 @@ public class ApplicationStorageCreatedDateCompany
     , IApplicationStorageCreatedDateCompany
 {
     private static string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
-    private ApplicationParsingState _state;
+    private IApplicationParsingState _state;
 
     public ApplicationStorageCreatedDateCompany()
         : base(pathToCreatedDates)
@@ -22,7 +22,8 @@ public class ApplicationStorageCreatedDateCompany
             return;
         }
 
-        _state = Deserialize();
+        _state = Get();
+        //var _createdDate = Get().Companies.LastIncorporatedFrom; 
     }
 
     public DateTime GetLastIncorporatedFromDate()

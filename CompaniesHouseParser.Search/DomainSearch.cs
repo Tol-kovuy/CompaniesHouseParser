@@ -43,26 +43,29 @@ public class DomainSearch : IDomainSearch
     private IList<ICompany> FilterIncorporatedCompanies(IList<ICompany> newlyIncorporatedCompanies)
     {
         var parsedCompaniesIds = _applicationStorageCompanyIds.GetIds();
-        var filteredCompanies = new List<ICompany>();
+        //var filteredCompanies = new List<ICompany>();
 
-        foreach (var newlycompany in newlyIncorporatedCompanies)
-        {
-            if (parsedCompaniesIds.Contains(newlycompany.Id))
-            {
-                continue;
-            }
-            filteredCompanies.Add(newlycompany);
-        }
+        //foreach (var newlycompany in newlyIncorporatedCompanies)
+        //{
+        //    if (parsedCompaniesIds.Contains(newlycompany.Id))
+        //    {
+        //        continue;
+        //    }
+        //    filteredCompanies.Add(newlycompany);
+        //}
+        var filteredCompanies = newlyIncorporatedCompanies
+            .Where(company => !parsedCompaniesIds.Contains(company.Id)).ToList();
         return filteredCompanies;
     }
 
     private void SaveNewIds(IList<ICompany> companies)
     {
-        var ids = new List<string>();
-        foreach (var company in companies)
-        {
-            ids.Add(company.Id);
-        }
+        //var ids = new List<string>();
+        //foreach (var company in companies)
+        //{
+        //    ids.Add(company.Id);
+        //}
+        var ids = companies.Select(company => company.Id).ToList();
         _applicationStorageCompanyIds.AddNewIds(ids);
     }
 

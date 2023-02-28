@@ -48,6 +48,7 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
             }
             newIds.Add(id);
         }
+        var newIdss = ids.Where(id => !_allIds.Contains(id)).ToList();
         return newIds;
     }
 
