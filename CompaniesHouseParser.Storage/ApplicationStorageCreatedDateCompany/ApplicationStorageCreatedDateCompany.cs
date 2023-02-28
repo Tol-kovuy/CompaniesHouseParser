@@ -9,6 +9,7 @@ public class ApplicationStorageCreatedDateCompany
 {
     private static string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
     private DateTime _lastIncorporatedDate;
+
     public ApplicationStorageCreatedDateCompany()
         : base(pathToCreatedDates)
     {
@@ -16,6 +17,10 @@ public class ApplicationStorageCreatedDateCompany
 
     private void CheckIsFileUploaded()
     {
+        if (_lastIncorporatedDate != DateTime.MinValue)
+        {
+            return;
+        }
         _lastIncorporatedDate = Get().Companies.LastIncorporatedFrom;
     }
 
@@ -27,19 +32,14 @@ public class ApplicationStorageCreatedDateCompany
 
     public void ReWriteIncorporatedDateFrom(DateTime dates)
     {
-        _lastIncorporatedDate = Get().Companies.LastIncorporatedFrom;
-        ApplicationParsingState parsingState = new ApplicationParsingState
-        {
-            Companies = new ApplicationCompaniesParsingState { LastIncorporatedFrom = _lastIncorporatedDate }
-        };
-
-        //_parstingState.Companies.LastIncorporatedFrom = lastDate;
-        //Save();
-
-
+        CheckIsFileUploaded();
+        var parsingState = new ApplicationParsingState();
+        parsingState.Companies = new ApplicationCompaniesParsingState();
+        parsingState.Companies.LastIncorporatedFrom = dates;
+        SaveLastDate(parsingState);
     }
 
-    private void Save(ApplicationParsingState parsingState)
+    private void SaveLastDate(ApplicationParsingState parsingState)
     {
         string json = JsonConvert.SerializeObject(parsingState);
         File.WriteAllText(pathToCreatedDates, json);

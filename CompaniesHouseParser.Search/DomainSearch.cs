@@ -1,5 +1,6 @@
 ﻿using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Storage;
+using System.Collections.Generic;
 
 namespace CompaniesHouseParser.Search;
 
@@ -25,8 +26,8 @@ public class DomainSearch : IDomainSearch
     {
         var newlyIncorporatedCompanies = await GetCompaniesAsync();
         var filterredCompanites = FilterIncorporatedCompanies(newlyIncorporatedCompanies);
-        SaveNewCompanyValuesToFile(filterredCompanites);
-
+        SaveNewCompanyIdsToFile(filterredCompanites);
+        SaveNewCompanyCreatedDateToFile(filterredCompanites);
         return filterredCompanites;
     }
 
@@ -34,10 +35,9 @@ public class DomainSearch : IDomainSearch
     {
         var domainRequest = new DomainGetCompaniesRequest
         {
-            IncorporatedFrom = _applicationStorageCreatedDate.Get().Companies.LastIncorporatedFrom
+            IncorporatedFrom = _applicationStorageCreatedDate.GetDate()
         };
         var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
-
         return getCompanies;
     }
 
@@ -51,7 +51,6 @@ public class DomainSearch : IDomainSearch
                 ids.Add(newlycompany.Id);
             }
             _applicationStorageCompanyIds.AddNewIds(ids);
-
             return newlyIncorporatedCompanies;
         }
         else // second(n...) parsing 
@@ -67,21 +66,23 @@ public class DomainSearch : IDomainSearch
                 }
                 filteredCompanies.Add(newlycompany);
             }
-
             return filteredCompanies;
         }
     }
 
-    private void SaveNewCompanyValuesToFile(IList<ICompany> companies)
+    private void SaveNewCompanyIdsToFile(IList<ICompany> companies)
     {
         var ids = new List<string>();
-        var dates = new List<DateTime>();
         foreach (var company in companies)
         {
             ids.Add(company.Id);
-            dates.Add(company.CreatedDate);
         }
         _applicationStorageCompanyIds.AddNewIds(ids);
-        _applicationStorageCreatedDate.ReWriteIncorporatedDateFrom(dates.Max());
+    }
+
+    private void SaveNewCompanyCreatedDateToFile(IList<ICompany> companies)
+    {
+        var date = companies.Max(d => d.CreatedDate);
+        _applicationStorageCreatedDate.ReWriteIncorporatedDateFrom(date);
     }
 }
