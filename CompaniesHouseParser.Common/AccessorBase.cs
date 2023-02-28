@@ -11,27 +11,29 @@ where TClass : class, TInterface
         _path = path;
     }
 
-    public TInterface Get()
+    public virtual TInterface Get()
     {
-        string settings;
-        using (StreamReader read = new StreamReader(_path))
-        {
-            settings = read.ReadToEnd();
-        }
+        return Deserialize();
+    }
+
+    protected virtual TClass Deserialize()
+    {
+        var settings = File.ReadAllText(_path);
 
         TClass? jsonToObj = null;
         try
         {
             jsonToObj = JsonConvert.DeserializeObject<TClass>(settings);
             if (jsonToObj == null)
+            {
                 throw new Exception("Sorry, but json file can not be deserialize to object");
+            }
         }
         catch (Exception ex)
         {
-            Console.WriteLine("\nException Caught!");
             Console.WriteLine($"Message : {ex}");
+            throw;
         }
-
         return jsonToObj;
     }
 }

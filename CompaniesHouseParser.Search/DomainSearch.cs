@@ -1,6 +1,5 @@
 ﻿using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Storage;
-using System.Collections.Generic;
 
 namespace CompaniesHouseParser.Search;
 
@@ -26,8 +25,8 @@ public class DomainSearch : IDomainSearch
     {
         var newlyIncorporatedCompanies = await GetCompaniesAsync();
         var filterredCompanites = FilterIncorporatedCompanies(newlyIncorporatedCompanies);
-        SaveNewCompanyIdsToFile(filterredCompanites);
-        SaveNewCompanyCreatedDateToFile(filterredCompanites);
+        SaveNewIds(filterredCompanites);
+        SaveNewDate(filterredCompanites);
         return filterredCompanites;
     }
 
@@ -35,7 +34,7 @@ public class DomainSearch : IDomainSearch
     {
         var domainRequest = new DomainGetCompaniesRequest
         {
-            IncorporatedFrom = _applicationStorageCreatedDate.GetDate()
+            IncorporatedFrom = _applicationStorageCreatedDate.GetLastIncorporatedFromDate()
         };
         var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
         return getCompanies;
@@ -43,34 +42,21 @@ public class DomainSearch : IDomainSearch
 
     private IList<ICompany> FilterIncorporatedCompanies(IList<ICompany> newlyIncorporatedCompanies)
     {
-        if (!File.Exists("ExistingCompanyNumbers.txt")) // first parsing 
-        {
-            var ids = new List<string>();
-            foreach (var newlycompany in newlyIncorporatedCompanies)
-            {
-                ids.Add(newlycompany.Id);
-            }
-            _applicationStorageCompanyIds.AddNewIds(ids);
-            return newlyIncorporatedCompanies;
-        }
-        else // second(n...) parsing 
-        {
-            var parsedCompaniesIds = _applicationStorageCompanyIds.GetIds();
-            var filteredCompanies = new List<ICompany>();
+        var parsedCompaniesIds = _applicationStorageCompanyIds.GetIds();
+        var filteredCompanies = new List<ICompany>();
 
-            foreach (var newlycompany in newlyIncorporatedCompanies)
+        foreach (var newlycompany in newlyIncorporatedCompanies)
+        {
+            if (parsedCompaniesIds.Contains(newlycompany.Id))
             {
-                if (parsedCompaniesIds.Contains(newlycompany.Id))
-                {
-                    continue;
-                }
-                filteredCompanies.Add(newlycompany);
+                continue;
             }
-            return filteredCompanies;
+            filteredCompanies.Add(newlycompany);
         }
+        return filteredCompanies;
     }
 
-    private void SaveNewCompanyIdsToFile(IList<ICompany> companies)
+    private void SaveNewIds(IList<ICompany> companies)
     {
         var ids = new List<string>();
         foreach (var company in companies)
@@ -80,9 +66,9 @@ public class DomainSearch : IDomainSearch
         _applicationStorageCompanyIds.AddNewIds(ids);
     }
 
-    private void SaveNewCompanyCreatedDateToFile(IList<ICompany> companies)
+    private void SaveNewDate(IList<ICompany> companies)
     {
         var date = companies.Max(d => d.CreatedDate);
-        _applicationStorageCreatedDate.ReWriteIncorporatedDateFrom(date);
+        _applicationStorageCreatedDate.SetLastIncorporatedFromDate(date);
     }
 }

@@ -8,40 +8,39 @@ public class ApplicationStorageCreatedDateCompany
     , IApplicationStorageCreatedDateCompany
 {
     private static string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
-    private DateTime _lastIncorporatedDate;
+    private ApplicationParsingState _state;
 
     public ApplicationStorageCreatedDateCompany()
         : base(pathToCreatedDates)
     {
     }
 
-    private void CheckIsFileUploaded()
+    private void EnsureFileLoaded()
     {
-        if (_lastIncorporatedDate != DateTime.MinValue)
+        if (_state != null)
         {
             return;
         }
-        _lastIncorporatedDate = Get().Companies.LastIncorporatedFrom;
+
+        _state = Deserialize();
     }
 
-    public DateTime GetDate()
+    public DateTime GetLastIncorporatedFromDate()
     {
-        CheckIsFileUploaded();
-        return _lastIncorporatedDate;
+        EnsureFileLoaded();
+        return _state.Companies.LastIncorporatedFrom;
     }
 
-    public void ReWriteIncorporatedDateFrom(DateTime dates)
+    public void SetLastIncorporatedFromDate(DateTime dates)
     {
-        CheckIsFileUploaded();
-        var parsingState = new ApplicationParsingState();
-        parsingState.Companies = new ApplicationCompaniesParsingState();
-        parsingState.Companies.LastIncorporatedFrom = dates;
-        SaveLastDate(parsingState);
+        EnsureFileLoaded();
+        _state.Companies.LastIncorporatedFrom = dates;
+        SaveLastDate();
     }
 
-    private void SaveLastDate(ApplicationParsingState parsingState)
+    private void SaveLastDate()
     {
-        string json = JsonConvert.SerializeObject(parsingState);
+        string json = JsonConvert.SerializeObject(_state);
         File.WriteAllText(pathToCreatedDates, json);
     }
 }

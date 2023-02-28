@@ -6,29 +6,32 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
     private string pathToExistingCompanyIds = @"ExistingCompanyNumbers.txt";
 
     private List<string> _allIds;
-
     public IList<string> GetIds()
     {
-        CheckIsFileUploaded();
+        EnsureFileLoaded();
         return _allIds;
     }
 
-    private void CheckIsFileUploaded()
+    private void EnsureFileLoaded()
     {
         if (_allIds != null)
         {
             return;
         }
 
-        var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
-
         _allIds = new List<string>();
+        if (!File.Exists(pathToExistingCompanyIds))
+        {
+            return;
+        }
+
+        var allCompanyIds = File.ReadAllLines(pathToExistingCompanyIds);
         _allIds.AddRange(allCompanyIds);
     }
 
     public void AddNewIds(IList<string> ids)
     {
-        CheckIsFileUploaded();
+        EnsureFileLoaded();
         var newIds = GetNewIds(ids);
         File.AppendAllLines(pathToExistingCompanyIds, newIds);
         _allIds.AddRange(newIds);
@@ -39,16 +42,16 @@ public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds
         var newIds = new List<string>();
         foreach (var id in ids)
         {
-            if (CompareCompanyIds(id))
+            if (IsExistingCompanyId(id))
             {
                 continue;
             }
-           newIds.Add(id);
+            newIds.Add(id);
         }
         return newIds;
     }
 
-    private bool CompareCompanyIds(string id)
+    private bool IsExistingCompanyId(string id)
     {
        return _allIds.Contains(id);
     }

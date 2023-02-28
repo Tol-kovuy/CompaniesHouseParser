@@ -2,7 +2,7 @@
 {
     public interface IApplicationStorageCreatedDateCompany
     {
-        DateTime GetDate();
-        void ReWriteIncorporatedDateFrom(DateTime dates);
+        DateTime GetLastIncorporatedFromDate();
+        void SetLastIncorporatedFromDate(DateTime dates);
     }
 }
