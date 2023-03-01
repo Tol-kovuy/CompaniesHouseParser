@@ -50,8 +50,7 @@ public class DomainSearch : IDomainSearch
 
     private void SaveNewIds(IList<ICompany> companies)
     {
-        int i = 1;
-        var ids = companies.Select(company => $"{i++} {company.Id}").ToList();
+        var ids = companies.Select(company => company.Id).ToList();
         _applicationStorageCompanyIds.AddNewIds(ids);
     }
 

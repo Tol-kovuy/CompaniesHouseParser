@@ -11,12 +11,12 @@ where TClass : class, TInterface
         _path = path;
     }
 
-    //public TInterface Get()
-    //{
-    //    return Deserialize();
-    //}
-
     public TInterface Get()
+    {
+        return Deserialize();
+    }
+
+    public TClass Deserialize()
     {
         var settings = File.ReadAllText(_path);
 
