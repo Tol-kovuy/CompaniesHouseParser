@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.Api;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
 
 namespace CompaniesHouseParser.DomainApi
@@ -6,7 +7,7 @@ namespace CompaniesHouseParser.DomainApi
     public class DomainCompaniesApi : IDomainCompaniesApi
     {
         private ICompaniesHouseApi _companiesHouseApi;
-        private IApplicationSettings _applicationSettings;
+        private IApplicationSettingsAccessor _applicationSettings;
 
         public DomainCompaniesApi(
             ICompaniesHouseApi companiesHouseApi,
@@ -14,12 +15,12 @@ namespace CompaniesHouseParser.DomainApi
             )
         {
             _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = settingsAccessor.Get();
+            _applicationSettings = settingsAccessor;
         }
 
         public async Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi)
         {
-            var settings = _applicationSettings.CompaniesHouseApi;
+            var settings = _applicationSettings.Get().CompaniesHouseApi;
             var request = new GetAllCompaniesRequest
             {
                 ApiToken = settings.Token,

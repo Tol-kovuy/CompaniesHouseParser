@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.DomainApi;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Storage;
 
 namespace CompaniesHouseParser.Search;
@@ -6,22 +7,19 @@ namespace CompaniesHouseParser.Search;
 public class DomainSearch : IDomainSearch
 {
     private readonly IDomainCompaniesApi _domainCompaniesApi;
-    private readonly ICompanyHouseParsingStateAccessor _parsingStateAccessor;
     private readonly IApplicationStorageCompanyIds _applicationStorageCompanyIds;
     private readonly IApplicationStorageCreatedDateCompany _applicationStorageCreatedDate;
 
     public DomainSearch(IDomainCompaniesApi domainCompaniesApi,
-        ICompanyHouseParsingStateAccessor parsingStateAccessor,
         IApplicationStorageCompanyIds applicationStorageCompanyIds,
         IApplicationStorageCreatedDateCompany applicationStorageCreatedDate)
     {
         _domainCompaniesApi = domainCompaniesApi;
-        _parsingStateAccessor = parsingStateAccessor;
         _applicationStorageCompanyIds = applicationStorageCompanyIds;
         _applicationStorageCreatedDate = applicationStorageCreatedDate;
     }
 
-    public async Task<IList<ICompany>> GetNewlyIncorporatedCompanies()
+    public async Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync()
     {
         var newlyIncorporatedCompanies = await GetCompaniesAsync();
         var filterredCompanites = FilterIncorporatedCompanies(newlyIncorporatedCompanies);
@@ -56,7 +54,11 @@ public class DomainSearch : IDomainSearch
 
     private void SaveNewDate(IList<ICompany> companies)
     {
-        var date = companies.Max(d => d.CreatedDate);
-        _applicationStorageCreatedDate.SetLastIncorporatedFromDate(date);
+        if (companies.Count != 0)
+        {
+            var date = companies.Max(d => d.CreatedDate);
+            _applicationStorageCreatedDate.SetLastIncorporatedFromDate(date);
+        }
+        return;
     }
 }

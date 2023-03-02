@@ -1,7 +1,6 @@
 ﻿namespace CompaniesHouseParser.DomainParser
 {
-    public class Parser
+    public interface IParser
     {
-
     }
 }

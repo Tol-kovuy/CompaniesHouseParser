@@ -14,10 +14,8 @@
     "Host": "gmail.com",
     "Port": 333
   },
-  "Filters": [
-    { "Officer": { "Nationality": "British" } },
-    { "Officer": { "Nationality": "Israeli" } }
-  ],
+  "Filters": 
+    { "Officer": { "Nationality": "Israeli" } },
   "Email": {
     "EmailAddresses": [
       { "EmailAddress": "krotkrotowskij@gmai.com" },

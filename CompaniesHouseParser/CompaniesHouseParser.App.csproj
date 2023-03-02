@@ -19,6 +19,7 @@
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />
     <ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
+    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHousseParser.DomainSearchFilter.csproj" />
   </ItemGroup>
 
 </Project>

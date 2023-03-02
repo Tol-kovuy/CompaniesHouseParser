@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Net;
 
 namespace CompaniesHouseParser.Api
 {
@@ -37,17 +38,29 @@ namespace CompaniesHouseParser.Api
         {
             var httpClient = _clientFactory.GetHttpClient(token);
 
-            using var response = await httpClient.GetAsync(url);
+            string request;
+            try
+            {
+                using var response = await httpClient.GetAsync(url);
+                Console.WriteLine(response);
 
-            var request = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(request);
+                request = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(new string('-', 100));
+                Console.WriteLine(request);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             TClass? jsonToObj = default(TClass);
             try
             {
                 jsonToObj = JsonConvert.DeserializeObject<TClass>(request);
                 if (jsonToObj == null)
+                {
                     throw new Exception("Sorry, but json file can not be deserialize to object");
+                }   
             }
             catch (Exception ex)
             {
@@ -55,8 +68,6 @@ namespace CompaniesHouseParser.Api
                 Console.WriteLine($"Message : {ex}");
                 throw;
             }
-
-            
             return jsonToObj;
         }
         private string GetDate(DateTime date) // maybe is this extension method also? to do like Base64Encode?

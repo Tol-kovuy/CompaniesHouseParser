@@ -1,5 +1,7 @@
 ﻿using CompaniesHouseParser.Api;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CompaniesHouseParser.DomainApi
 {
@@ -14,11 +16,11 @@ namespace CompaniesHouseParser.DomainApi
 
         public Company(
             ICompaniesHouseApi companiesHouseApi,
-            IApplicationSettings applicationSettings
+            IApplicationSettingsAccessor applicationSettingsAccessor
             )
         {
             _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = applicationSettings;
+            _applicationSettings = applicationSettingsAccessor.Get();
         }
 
         public async Task<IList<IOfficer>> GetOfficersAsync()
@@ -28,27 +30,31 @@ namespace CompaniesHouseParser.DomainApi
                 return _officers;
             }
 
-            var officerRequest = new GetOfficerRequest
-            {
-                ApiToken = _applicationSettings.CompaniesHouseApi.Token,
-                CompanyId = Id
-            };
+            var officerRequest = new GetOfficerRequest();
+            officerRequest.ApiToken = _applicationSettings.CompaniesHouseApi.Token;
+            officerRequest.CompanyId = Id;
+            //{
+            //    ApiToken = _applicationSettings.CompaniesHouseApi.Token,
+            //    CompanyId = Id
+            //};
 
             _officers = new List<IOfficer>();
             var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
-            foreach (var officerFromDto in officersFromDto)
+            if (officersFromDto != null)
             {
-                var officer = new Officer()
+                foreach (var officerFromDto in officersFromDto)
                 {
-                    Name = officerFromDto.Name,
-                    Role = officerFromDto.Role,
-                    Nationality = officerFromDto.Nationality,
-                    City = officerFromDto.Address.City,
-                    Country = officerFromDto.Address.Country
-                };
-                _officers.Add(officer);
+                    var officer = new Officer()
+                    {
+                        Name = officerFromDto.Name,
+                        Role = officerFromDto.Role,
+                        Nationality = officerFromDto.Nationality,
+                        City = officerFromDto.Address.City,
+                        Country = officerFromDto.Address.Country
+                    };
+                    _officers.Add(officer);
+                }
             }
-
             return _officers;
         }
     }

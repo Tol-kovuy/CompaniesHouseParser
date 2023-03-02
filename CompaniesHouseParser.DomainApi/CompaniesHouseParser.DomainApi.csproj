@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
   </ItemGroup>
 

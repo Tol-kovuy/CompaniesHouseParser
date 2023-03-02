@@ -7,6 +7,8 @@ using CompaniesHouseParser.Storage;
 using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Search;
 using System.Text.RegularExpressions;
+using CompaniesHouseParser.DomainShared;
+using CompaniesHousseParser.DomainSearchFilter;
 
 namespace CompaniesHouseParser;
 
@@ -24,19 +26,52 @@ class Program
         IDomainCompaniesApi _domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
         ICompanyHouseParsingStateAccessor _parsingStateAccessor = new CompanyHouseParsingStateAccessor();
         IApplicationStorageCompanyIds _applicationStorageCompanyIds = new ApplicationStorageCompanyIds();
-        ApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
+        IApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
 
         ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
-        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _parsingStateAccessor, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
+        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
 
         IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
             applicationSettingsAccessor);
 
-        var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
+        var d = new DomainSearch(domainCompaniesApi,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        //var companies = await d.GetNewlyIncorporatedCompanies();
+        //IGetOfficerRequest request = new GetOfficerRequest
+        //{
+        //    ApiToken = "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
+        //    CompanyId = "OE028097"
+        //};
+
+
+        //var error = await companiesHouseApi.GetOfficers(request);
+
+        var filters = applicationSettingsAccessor.Get().Filters.Officer;
+        var search = new DomainFilteredSearch(domain, applicationSettingsAccessor);
+        //var getOfficersByNation = await search.GetNewlyIncorporatedCompaniesAsync();
+
+
+
+        //var companies = await d.GetNewlyIncorporatedCompaniesAsync();
+        //var companies = new List<ICompany>();
+        //var companyy = new Company(companiesHouseApi, applicationSettingsAccessor)
+        //{
+        //    Id = "OE028097",// id with out officers
+        //    Name = "Name",
+        //    CreatedDate = new DateTime(2023, 2, 12)
+        //};
+        //companies.Add(companyy);
+
+
+        //var listOfficers = new List<IOfficer>();
+        //foreach (var company in companies)
+        //{
+        //    var requestInterval = applicationSettingsAccessor.Get().CompaniesHouseApi.RequestLimit.Interval;
+        //    await Task.Delay(requestInterval);
+        //    var officer = await company.GetOfficersAsync();
+        //    listOfficers.AddRange(officer);
+        //}
 
         //IList<DateTime> list = new List<DateTime>();
         //list.Add(new DateTime(2023, 1, 1));

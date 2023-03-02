@@ -1,4 +1,4 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿namespace CompaniesHouseParser.DomainShared
 {
     public interface ICompany
     {
