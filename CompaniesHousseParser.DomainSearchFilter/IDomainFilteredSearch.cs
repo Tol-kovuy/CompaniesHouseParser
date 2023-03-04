@@ -5,6 +5,6 @@ namespace CompaniesHousseParser.DomainSearchFilter
 {
     public interface IDomainFilteredSearch
     {
-        Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync();
+        Task<IList<ICompany>> GetFilteredCompaniesAsync();
     }
 }

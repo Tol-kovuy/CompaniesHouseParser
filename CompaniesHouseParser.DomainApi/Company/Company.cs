@@ -30,17 +30,15 @@ namespace CompaniesHouseParser.DomainApi
                 return _officers;
             }
 
-            var officerRequest = new GetOfficerRequest();
-            officerRequest.ApiToken = _applicationSettings.CompaniesHouseApi.Token;
-            officerRequest.CompanyId = Id;
-            //{
-            //    ApiToken = _applicationSettings.CompaniesHouseApi.Token,
-            //    CompanyId = Id
-            //};
+            var officerRequest = new GetOfficerRequest
+            {
+                ApiToken = _applicationSettings.CompaniesHouseApi.Token,
+                CompanyId = Id
+            };
 
             _officers = new List<IOfficer>();
             var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
-            if (officersFromDto != null)
+            if (officersFromDto != null)// bred
             {
                 foreach (var officerFromDto in officersFromDto)
                 {
