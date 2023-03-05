@@ -38,20 +38,17 @@ namespace CompaniesHouseParser.DomainApi
 
             _officers = new List<IOfficer>();
             var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
-            if (officersFromDto != null)// bred
+            foreach (var officerFromDto in officersFromDto)
             {
-                foreach (var officerFromDto in officersFromDto)
+                var officer = new Officer()
                 {
-                    var officer = new Officer()
-                    {
-                        Name = officerFromDto.Name,
-                        Role = officerFromDto.Role,
-                        Nationality = officerFromDto.Nationality,
-                        City = officerFromDto.Address.City,
-                        Country = officerFromDto.Address.Country
-                    };
-                    _officers.Add(officer);
-                }
+                    Name = officerFromDto.Name,
+                    Role = officerFromDto.Role,
+                    Nationality = officerFromDto.Nationality,
+                    City = officerFromDto.Address.City,
+                    Country = officerFromDto.Address.Country
+                };
+                _officers.Add(officer);
             }
             return _officers;
         }

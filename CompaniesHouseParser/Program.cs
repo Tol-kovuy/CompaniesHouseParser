@@ -38,16 +38,15 @@ class Program
         var d = new DomainSearch(domainCompaniesApi,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        IGetOfficerRequest request = new GetOfficerRequest
-        {
-            ApiToken = "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
-            CompanyId = "OE028097"
-        };
+        //IGetOfficerRequest request = new GetOfficerRequest
+        //{
+        //    ApiToken = "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
+        //    CompanyId = "OE028097"
+        //};
+        //var error = await companiesHouseApi.GetOfficers(request);
+        
 
-
-        var error = await companiesHouseApi.GetOfficers(request);
-
-        var filters = applicationSettingsAccessor.Get().Filters.Officer;
+       
         var search = new DomainFilteredSearch(domain, applicationSettingsAccessor);
         var getCompaniesWithOfficers = await search.GetFilteredCompaniesAsync();
         //var getOfficersByNation = await search.GetNewlyIncorporatedCompaniesAsync();

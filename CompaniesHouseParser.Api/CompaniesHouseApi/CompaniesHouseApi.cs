@@ -6,8 +6,9 @@ namespace CompaniesHouseParser.Api
     public class CompaniesHouseApi : ICompaniesHouseApi
     {
         private const string _apiBaseUrl = "https://api.company-information.service.gov.uk";
+        private const double _delayFromMileseconds = 0.7;
         private readonly HttpClientFactory _clientFactory = new HttpClientFactory();
-        
+
         private DateTime _lastResponseDate = DateTime.MinValue;
         private void SetLastResponseDate()
         {
@@ -16,12 +17,13 @@ namespace CompaniesHouseParser.Api
 
         private TimeSpan GetTimeElapsedSinceLastRequest()
         {
-            return DateTime.UtcNow - _lastResponseDate;
+            var difference = DateTime.UtcNow - _lastResponseDate;
+            return difference;
         }
 
         private async Task DelayBetweenRequest()
         {
-            var delaybetweenRequests = TimeSpan.FromSeconds(5);// from config;
+            var delaybetweenRequests = TimeSpan.FromSeconds(_delayFromMileseconds);// from config;
             var timeElapsedSinceLastRequest = GetTimeElapsedSinceLastRequest();
             var delayInterval = delaybetweenRequests - timeElapsedSinceLastRequest;
             if (delayInterval.TotalMilliseconds > 0)
@@ -51,7 +53,11 @@ namespace CompaniesHouseParser.Api
             var url = $"{_apiBaseUrl}/company/{requestApi.CompanyId}/officers";
             var response = await GetResponse<OfficersListDto>(url, requestApi.ApiToken);
             SetLastResponseDate();
-            return response.Officers;
+            if (response.Officers != null)
+            {
+                return response.Officers;
+            }
+            return new List<OfficerDto>();
         }
 
         private async Task<TClass> GetResponse<TClass>(string url, string token)
@@ -65,11 +71,6 @@ namespace CompaniesHouseParser.Api
                 Console.WriteLine(response);
 
                 request = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new Exception("Value Officers was null");
-                    
-                }
                 Console.WriteLine(new string('-', 100));
                 Console.WriteLine(request);
             }
