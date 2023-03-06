@@ -9,6 +9,7 @@ using CompaniesHouseParser.Search;
 using System.Text.RegularExpressions;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHousseParser.DomainSearchFilter;
+using CompaniesHouseParser.DomainParser;
 
 namespace CompaniesHouseParser;
 
@@ -30,7 +31,7 @@ class Program
 
         ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
         DomainSearch domain = new DomainSearch(_domainCompaniesApi, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
-
+        IEmailMessageBuilder emailMessageBuilder = new EmailMessageBuilder();
 
         IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
             applicationSettingsAccessor);
@@ -44,17 +45,23 @@ class Program
         //    CompanyId = "OE028097"
         //};
         //var error = await companiesHouseApi.GetOfficers(request);
-        
 
-       
-        var search = new DomainFilteredSearch(domain, applicationSettingsAccessor);
-        var getCompaniesWithOfficers = await search.GetFilteredCompaniesAsync();
-        //var getOfficersByNation = await search.GetNewlyIncorporatedCompaniesAsync();
+        var domainFilteredSearch = new DomainFilteredSearch(domain, applicationSettingsAccessor);
+
+        var parsingAndSend100companies =
+            new Parser(domainFilteredSearch, emailMessageBuilder, applicationSettingsAccessor);
+        await parsingAndSend100companies.SendResult();
+
+
+
+
+        //var getCompaniesWithOfficers = await domainFilteredSearch.GetFilteredCompaniesAsync();
+        //var getOfficersByNation = await domainFilteredSearch.GetNewlyIncorporatedCompaniesAsync();
 
 
 
         //var companies = await d.GetNewlyIncorporatedCompaniesAsync();
-        //var companies = new List<ICompany>();
+        //var companies = new List<ICompany>(); 
         //var companyy = new Company(companiesHouseApi, applicationSettingsAccessor)
         //{
         //    Id = "OE028097",// id with out officers
@@ -154,7 +161,7 @@ class Program
 
         #region Test Sending Email
 
-        //var emailBiulder = new EmailMessageBuilder(); 
+        //var emailBiulder = new EmailMessageBuilder();
         //var message = emailBiulder
         //    .WithText("Hello World")
         //    .WithSubject("READ MOTHER FUCKER")
@@ -164,11 +171,11 @@ class Program
 
         //var emailSmtpFactory = new EmailSmtpClientFactory();
         //var emailSmtpClient = emailSmtpFactory.Create("smtp.gmail.com", 587,
-        //    new NetworkCredential 
-        //    { 
-        //        UserName = "krotkrotowskij@gmail.com", 
-        //        Password = "cwztcchhlltrzskg" 
-        //    }, 
+        //    new NetworkCredential
+        //    {
+        //        UserName = "krotkrotowskij@gmail.com",
+        //        Password = "cwztcchhlltrzskg"
+        //    },
         //    true);
 
         //emailSmtpClient.Send(message);
@@ -185,7 +192,7 @@ class Program
         //async Task GetAllCompaniesFromDto()
         //{
         //    var url = $"https://api.company-information.service.gov.uk/" +
-        //        $"advanced-search/getCompanies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+        //        $"advanced-domainFilteredSearch/getCompanies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
         //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
 
         //    var response = await createHttpClient.GetAsync(url);
@@ -273,9 +280,9 @@ class Program
         //    },
         //    Email = new NotificationFor
         //    {
-        //        EmailAddresses = new[] { new ResultMailingAddress { EmailAddress = "recipient1@gmail.com"}, 
-        //                                 new ResultMailingAddress { EmailAddress = "recipient2@gmail.com"},
-        //                                 new ResultMailingAddress { EmailAddress = "recipient3@gmail.com"}},
+        //        EmailAddresses = new[] { new ResultMailingAddress { EmailAddressFrom = "recipient1@gmail.com"}, 
+        //                                 new ResultMailingAddress { EmailAddressFrom = "recipient2@gmail.com"},
+        //                                 new ResultMailingAddress { EmailAddressFrom = "recipient3@gmail.com"}},
         //    }
         //};
 

@@ -15,6 +15,7 @@
     <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainApi\CompaniesHouseParser.DomainApi.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.DomainParser\CompaniesHouseParser.DomainParser.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Search\CompaniesHouseParser.Search.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />

@@ -1,6 +1,7 @@
 ﻿using CompaniesHouseParser.Api;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
+using System.Formats.Asn1;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CompaniesHouseParser.DomainApi
@@ -51,6 +52,19 @@ namespace CompaniesHouseParser.DomainApi
                 _officers.Add(officer);
             }
             return _officers;
+        }
+
+        public async Task<bool> HasOfficerWithNationalityAsync(string nationality)
+        {
+            _officers = await GetOfficersAsync();
+            foreach (var officer in _officers)
+            {
+                if (officer.Nationality != null && officer.Nationality == nationality)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
