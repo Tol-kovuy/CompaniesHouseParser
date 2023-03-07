@@ -50,7 +50,7 @@ class Program
 
         var parsingAndSend100companies =
             new Parser(domainFilteredSearch, emailMessageBuilder, applicationSettingsAccessor);
-        await parsingAndSend100companies.SendResult();
+        await parsingAndSend100companies.ExecuteAsync();
 
 
 
@@ -163,7 +163,7 @@ class Program
 
         //var emailBiulder = new EmailMessageBuilder();
         //var message = emailBiulder
-        //    .WithText("Hello World")
+        //    .WithTextBody("Hello World")
         //    .WithSubject("READ MOTHER FUCKER")
         //    .From("krotkrotowskij@gmail.com")
         //    .ToRcepient("smarty.maks13@gmail.com")
@@ -178,7 +178,7 @@ class Program
         //    },
         //    true);
 
-        //emailSmtpClient.Send(message);
+        //emailSmtpClient.SendAsync(message);
 
         #endregion
 

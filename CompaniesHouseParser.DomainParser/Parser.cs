@@ -7,35 +7,52 @@ using System.Text;
 
 namespace CompaniesHouseParser.DomainParser
 {
+    // Use module Email + Settings
+    public interface IDomainEmailSender
+    {
+        void Send(IEmailMessage message);
+    }
+
+    // Use module Email + IDomainEmailSender
+    public interface IDomainCompanyEmailSender
+    {
+        void SendAsync(ICompany message);
+    }
+
     public class Parser : IParser
     {
         private IDomainFilteredSearch _domainFilteredSearch;
         private IEmailMessageBuilder _emailMessageBuilder;
-        private IApplicationSettingsAccessor _applicationSettings;
-        public Parser(IDomainFilteredSearch domainFilteredSearch,
+        private IDomainCompanyEmailSender _emailSender;
+
+        public Parser(
+            IDomainFilteredSearch domainFilteredSearch,
             IEmailMessageBuilder emailMessageBuilder,
-            IApplicationSettingsAccessor applicationSettings)
+            IApplicationSettingsAccessor applicationSettings
+            )
         {
             _domainFilteredSearch = domainFilteredSearch;
             _emailMessageBuilder = emailMessageBuilder;
             _applicationSettings = applicationSettings;
         }
 
-        public async Task SendResult()
+        public async Task ExecuteAsync()
         {
-            var companies = await GetParsingResult();
+            var companies = await GetFilteredCompaniesAsync();
             foreach (var company in companies)
             {
-                var oneMessageByCompany = await CreateMessage(company);
-                var messageBuilder = BuildMessage(oneMessageByCompany);
-                var emailSmtpClient = BuildSmtpClient();
-                emailSmtpClient.Send(messageBuilder);
+                var emailBody = await CreateEmailBody(company);
+                var emailMessage = BuildEmailMessage(emailBody);
+                //var emailSmtpClient = BuildSmtpClient();
+                //emailSmtpClient.SendAsync(emailMessage);
+                _emailSender.Send(emailMessage);
             }
         }
 
         private IEmailSmtpClient BuildSmtpClient()
         {
             var emailSmtpFactory = new EmailSmtpClientFactory();
+            // TODO: code duplicate
             var smtpSettings = _applicationSettings.Get().Smtp;
             var emailSmtpClient = emailSmtpFactory.Create(
                 smtpSettings.Host, 
@@ -49,24 +66,24 @@ namespace CompaniesHouseParser.DomainParser
 
             return emailSmtpClient;
         }
-        private IEmailMessage BuildMessage(string message) 
+        private IEmailMessage BuildEmailMessage(string message) 
         {
             var mailSettings = _applicationSettings.Get().Email.EmailAddresses;
             var buildedMessage = _emailMessageBuilder
                 .From(mailSettings.EmailAddressFrom)
                 .ToRcepient(mailSettings.EmailAddressTo)
-                .WithText(message)
+                .WithTextBody(message)
+                // TODO: add subject to settings
                 .WithSubject("Fucking Sabject") // create method GetSabject()?
                 .Build();
             return buildedMessage;
         }
-        private async Task<IList<ICompany>> GetParsingResult()
+        private async Task<IList<ICompany>> GetFilteredCompaniesAsync()
         {
-            var getResult = await _domainFilteredSearch.GetFilteredCompaniesAsync();
-            return getResult;
+            return await _domainFilteredSearch.GetFilteredCompaniesAsync();
         }
 
-        private async Task<string> CreateMessage(ICompany company)
+        private async Task<string> CreateEmailBody(ICompany company)
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append("Company ID: ")

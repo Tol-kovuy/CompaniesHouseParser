@@ -4,6 +4,6 @@ namespace CompaniesHouseParser.DomainParser
 {
     public interface IParser
     {
-        Task SendResult();
+        Task ExecuteAsync();
     }
 }

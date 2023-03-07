@@ -19,5 +19,7 @@
         string PostalCode { get; }
         string Self { get; }
 
+        bool IsNationality(string nationality);
+
     }
 }

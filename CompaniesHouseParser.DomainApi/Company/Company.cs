@@ -59,6 +59,14 @@ namespace CompaniesHouseParser.DomainApi
             _officers = await GetOfficersAsync();
             foreach (var officer in _officers)
             {
+                // TODO: IsNationality
+                if (officer.IsNationality(nationality))
+                {
+
+                }
+
+                //==
+                //"".Equals("", StringComparison.InvariantCultureIgnoreCase);
                 if (officer.Nationality != null && officer.Nationality == nationality)
                 {
                     return true;
