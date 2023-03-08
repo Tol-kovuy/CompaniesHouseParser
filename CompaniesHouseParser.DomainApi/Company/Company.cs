@@ -62,13 +62,6 @@ namespace CompaniesHouseParser.DomainApi
                 // TODO: IsNationality
                 if (officer.IsNationality(nationality))
                 {
-
-                }
-
-                //==
-                //"".Equals("", StringComparison.InvariantCultureIgnoreCase);
-                if (officer.Nationality != null && officer.Nationality == nationality)
-                {
                     return true;
                 }
             }

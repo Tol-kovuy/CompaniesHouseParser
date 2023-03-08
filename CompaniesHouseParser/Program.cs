@@ -46,10 +46,16 @@ class Program
         //};
         //var error = await companiesHouseApi.GetOfficers(request);
 
+
+
+
+
         var domainFilteredSearch = new DomainFilteredSearch(domain, applicationSettingsAccessor);
+        var domainEmailSender = new DomainEmailSender(applicationSettingsAccessor, emailMessageBuilder);
+        var domainCompanyEmailSender = new DomainCompanyEmailSender(domainEmailSender);
 
         var parsingAndSend100companies =
-            new Parser(domainFilteredSearch, emailMessageBuilder, applicationSettingsAccessor);
+            new Parser(domainFilteredSearch, domainCompanyEmailSender);
         await parsingAndSend100companies.ExecuteAsync();
 
 

@@ -6,5 +6,6 @@
         IApplicationCompanyFilter Filters { get; }
         ISmtp Smtp { get; }
         INotificationFor Email { get; }
+        string Subject { get; }
     }
 }

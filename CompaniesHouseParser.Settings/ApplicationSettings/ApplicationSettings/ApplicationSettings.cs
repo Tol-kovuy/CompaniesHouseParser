@@ -12,5 +12,6 @@
         IApplicationCompanyFilter IApplicationSettings.Filters  { get => Filters; }
         public NotificationFor Email { get; set; }
         INotificationFor IApplicationSettings.Email => Email;
+        public string Subject { get; set; }
     }
 }

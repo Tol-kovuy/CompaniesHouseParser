@@ -20,5 +20,16 @@ namespace CompaniesHouseParser.DomainApi
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+
+        public bool IsNationality(string nationality)
+        {
+            //==
+            //"".Equals("", StringComparison.InvariantCultureIgnoreCase);
+            if (Nationality != null && Nationality.Equals(nationality))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
