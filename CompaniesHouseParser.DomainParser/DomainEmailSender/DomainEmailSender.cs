@@ -19,13 +19,18 @@ public class DomainEmailSender : IDomainEmailSender
         _emailMessageBuilder = emailMessageBuilder;
     }
 
-    public void Send(IEmailMessage message)
+    public void SendTextMessage(string message)
+    {
+        var emailMessage = BuildEmailMessage(message);
+        Send(emailMessage);
+    }
+    private void Send(IEmailMessage message)
     {
         var emailSmtpClient = BuildSmtpClient();
         emailSmtpClient.Send(message);
     }
 
-    public IEmailMessage BuildEmailMessage(string message)
+    private IEmailMessage BuildEmailMessage(string message)
     {
         var mailSettings = _applicationSettings.Email.EmailAddresses;
         var buildedMessage = _emailMessageBuilder

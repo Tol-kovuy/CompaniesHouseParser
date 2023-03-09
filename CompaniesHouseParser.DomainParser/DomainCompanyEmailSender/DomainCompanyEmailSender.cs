@@ -1,6 +1,4 @@
-﻿using CompaniesHouseParser.DomainApi;
-using CompaniesHouseParser.DomainShared;
-using CompaniesHouseParser.Email;
+﻿using CompaniesHouseParser.DomainShared;
 using System.Text;
 
 namespace CompaniesHouseParser.DomainParser;
@@ -19,9 +17,9 @@ public class DomainCompanyEmailSender : IDomainCompanyEmailSender
     {
         var mailBody = await CreateEmailBodyAsync(message);
         //var emailMesasge = _domainEmailSender.BuildEmailMessage(mailBody);
-        _domainEmailSender.Send(emailMesasge);
+        _domainEmailSender.SendTextMessage(mailBody);
     }
-   
+
     private async Task<string> CreateEmailBodyAsync(ICompany company)
     {
         var stringBuilder = new StringBuilder();
