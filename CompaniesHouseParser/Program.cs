@@ -30,13 +30,12 @@ class Program
         IApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
 
         ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
-        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
         IEmailMessageBuilder emailMessageBuilder = new EmailMessageBuilder();
 
         IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
             applicationSettingsAccessor);
 
-        var d = new DomainSearch(domainCompaniesApi,
+        var domainSearch = new DomainSearch(domainCompaniesApi,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
         //IGetOfficerRequest request = new GetOfficerRequest
@@ -50,7 +49,7 @@ class Program
 
 
 
-        var domainFilteredSearch = new DomainFilteredSearch(domain, applicationSettingsAccessor);
+        var domainFilteredSearch = new DomainFilteredSearch(domainSearch, applicationSettingsAccessor);
         var domainEmailSender = new DomainEmailSender(applicationSettingsAccessor, emailMessageBuilder);
         var domainCompanyEmailSender = new DomainCompanyEmailSender(domainEmailSender);
 
@@ -68,7 +67,7 @@ class Program
 
 
 
-        //var companies = await d.GetNewlyIncorporatedCompaniesAsync();
+        //var companies = await domainSearch.GetNewlyIncorporatedCompaniesAsync();
         //var companies = new List<ICompany>(); 
         //var companyy = new Company(companiesHouseApi, applicationSettingsAccessor)
         //{
