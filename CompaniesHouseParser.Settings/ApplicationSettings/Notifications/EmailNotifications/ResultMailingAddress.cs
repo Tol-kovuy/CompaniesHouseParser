@@ -2,6 +2,7 @@
 {
     public class ResultMailingAddress : IResultMailingAddress
     {
-        public string EmailAddress { get; set; }
+        public string EmailAddressFrom { get; set; }
+        public string EmailAddressTo { get; set; }
     }
 }

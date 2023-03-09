@@ -1,4 +1,4 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿namespace CompaniesHouseParser.DomainShared
 {
     public interface ICompany
     {
@@ -6,5 +6,6 @@
         string Name { get; }
         DateTime CreatedDate { get; }
         Task<IList<IOfficer>> GetOfficersAsync();
+        Task<bool> HasOfficerWithNationalityAsync(string nationality);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿namespace CompaniesHouseParser.DomainShared
 {
     public interface IOfficer
     {
@@ -18,6 +18,8 @@
         string OfficerAppointments { get; }
         string PostalCode { get; }
         string Self { get; }
-       
+
+        bool IsNationality(string nationality);
+
     }
 }

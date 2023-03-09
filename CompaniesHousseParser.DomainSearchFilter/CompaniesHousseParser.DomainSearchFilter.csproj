@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Search\CompaniesHouseParser.Search.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
+  </ItemGroup>
+
 </Project>

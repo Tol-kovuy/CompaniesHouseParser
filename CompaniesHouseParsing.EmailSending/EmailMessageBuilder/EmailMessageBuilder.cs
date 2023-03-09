@@ -20,7 +20,7 @@ namespace CompaniesHouseParser.Email
             };
         }
         
-        public IEmailMessageBuilder WithText(string text) 
+        public IEmailMessageBuilder WithTextBody(string text) 
         {
             _text = text;
             return this;

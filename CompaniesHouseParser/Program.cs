@@ -7,6 +7,9 @@ using CompaniesHouseParser.Storage;
 using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.Search;
 using System.Text.RegularExpressions;
+using CompaniesHouseParser.DomainShared;
+using CompaniesHousseParser.DomainSearchFilter;
+using CompaniesHouseParser.DomainParser;
 
 namespace CompaniesHouseParser;
 
@@ -24,19 +27,66 @@ class Program
         IDomainCompaniesApi _domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi, applicationSettingsAccessor);
         ICompanyHouseParsingStateAccessor _parsingStateAccessor = new CompanyHouseParsingStateAccessor();
         IApplicationStorageCompanyIds _applicationStorageCompanyIds = new ApplicationStorageCompanyIds();
-        ApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
+        IApplicationStorageCreatedDateCompany _applicationStorageCreatedDate = new ApplicationStorageCreatedDateCompany();
 
         ApplicationStorageCreatedDateCompany dateCompany = new ApplicationStorageCreatedDateCompany();
-        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _parsingStateAccessor, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
-
+        DomainSearch domain = new DomainSearch(_domainCompaniesApi, _applicationStorageCompanyIds, _applicationStorageCreatedDate);
+        IEmailMessageBuilder emailMessageBuilder = new EmailMessageBuilder();
 
         IDomainCompaniesApi domainCompaniesApi = new DomainCompaniesApi(companiesHouseApi,
             applicationSettingsAccessor);
 
-        var d = new DomainSearch(domainCompaniesApi, companyHouseParsingStateAccessor,
+        var d = new DomainSearch(domainCompaniesApi,
             applicationStorageCompanyIds, _applicationStorageCreatedDate);
 
-        //var companies = await d.GetNewlyIncorporatedCompanies();
+        //IGetOfficerRequest request = new GetOfficerRequest
+        //{
+        //    ApiToken = "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
+        //    CompanyId = "OE028097"
+        //};
+        //var error = await companiesHouseApi.GetOfficers(request);
+
+
+
+
+
+        var domainFilteredSearch = new DomainFilteredSearch(domain, applicationSettingsAccessor);
+        var domainEmailSender = new DomainEmailSender(applicationSettingsAccessor, emailMessageBuilder);
+        var domainCompanyEmailSender = new DomainCompanyEmailSender(domainEmailSender);
+
+        var parsingAndSend100companies =
+            new Parser(domainFilteredSearch, domainCompanyEmailSender);
+        await parsingAndSend100companies.ExecuteAsync();
+
+
+        // containe
+        // var parsingAndSend100companies = container.Resolve<IParser>();
+        // await parsingAndSend100companies.ExecuteAsync();
+
+        //var getCompaniesWithOfficers = await domainFilteredSearch.GetFilteredCompaniesAsync();
+        //var getOfficersByNation = await domainFilteredSearch.GetNewlyIncorporatedCompaniesAsync();
+
+
+
+        //var companies = await d.GetNewlyIncorporatedCompaniesAsync();
+        //var companies = new List<ICompany>(); 
+        //var companyy = new Company(companiesHouseApi, applicationSettingsAccessor)
+        //{
+        //    Id = "OE028097",// id with out officers
+        //    Name = "Name",
+        //    CreatedDate = new DateTime(2023, 2, 12)
+        //};
+        //companies.Add(companyy);
+
+
+        //var listOfficers = new List<IOfficer>();
+        //foreach (var company in companies)
+        //{
+        //    var requestInterval = applicationSettingsAccessor.Get().CompaniesHouseApi.RequestLimit.Interval;
+        //    await Task.Delay(requestInterval);
+        //    var officer = await company.GetOfficersAsync();
+        //    listOfficers.AddRange(officer);
+        //}
 
         //IList<DateTime> list = new List<DateTime>();
         //list.Add(new DateTime(2023, 1, 1));
@@ -119,9 +169,9 @@ class Program
 
         #region Test Sending Email
 
-        //var emailBiulder = new EmailMessageBuilder(); 
+        //var emailBiulder = new EmailMessageBuilder();
         //var message = emailBiulder
-        //    .WithText("Hello World")
+        //    .WithTextBody("Hello World")
         //    .WithSubject("READ MOTHER FUCKER")
         //    .From("krotkrotowskij@gmail.com")
         //    .ToRcepient("smarty.maks13@gmail.com")
@@ -129,14 +179,14 @@ class Program
 
         //var emailSmtpFactory = new EmailSmtpClientFactory();
         //var emailSmtpClient = emailSmtpFactory.Create("smtp.gmail.com", 587,
-        //    new NetworkCredential 
-        //    { 
-        //        UserName = "krotkrotowskij@gmail.com", 
-        //        Password = "cwztcchhlltrzskg" 
-        //    }, 
+        //    new NetworkCredential
+        //    {
+        //        UserName = "krotkrotowskij@gmail.com",
+        //        Password = "cwztcchhlltrzskg"
+        //    },
         //    true);
 
-        //emailSmtpClient.Send(message);
+        //emailSmtpClient.SendAsync(message);
 
         #endregion
 
@@ -150,7 +200,7 @@ class Program
         //async Task GetAllCompaniesFromDto()
         //{
         //    var url = $"https://api.company-information.service.gov.uk/" +
-        //        $"advanced-search/getCompanies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
+        //        $"advanced-domainFilteredSearch/getCompanies?incorporated_from={DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")}" +
         //        $"&incorporated_to={DateTime.UtcNow.AddDays(1).ToString("yyyy-MM-dd")}&countCompanies={5000}";
 
         //    var response = await createHttpClient.GetAsync(url);
@@ -186,7 +236,7 @@ class Program
 
         //    var officerList = JsonConvert.DeserializeObject<OfficersListDto>(request);
         //    var officers = new List<OfficerDto>();
-        //    officers.AddNewIds(officerList.Officers);
+        //    officers.AddNewIds(officerList._officers);
 
         //    return officers;
         //}
@@ -238,9 +288,9 @@ class Program
         //    },
         //    Email = new NotificationFor
         //    {
-        //        EmailAddresses = new[] { new ResultMailingAddress { EmailAddress = "recipient1@gmail.com"}, 
-        //                                 new ResultMailingAddress { EmailAddress = "recipient2@gmail.com"},
-        //                                 new ResultMailingAddress { EmailAddress = "recipient3@gmail.com"}},
+        //        EmailAddresses = new[] { new ResultMailingAddress { EmailAddressFrom = "recipient1@gmail.com"}, 
+        //                                 new ResultMailingAddress { EmailAddressFrom = "recipient2@gmail.com"},
+        //                                 new ResultMailingAddress { EmailAddressFrom = "recipient3@gmail.com"}},
         //    }
         //};
 

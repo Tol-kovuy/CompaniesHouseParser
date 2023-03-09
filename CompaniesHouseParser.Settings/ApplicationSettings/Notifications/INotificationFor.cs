@@ -2,6 +2,6 @@
 {
     public interface INotificationFor
     {
-        IResultMailingAddress[] EmailAddresses { get; }
+        IResultMailingAddress EmailAddresses { get; }
     }
 }

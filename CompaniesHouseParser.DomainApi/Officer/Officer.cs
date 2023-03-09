@@ -1,4 +1,6 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿using CompaniesHouseParser.DomainShared;
+
+namespace CompaniesHouseParser.DomainApi
 {
     public class Officer : IOfficer
     {
@@ -18,5 +20,19 @@
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+
+        public bool IsNationality(string nationality)
+        {
+            if (Nationality == null)
+            {
+                return false;
+            }
+
+            if (Nationality.Equals(nationality, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

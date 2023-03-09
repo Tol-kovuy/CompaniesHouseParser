@@ -1,5 +1,8 @@
 ﻿using CompaniesHouseParser.Api;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
+using System.Formats.Asn1;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CompaniesHouseParser.DomainApi
 {
@@ -14,11 +17,11 @@ namespace CompaniesHouseParser.DomainApi
 
         public Company(
             ICompaniesHouseApi companiesHouseApi,
-            IApplicationSettings applicationSettings
+            IApplicationSettingsAccessor applicationSettingsAccessor
             )
         {
             _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = applicationSettings;
+            _applicationSettings = applicationSettingsAccessor.Get();
         }
 
         public async Task<IList<IOfficer>> GetOfficersAsync()
@@ -48,8 +51,21 @@ namespace CompaniesHouseParser.DomainApi
                 };
                 _officers.Add(officer);
             }
-
             return _officers;
+        }
+
+        public async Task<bool> HasOfficerWithNationalityAsync(string nationality)
+        {
+            _officers = await GetOfficersAsync();
+            foreach (var officer in _officers)
+            {
+                // TODO: IsNationality
+                if (officer.IsNationality(nationality))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

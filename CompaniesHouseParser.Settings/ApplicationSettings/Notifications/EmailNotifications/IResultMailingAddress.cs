@@ -2,6 +2,7 @@
 {
     public interface IResultMailingAddress
     {
-        string EmailAddress { get; }
+        string EmailAddressFrom { get; }
+        string EmailAddressTo { get; }
     }
 }

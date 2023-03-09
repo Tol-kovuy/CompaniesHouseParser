@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CompaniesHouseParser.Search\CompaniesHouseParser.Search.csproj" />
     <ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
+    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHousseParser.DomainSearchFilter.csproj" />
   </ItemGroup>
 
 </Project>

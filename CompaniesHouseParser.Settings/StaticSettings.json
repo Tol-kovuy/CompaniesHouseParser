@@ -1,27 +1,27 @@
 {
   "CompaniesHouseApi": {
     "Token": "d7f521f7-9e49-48d3-8225-c89cc860f9ad",
-    "SearchCompaniesPerRequest": 5000,
+    "SearchCompaniesPerRequest": 100,
     "RequestLimit": {
       "Count": 600,
       "Interval": "00:00:00.7000000"
     }
   },
   "Smtp": {
-    "Email": "simple@gmail.com",
-    "UserName": "Fox",
-    "Password": "password",
-    "Host": "gmail.com",
-    "Port": 333
+    "Email": "smarty.maks13@gmail.com",
+    "UserName": "smarty.maks13@gmail.com",
+    "Password": "mtiwdvblpymxtifx",
+    "Host": "smtp.gmail.com",
+    "Port": 587
   },
-  "Filters": [
+  "Filters": 
     { "Officer": { "Nationality": "British" } },
-    { "Officer": { "Nationality": "Israeli" } }
-  ],
   "Email": {
-    "EmailAddresses": [
-      { "EmailAddress": "krotkrotowskij@gmai.com" },
-      { "EmailAddress": "smarty.maks13@gmail.com" }
-    ]
-  }
+    "EmailAddresses": {
+      "EmailAddressFrom": "smarty.maks13@gmail.com",
+      "EmailAddressTo": "krotkrotowskij@gmail.com"
+    }
+  },
+  "Subject": "CompaniesHouseParsingResult"
 }
+

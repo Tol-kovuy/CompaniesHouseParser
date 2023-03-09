@@ -1,9 +1,9 @@
-﻿using CompaniesHouseParser.DomainApi;
+﻿using CompaniesHouseParser.DomainShared;
 
 namespace CompaniesHouseParser.Search
 {
     public interface IDomainSearch
     {
-        Task<IList<ICompany>> GetNewlyIncorporatedCompanies();
+        Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync();
     }
 }

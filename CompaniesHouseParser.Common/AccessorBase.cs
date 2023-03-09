@@ -6,7 +6,7 @@ public class AccessorBase<TClass, TInterface>
 where TClass : class, TInterface
 {
     private readonly string _path;
-    public AccessorBase(string path)
+    public AccessorBase(string path) 
     {
         _path = path;
     }

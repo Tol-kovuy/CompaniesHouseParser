@@ -3,8 +3,9 @@
     public interface IApplicationSettings
     {
         ICompaniesHouseApiSettings CompaniesHouseApi { get; }
-        IApplicationCompanyFilter[] Filters { get; }
+        IApplicationCompanyFilter Filters { get; }
         ISmtp Smtp { get; }
         INotificationFor Email { get; }
+        string Subject { get; }
     }
 }

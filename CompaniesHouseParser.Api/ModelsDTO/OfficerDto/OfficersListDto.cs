@@ -5,7 +5,7 @@ namespace CompaniesHouseParser.Api
     public class OfficersListDto
     {
         [JsonProperty(PropertyName = "items")]
-        public List<OfficerDto> Officers { get; set; }
+        public List<OfficerDto> Officers { get; set; } 
         [JsonProperty(PropertyName = "total_results")]
         public int TotalResults { get; set; }
         [JsonProperty(PropertyName = "inactive_count")]
