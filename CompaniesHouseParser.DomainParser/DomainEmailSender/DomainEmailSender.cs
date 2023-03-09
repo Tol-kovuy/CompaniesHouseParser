@@ -7,9 +7,8 @@ namespace CompaniesHouseParser.DomainParser;
 // Use module Email + Settings
 public class DomainEmailSender : IDomainEmailSender
 {
-    private IApplicationSettings _applicationSettings;
-    private IEmailMessageBuilder _emailMessageBuilder;
-
+    private readonly IApplicationSettings _applicationSettings;
+    private readonly IEmailMessageBuilder _emailMessageBuilder;
 
     public DomainEmailSender(
         IApplicationSettingsAccessor settingsAccessor,
@@ -37,21 +36,17 @@ public class DomainEmailSender : IDomainEmailSender
             .Build();
         return buildedMessage;
     }
+
     private IEmailSmtpClient BuildSmtpClient()
     {
         var emailSmtpFactory = new EmailSmtpClientFactory();
         var smtpSettings = _applicationSettings.Smtp;
-        var emailSmtpClient = emailSmtpFactory.Create
-            (
-                smtpSettings.Host,
-                smtpSettings.Port,
-                new NetworkCredential
-                {
-                    UserName = smtpSettings.UserName,
-                    Password = smtpSettings.Password,
-                },
-                true
-            );
+        var emailSmtpClient = emailSmtpFactory.Create(
+            smtpSettings.Host,
+            smtpSettings.Port,
+            new NetworkCredential(smtpSettings.UserName, smtpSettings.Password),
+            enablessl: true
+        );
         return emailSmtpClient;
     }
 }

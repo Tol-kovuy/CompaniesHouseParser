@@ -59,7 +59,9 @@ class Program
         await parsingAndSend100companies.ExecuteAsync();
 
 
-
+        // containe
+        // var parsingAndSend100companies = container.Resolve<IParser>();
+        // await parsingAndSend100companies.ExecuteAsync();
 
         //var getCompaniesWithOfficers = await domainFilteredSearch.GetFilteredCompaniesAsync();
         //var getOfficersByNation = await domainFilteredSearch.GetNewlyIncorporatedCompaniesAsync();

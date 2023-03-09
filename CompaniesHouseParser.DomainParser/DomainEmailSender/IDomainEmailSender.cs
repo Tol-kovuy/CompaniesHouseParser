@@ -6,5 +6,8 @@ namespace CompaniesHouseParser.DomainParser
     {
         IEmailMessage BuildEmailMessage(string message);
         void Send(IEmailMessage message);
+
+        // todo
+        void SendTextMessage(string message);
     }
 }

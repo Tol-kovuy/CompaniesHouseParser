@@ -23,9 +23,12 @@ namespace CompaniesHouseParser.DomainApi
 
         public bool IsNationality(string nationality)
         {
-            //==
-            //"".Equals("", StringComparison.InvariantCultureIgnoreCase);
-            if (Nationality != null && Nationality.Equals(nationality))
+            if (Nationality == null)
+            {
+                return false;
+            }
+
+            if (Nationality.Equals(nationality, StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
