@@ -2,47 +2,46 @@
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
 
-namespace CompaniesHouseParser.DomainApi
+namespace CompaniesHouseParser.DomainApi;
+
+public class DomainCompaniesApi : IDomainCompaniesApi
 {
-    public class DomainCompaniesApi : IDomainCompaniesApi
+    private ICompaniesHouseApi _companiesHouseApi;
+    private IApplicationSettingsAccessor _applicationSettings;
+
+    public DomainCompaniesApi(
+        ICompaniesHouseApi companiesHouseApi,
+        IApplicationSettingsAccessor settingsAccessor
+        )
     {
-        private ICompaniesHouseApi _companiesHouseApi;
-        private IApplicationSettingsAccessor _applicationSettings;
+        _companiesHouseApi = companiesHouseApi;
+        _applicationSettings = settingsAccessor;
+    }
 
-        public DomainCompaniesApi(
-            ICompaniesHouseApi companiesHouseApi,
-            IApplicationSettingsAccessor settingsAccessor
-            )
+    public async Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi)
+    {
+        var settings = _applicationSettings.Get().CompaniesHouseApi;
+        var request = new GetAllCompaniesRequest
         {
-            _companiesHouseApi = companiesHouseApi;
-            _applicationSettings = settingsAccessor;
-        }
+            ApiToken = settings.Token,
+            CompaniesCount = settings.SearchCompaniesPerRequest,
+            IncorporatedFrom = requestApi.IncorporatedFrom
+        };
 
-        public async Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi)
+        var companiesDtos = await _companiesHouseApi.GetCompaniesAsync(request);
+
+        var companies = new List<ICompany>();
+        foreach (var companyFromDto in companiesDtos)
         {
-            var settings = _applicationSettings.Get().CompaniesHouseApi;
-            var request = new GetAllCompaniesRequest
+            var company = new Company(_companiesHouseApi, _applicationSettings)
             {
-                ApiToken = settings.Token,
-                CompaniesCount = settings.SearchCompaniesPerRequest,
-                IncorporatedFrom = requestApi.IncorporatedFrom
+                Id = companyFromDto.Id,
+                Name = companyFromDto.Name,
+                CreatedDate = companyFromDto.DateOfCreation
             };
-
-            var companiesDtos = await _companiesHouseApi.GetCompaniesAsync(request);
-
-            var companies = new List<ICompany>();
-            foreach (var companyFromDto in companiesDtos)
-            {
-                var company = new Company(_companiesHouseApi, _applicationSettings)
-                {
-                    Id = companyFromDto.Id,
-                    Name = companyFromDto.Name,
-                    CreatedDate = companyFromDto.DateOfCreation
-                };
-                companies.Add(company);
-            }
-            return companies;
+            companies.Add(company);
         }
+        return companies;
     }
 }
 

@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NetCore.AutoRegisterDi" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
-    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHousseParser.DomainSearchFilter.csproj" />
+    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHouseParser.DomainSearchFilter.csproj" />
   </ItemGroup>
 
 </Project>

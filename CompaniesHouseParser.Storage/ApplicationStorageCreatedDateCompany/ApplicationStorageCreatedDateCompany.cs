@@ -27,10 +27,10 @@ public class ApplicationStorageCreatedDateCompany
     public DateTime GetLastIncorporatedFromDate()
     {
         EnsureFileLoaded();
-        return _state.Companies.LastIncorporatedFrom;  
+        return _state.Companies.LastIncorporatedFrom;
     }
 
-    public void SetLastIncorporatedFromDate(DateTime dates)   
+    public void SetLastIncorporatedFromDate(DateTime dates)
     {
         EnsureFileLoaded();
         _state.Companies.LastIncorporatedFrom = dates;

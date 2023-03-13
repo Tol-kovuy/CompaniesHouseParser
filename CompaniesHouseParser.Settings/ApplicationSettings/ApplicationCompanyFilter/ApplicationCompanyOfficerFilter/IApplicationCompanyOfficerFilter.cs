@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Settings
 {
-    public interface IApplicationCompanyOfficerFilter
+    public interface IApplicationCompanyOfficerFilter : ITransientDependency
     {
         string Nationality { get; }
     }

@@ -1,7 +1,6 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿namespace CompaniesHouseParser.Settings;
+
+public class ApplicationCompanyOfficerFilter : IApplicationCompanyOfficerFilter
 {
-    public class ApplicationCompanyOfficerFilter : IApplicationCompanyOfficerFilter
-    {
-        public string Nationality { get; set; }
-    }
+    public string Nationality { get; set; }
 }

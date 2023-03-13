@@ -1,7 +1,6 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿namespace CompaniesHouseParser.DomainApi;
+
+public class DomainGetCompaniesRequest : IDomainGetCompaniesRequest
 {
-    public class DomainGetCompaniesRequest : IDomainGetCompaniesRequest
-    {
-        public DateTime IncorporatedFrom { get; set; }
-    }
+    public DateTime IncorporatedFrom { get; set; }
 }

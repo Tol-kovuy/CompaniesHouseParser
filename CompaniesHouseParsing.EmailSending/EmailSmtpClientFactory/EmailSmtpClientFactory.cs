@@ -1,13 +1,11 @@
 ﻿using System.Net;
 
-namespace CompaniesHouseParser.Email
+namespace CompaniesHouseParser.Email;
+
+public class EmailSmtpClientFactory : IEmailSmtpClientFactory
 {
-    // todo: read about patter factory
-    public class EmailSmtpClientFactory : IEmailSmtpClientFactory
+    public IEmailSmtpClient Create(string host, int port, NetworkCredential credentials, bool enablessl)
     {
-        public IEmailSmtpClient Create(string host, int port, NetworkCredential credentials, bool enablessl)
-        {
-            return new EmailSmtpClient(host, port, credentials, enablessl);
-        }
+        return new EmailSmtpClient(host, port, credentials, enablessl);
     }
 }

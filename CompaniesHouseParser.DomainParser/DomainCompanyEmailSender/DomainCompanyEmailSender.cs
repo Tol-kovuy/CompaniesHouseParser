@@ -3,7 +3,6 @@ using System.Text;
 
 namespace CompaniesHouseParser.DomainParser;
 
-// Use module Email + IDomainEmailSender
 public class DomainCompanyEmailSender : IDomainCompanyEmailSender
 {
     private IDomainEmailSender _domainEmailSender;

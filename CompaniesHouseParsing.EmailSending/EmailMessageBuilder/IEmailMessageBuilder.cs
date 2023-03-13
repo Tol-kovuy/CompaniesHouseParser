@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Email
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Email
 {
-    public interface IEmailMessageBuilder
+    public interface IEmailMessageBuilder : ITransientDependency
     {
         IEmailMessage Build();
         IEmailMessageBuilder WithTextBody(string text);

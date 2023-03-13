@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Api
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Api
 {
-    public interface IGetOfficerRequest
+    public interface IGetOfficerRequest : ITransientDependency
     {
         string CompanyId { get; }
         string ApiToken { get; }

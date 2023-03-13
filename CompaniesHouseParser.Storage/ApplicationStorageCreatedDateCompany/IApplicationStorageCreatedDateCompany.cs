@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Storage
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Storage
 {
-    public interface IApplicationStorageCreatedDateCompany
+    public interface IApplicationStorageCreatedDateCompany : ITransientDependency
     {
         DateTime GetLastIncorporatedFromDate();
         void SetLastIncorporatedFromDate(DateTime dates);

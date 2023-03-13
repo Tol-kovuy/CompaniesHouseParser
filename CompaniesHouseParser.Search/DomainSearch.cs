@@ -1,6 +1,7 @@
 ﻿using CompaniesHouseParser.DomainApi;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Storage;
+using NetCore.AutoRegisterDi;
 
 namespace CompaniesHouseParser.Search;
 

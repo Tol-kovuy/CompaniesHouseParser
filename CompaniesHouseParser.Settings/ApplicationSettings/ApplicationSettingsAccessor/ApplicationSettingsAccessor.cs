@@ -1,14 +1,13 @@
 ﻿using CompaniesHouseParser.Common;
 
-namespace CompaniesHouseParser.Settings
+namespace CompaniesHouseParser.Settings;
+   
+public class ApplicationSettingsAccessor
+   : AccessorBase<ApplicationSettings, IApplicationSettings>,
+    IApplicationSettingsAccessor
 {
-    public class ApplicationSettingsAccessor  
-       : AccessorBase<ApplicationSettings, IApplicationSettings>,
-        IApplicationSettingsAccessor
+    public ApplicationSettingsAccessor()
+        : base("StaticSettings.json")
     {
-        public ApplicationSettingsAccessor()
-            : base("StaticSettings.json")
-        {
-        }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using CompaniesHouseParser.DomainShared;
-using CompaniesHouseParser.Settings;
+using CompaniesHouseParser.IoC;
 
-namespace CompaniesHousseParser.DomainSearchFilter
+namespace CompaniesHousseParser.DomainSearchFilter;
+
+public interface IDomainFilteredSearch : ITransientDependency
 {
-    public interface IDomainFilteredSearch
-    {
-        Task<IList<ICompany>> GetFilteredCompaniesAsync();
-    }
+    Task<IList<ICompany>> GetFilteredCompaniesAsync();
 }

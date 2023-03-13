@@ -1,8 +1,8 @@
-﻿using CompaniesHouseParser.Settings;
+﻿using CompaniesHouseParser.IoC;
 
 namespace CompaniesHouseParser.DomainParser
 {
-    public interface IParser
+    public interface IParser : ITransientDependency
     {
         Task ExecuteAsync();
     }

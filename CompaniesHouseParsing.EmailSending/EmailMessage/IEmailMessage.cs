@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Email;
+﻿using CompaniesHouseParser.IoC;
 
-public interface IEmailMessage
+namespace CompaniesHouseParser.Email;
+
+public interface IEmailMessage : ITransientDependency
 {
     string Subject { get; }
     string Text { get; }

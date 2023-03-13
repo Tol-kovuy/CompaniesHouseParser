@@ -2,80 +2,79 @@
 using CompaniesHouseParser.Search;
 using CompaniesHouseParser.Settings;
 
-namespace CompaniesHousseParser.DomainSearchFilter
+namespace CompaniesHousseParser.DomainSearchFilter;
+
+public class DomainFilteredSearch : IDomainFilteredSearch
 {
-    public class DomainFilteredSearch : IDomainFilteredSearch
+    private IDomainSearch _domainSearch;
+    private IApplicationCompanyFilter _applicationCompanyFilter;
+    private string _filterBy;
+
+    public DomainFilteredSearch(
+        IDomainSearch domainSearch,
+        IApplicationSettingsAccessor applicationSettingsAccessor
+        )
     {
-        private IDomainSearch _domainSearch;
-        private IApplicationCompanyFilter _applicationCompanyFilter;
-        private string _filterBy;
+        _domainSearch = domainSearch;
+        _applicationCompanyFilter = applicationSettingsAccessor.Get().Filters;
+    }
 
-        public DomainFilteredSearch(
-            IDomainSearch domainSearch,
-            IApplicationSettingsAccessor applicationSettingsAccessor
-            )
+    public async Task<IList<ICompany>> GetFilteredCompaniesAsync()
+    {
+        var companies = await GetNewCompaniesAsync();
+        //var companyWithOfficers = await HasOfficerWithNationalityAsync(companies);
+        var companiesByNatioality = await FindByNationality(companies);
+        return companiesByNatioality;
+    }
+
+    //private async Task<IList<ICompany>> HasOfficerWithNationalityAsync(IList<ICompany> companies)
+    //{
+    //    var companyWithOfficers = new List<ICompany>();
+    //    foreach (var company in companies)
+    //    {
+    //        if (await company.HasOfficerWithNationalityAsync())
+    //        {
+
+    //        }
+    //        if (officers.Select(officer => officer.Nationality != null).Any())
+    //        {
+    //            companyWithOfficers.Add(company);
+    //        }
+    //    }
+    //    return companyWithOfficers;
+    //}
+
+    private async Task<IList<ICompany>> FindByNationality(IList<ICompany> companies)
+    {
+        InitializetFilterByNationality();
+        var companiesWithFiltredOfficersByNationality = new List<ICompany>();
+        foreach (var company in companies)
         {
-            _domainSearch = domainSearch;
-            _applicationCompanyFilter = applicationSettingsAccessor.Get().Filters;
-        }
+            //var getOfficers = await company.GetOfficersAsync();
+            //if (getOfficers.Select(officer => officer.Nationality.Contains(_filterBy)).Any()) 
+            //{
+            //    companiesWithFiltredOfficersByNationality.Add(company);
+            //}
 
-        public async Task<IList<ICompany>> GetFilteredCompaniesAsync()
-        {
-            var companies = await GetNewCompaniesAsync();
-            //var companyWithOfficers = await HasOfficerWithNationalityAsync(companies);
-            var companiesByNatioality = await FindByNationality(companies);
-            return companiesByNatioality;
-        }
-
-        //private async Task<IList<ICompany>> HasOfficerWithNationalityAsync(IList<ICompany> companies)
-        //{
-        //    var companyWithOfficers = new List<ICompany>();
-        //    foreach (var company in companies)
-        //    {
-        //        if (await company.HasOfficerWithNationalityAsync())
-        //        {
-
-        //        }
-        //        if (officers.Select(officer => officer.Nationality != null).Any())
-        //        {
-        //            companyWithOfficers.Add(company);
-        //        }
-        //    }
-        //    return companyWithOfficers;
-        //}
-
-        private async Task<IList<ICompany>> FindByNationality(IList<ICompany> companies)
-        {
-            InitializetFilterByNationality();
-            var companiesWithFiltredOfficersByNationality = new List<ICompany>();   
-            foreach (var company in companies)
+            if (await company.HasOfficerWithNationalityAsync(_filterBy))
             {
-                //var getOfficers = await company.GetOfficersAsync();
-                //if (getOfficers.Select(officer => officer.Nationality.Contains(_filterBy)).Any()) 
-                //{
-                //    companiesWithFiltredOfficersByNationality.Add(company);
-                //}
-
-                if (await company.HasOfficerWithNationalityAsync(_filterBy))
-                {
-                    companiesWithFiltredOfficersByNationality.Add(company);
-                }
-
+                companiesWithFiltredOfficersByNationality.Add(company);
             }
-            return companiesWithFiltredOfficersByNationality;
-        }
-        private async Task<IList<ICompany>> GetNewCompaniesAsync()
-        {
-            return await _domainSearch.GetNewlyIncorporatedCompaniesAsync();
-        }
 
-        private void InitializetFilterByNationality()
-        {
-            if (_filterBy != null) 
-            {
-                return;
-            }
-            _filterBy = _applicationCompanyFilter.Officer.Nationality;
         }
+        return companiesWithFiltredOfficersByNationality;
+    }
+    private async Task<IList<ICompany>> GetNewCompaniesAsync()
+    {
+        return await _domainSearch.GetNewlyIncorporatedCompaniesAsync();
+    }
+
+    private void InitializetFilterByNationality()
+    {
+        if (_filterBy != null)
+        {
+            return;
+        }
+        _filterBy = _applicationCompanyFilter.Officer.Nationality;
     }
 }

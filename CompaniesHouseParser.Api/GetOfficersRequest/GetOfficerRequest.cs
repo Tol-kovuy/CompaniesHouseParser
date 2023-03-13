@@ -1,8 +1,7 @@
-﻿namespace CompaniesHouseParser.Api
+﻿namespace CompaniesHouseParser.Api;
+
+public class GetOfficerRequest : IGetOfficerRequest
 {
-    public class GetOfficerRequest : IGetOfficerRequest
-    {
-        public string CompanyId { get; set; }
-        public string ApiToken { get; set; }
-    }
+    public string CompanyId { get; set; }
+    public string ApiToken { get; set; }
 }

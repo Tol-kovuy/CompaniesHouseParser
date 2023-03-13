@@ -1,8 +1,9 @@
-﻿namespace CompaniesHouseParser.Storage
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Storage;
+
+public interface IApplicationStorageCompanyIds : ITransientDependency
 {
-    public interface IApplicationStorageCompanyIds
-    {
-        void AddNewIds(IList<string> ids);
-        IList<string> GetIds();
-    }
+    void AddNewIds(IList<string> ids);
+    IList<string> GetIds();
 }

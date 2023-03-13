@@ -1,13 +1,13 @@
-﻿using System.Net;
+﻿using NetCore.AutoRegisterDi;
+using System.Net;
 
-namespace CompaniesHouseParser.Settings
+namespace CompaniesHouseParser.Settings;
+
+public class CompaniesHouseApiSettings : ICompaniesHouseApiSettings
 {
-    public class CompaniesHouseApiSettings : ICompaniesHouseApiSettings
-    {
-        public string Token { get; set; }
-        public int SearchCompaniesPerRequest { get; set; }
-        public CompaniesHouseApiRequestLimit RequestLimit { get; set; }
+    public string Token { get; set; }
+    public int SearchCompaniesPerRequest { get; set; }
+    public CompaniesHouseApiRequestLimit RequestLimit { get; set; }
 
-        ICompaniesHouseApiRequestLimit ICompaniesHouseApiSettings.RequestLimit => RequestLimit;
-    }
+    ICompaniesHouseApiRequestLimit ICompaniesHouseApiSettings.RequestLimit => RequestLimit;
 }

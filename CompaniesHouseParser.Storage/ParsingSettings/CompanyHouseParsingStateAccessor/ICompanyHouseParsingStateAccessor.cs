@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Storage;
+﻿using CompaniesHouseParser.IoC;
 
-public interface ICompanyHouseParsingStateAccessor
+namespace CompaniesHouseParser.Storage;
+
+public interface ICompanyHouseParsingStateAccessor : ITransientDependency
 {
     IApplicationParsingState Get();
 }

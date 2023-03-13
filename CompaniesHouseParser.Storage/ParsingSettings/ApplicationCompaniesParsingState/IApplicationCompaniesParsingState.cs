@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Storage;
+﻿using CompaniesHouseParser.IoC;
 
-public interface IApplicationCompaniesParsingState
+namespace CompaniesHouseParser.Storage;
+
+public interface IApplicationCompaniesParsingState : ITransientDependency
 {
     DateTime LastIncorporatedFrom { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace CompaniesHouseParser.Storage;
 
 public class ApplicationStorageCompanyIds : IApplicationStorageCompanyIds

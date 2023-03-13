@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Search
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.DomainParser", "..\CompaniesHouseParser.DomainParser\CompaniesHouseParser.DomainParser.csproj", "{94A053B5-CCFE-44ED-987A-4AE327B901E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHousseParser.DomainSearchFilter", "..\CompaniesHousseParser.DomainSearchFilter\CompaniesHousseParser.DomainSearchFilter.csproj", "{F81A5F52-F5BD-463E-BA69-F2F4FE92A62D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.DomainSearchFilter", "..\CompaniesHousseParser.DomainSearchFilter\CompaniesHouseParser.DomainSearchFilter.csproj", "{F81A5F52-F5BD-463E-BA69-F2F4FE92A62D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.DomainShared", "..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj", "{F6FBD00F-D526-4195-994C-5BB768FEFE15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.DomainShared", "..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj", "{F6FBD00F-D526-4195-994C-5BB768FEFE15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.IoC", "..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj", "{DDB53530-21FD-47F4-B74A-0A5CC7160464}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{F6FBD00F-D526-4195-994C-5BB768FEFE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FBD00F-D526-4195-994C-5BB768FEFE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FBD00F-D526-4195-994C-5BB768FEFE15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB53530-21FD-47F4-B74A-0A5CC7160464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB53530-21FD-47F4-B74A-0A5CC7160464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB53530-21FD-47F4-B74A-0A5CC7160464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB53530-21FD-47F4-B74A-0A5CC7160464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

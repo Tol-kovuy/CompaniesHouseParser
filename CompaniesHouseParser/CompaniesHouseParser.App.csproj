@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="NetCore.AutoRegisterDi" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
@@ -16,11 +19,13 @@
     <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainApi\CompaniesHouseParser.DomainApi.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainParser\CompaniesHouseParser.DomainParser.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Search\CompaniesHouseParser.Search.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />
     <ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
-    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHousseParser.DomainSearchFilter.csproj" />
+    <ProjectReference Include="..\CompaniesHousseParser.DomainSearchFilter\CompaniesHouseParser.DomainSearchFilter.csproj" />
   </ItemGroup>
 
 </Project>

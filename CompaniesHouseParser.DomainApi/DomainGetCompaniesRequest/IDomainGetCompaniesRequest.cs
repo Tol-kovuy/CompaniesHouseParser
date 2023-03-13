@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.DomainApi
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.DomainApi
 {
-    public interface IDomainGetCompaniesRequest
+    public interface IDomainGetCompaniesRequest : ITransientDependency
     {
         DateTime IncorporatedFrom { get; set; }
     }

@@ -1,8 +1,7 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿namespace CompaniesHouseParser.Settings;
+
+public class ApplicationCompanyFilter : IApplicationCompanyFilter
 {
-    public class ApplicationCompanyFilter : IApplicationCompanyFilter
-    {
-        public ApplicationCompanyOfficerFilter Officer { get; set; }
-        IApplicationCompanyOfficerFilter IApplicationCompanyFilter.Officer { get => Officer; }
-    }
+    public ApplicationCompanyOfficerFilter Officer { get; set; }
+    IApplicationCompanyOfficerFilter IApplicationCompanyFilter.Officer { get => Officer; }
 }

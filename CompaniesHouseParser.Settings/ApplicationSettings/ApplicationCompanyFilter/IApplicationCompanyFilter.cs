@@ -1,6 +1,8 @@
-﻿namespace CompaniesHouseParser.Settings
+﻿using CompaniesHouseParser.IoC;
+
+namespace CompaniesHouseParser.Settings
 {
-    public interface IApplicationCompanyFilter
+    public interface IApplicationCompanyFilter : ITransientDependency
     {
         IApplicationCompanyOfficerFilter Officer { get; }
     }

@@ -1,10 +1,10 @@
 ﻿using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Settings;
+using NetCore.AutoRegisterDi;
 using System.Net;
 
 namespace CompaniesHouseParser.DomainParser;
 
-// Use module Email + Settings
 public class DomainEmailSender : IDomainEmailSender
 {
     private readonly IApplicationSettings _applicationSettings;
