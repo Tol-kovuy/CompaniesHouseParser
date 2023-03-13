@@ -69,8 +69,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
             using var response = await httpClient.GetAsync(url);
             Console.WriteLine(response);
 
-            var request1 = await response.Content.ReadAsStringAsync();
-            request = "<asdkjghhajsdjksad";
+            request = await response.Content.ReadAsStringAsync();
             Console.WriteLine(new string('-', 100));
             Console.WriteLine(request);
         }

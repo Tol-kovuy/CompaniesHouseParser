@@ -10,7 +10,7 @@ class Program
 {
     static async Task Main()
     {
-        //var allAssemblies = AppDomain.CurrentDomain.GetAssemblies(); <---- eto drochnya)))
+        //var allAssemblies = AppDomain.CurrentDomain.GetAssemblies(); <---- eto xernya)))
         var allAssemblies = MyAssemblies.GetAssemblies();
         var filtredAssemblies = new List<Assembly>();
         foreach (var assembly in allAssemblies)
