@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CompaniesHouseParser.Logging;
+using Newtonsoft.Json;
+using Polly;
 using System.Net;
 
 namespace CompaniesHouseParser.Api;
@@ -6,10 +8,18 @@ namespace CompaniesHouseParser.Api;
 public class CompaniesHouseApi : ICompaniesHouseApi
 {
     private const string _apiBaseUrl = "https://api.company-information.service.gov.uk";
-    private const double _delayFromMileseconds = 0.7;
-    private readonly HttpClientFactory _clientFactory = new HttpClientFactory();
-
     private DateTime _lastResponseDate = DateTime.MinValue;
+    private const double _delayFromMileseconds = 0.5;
+    private readonly ILogging _logging;
+    private readonly HttpClientFactory _clientFactory;
+
+    public CompaniesHouseApi(ILogging logger,
+        IHttpClientFactory clientFactory)
+    {
+        _logger = logger;
+        _clientFactory = clientFactory;
+    }
+
     private void SetLastResponseDate()
     {
         _lastResponseDate = DateTime.UtcNow;
@@ -70,9 +80,16 @@ public class CompaniesHouseApi : ICompaniesHouseApi
             using var response = await httpClient.GetAsync(url);
             Console.WriteLine(response);
 
-            request = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(new string('-', 100));
-            Console.WriteLine(request);
+            if (response.StatusCode == HttpStatusCode.BadGateway)
+            {
+                request = await RetryRequestsAsync(url, token);
+            }
+            else
+            {
+                request = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(new string('-', 100));
+                Console.WriteLine(request);
+            }
         }
         catch (WebException e)
         {
@@ -107,5 +124,18 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     private string GetDate(DateTime date)
     {
         return date.ToString("yyyy-MM-dd");
+    }
+    
+    private async Task<string> RetryRequestsAsync(string url, string token)
+    {
+        var retryPolicy = Policy
+            .Handle<HttpRequestException>()
+            .OrResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
+            .WaitAndRetryAsync(3, retryAttemp => TimeSpan.FromMilliseconds(_delayFromMileseconds));
+
+        var httpClient = _clientFactory.GetHttpClient(token);
+        using var response = await retryPolicy.ExecuteAsync(async () => await httpClient.GetAsync(url));
+        var result = await response.Content.ReadAsStringAsync();
+        return result;
     }
 }

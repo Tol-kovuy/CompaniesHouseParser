@@ -1,16 +1,16 @@
 ﻿using CompaniesHouseParser.DomainParser;
 using CompaniesHouseParser.IoC;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using NetCore.AutoRegisterDi;
-using System.Reflection;
 
 namespace CompaniesHouseParser;
 
 class Program
 {
-    static async Task Main()
+    public static IServiceCollection ServicesRegistration()
     {
-        //var allAssemblies = AppDomain.CurrentDomain.GetAllAssemblies(); <---- eto xernya)))
         var allAssemblies = SolutionAssemblies.GetAllAssemblies();
         var filtredAssemblies = SolutionAssemblies.GetFiltredAssemlies(allAssemblies);
 
@@ -24,6 +24,21 @@ class Program
             .Where(typeOfClass => typeof(ISingletonDependency).IsAssignableFrom(typeOfClass))
             .AsPublicImplementedInterfaces(ServiceLifetime.Singleton);
 
+        //services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory, LoggerFactory>()); //??
+        //services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(Logger<>))); ????
+
+        return services;
+    }
+    /// <summary>
+    /// TODO: 
+    /// 1. request retry <----DONE
+    /// 2. Serilog ILogger and replace Console.Writeline -> ILogger.Log...
+    /// 3.AutoMaper
+    /// </summary>
+    /// <returns></returns>
+    static async Task Main()
+    {
+        var services = ServicesRegistration();
         var serviceProvider = services.BuildServiceProvider();
         var app = serviceProvider.GetRequiredService<IParser>();
         await app.ExecuteAsync();
