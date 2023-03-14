@@ -29,9 +29,8 @@ where TClass : class, TInterface
                 throw new Exception("Sorry, but json file can not be deserialize to object");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine($"Message : {ex}");
             throw;
         }
         return jsonToObj;

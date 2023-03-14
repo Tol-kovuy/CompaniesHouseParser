@@ -27,35 +27,12 @@ public class DomainFilteredSearch : IDomainFilteredSearch
         return companiesByNatioality;
     }
 
-    //private async Task<IList<ICompany>> HasOfficerWithNationalityAsync(IList<ICompany> companies)
-    //{
-    //    var companyWithOfficers = new List<ICompany>();
-    //    foreach (var company in companies)
-    //    {
-    //        if (await company.HasOfficerWithNationalityAsync())
-    //        {
-
-    //        }
-    //        if (officers.Select(officer => officer.Nationality != null).Any())
-    //        {
-    //            companyWithOfficers.Add(company);
-    //        }
-    //    }
-    //    return companyWithOfficers;
-    //}
-
     private async Task<IList<ICompany>> FindByNationality(IList<ICompany> companies)
     {
         InitializetFilterByNationality();
         var companiesWithFiltredOfficersByNationality = new List<ICompany>();
         foreach (var company in companies)
         {
-            //var getOfficers = await company.GetOfficersAsync();
-            //if (getOfficers.Select(officer => officer.Nationality.Contains(_filterBy)).Any()) 
-            //{
-            //    companiesWithFiltredOfficersByNationality.Add(company);
-            //}
-
             if (await company.HasOfficerWithNationalityAsync(_filterBy))
             {
                 companiesWithFiltredOfficersByNationality.Add(company);

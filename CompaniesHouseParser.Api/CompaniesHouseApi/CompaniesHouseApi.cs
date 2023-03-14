@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using System.Net;
@@ -10,8 +11,8 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     private const string _apiBaseUrl = "https://api.company-information.service.gov.uk";
     private DateTime _lastResponseDate = DateTime.MinValue;
     private const double _delayFromMileseconds = 0.5;
-    private readonly ILogging _logging;
-    private readonly HttpClientFactory _clientFactory;
+    private readonly ILogging _logger;
+    private readonly IHttpClientFactory _clientFactory;
 
     public CompaniesHouseApi(ILogging logger,
         IHttpClientFactory clientFactory)
@@ -78,7 +79,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         try
         {
             using var response = await httpClient.GetAsync(url);
-            Console.WriteLine(response);
+            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, response.ToString());
 
             if (response.StatusCode == HttpStatusCode.BadGateway)
             {
@@ -87,20 +88,12 @@ public class CompaniesHouseApi : ICompaniesHouseApi
             else
             {
                 request = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(new string('-', 100));
-                Console.WriteLine(request);
+                _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, new string('-', 100));
+                _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, request);
             }
         }
-        catch (WebException e)
+        catch (Exception)
         {
-            if (e.Status == WebExceptionStatus.ProtocolError)
-            {
-                WebResponse resp = e.Response;
-                using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
-                {
-                    Console.WriteLine(sr.ReadToEnd());
-                }
-            }
             throw;
         }
 
@@ -115,8 +108,8 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         }
         catch (Exception ex)
         {
-            Console.WriteLine("\nException Caught!");
-            Console.WriteLine($"Message : {ex}");
+            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Error, "\nException Caught!");
+            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Error, ex.Message);
             throw;
         }
         return jsonToObj;

@@ -1,8 +1,6 @@
 ﻿using CompaniesHouseParser.DomainParser;
 using CompaniesHouseParser.IoC;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using NetCore.AutoRegisterDi;
 
 namespace CompaniesHouseParser;
@@ -23,9 +21,6 @@ class Program
         services.RegisterAssemblyPublicNonGenericClasses(filtredAssemblies.ToArray())
             .Where(typeOfClass => typeof(ISingletonDependency).IsAssignableFrom(typeOfClass))
             .AsPublicImplementedInterfaces(ServiceLifetime.Singleton);
-
-        //services.TryAdd(ServiceDescriptor.Singleton<ILoggerFactory, LoggerFactory>()); //??
-        //services.TryAdd(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(Logger<>))); ????
 
         return services;
     }

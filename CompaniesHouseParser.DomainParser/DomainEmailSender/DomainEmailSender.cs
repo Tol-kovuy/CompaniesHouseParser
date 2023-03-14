@@ -1,6 +1,5 @@
 ﻿using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Settings;
-using NetCore.AutoRegisterDi;
 using System.Net;
 
 namespace CompaniesHouseParser.DomainParser;
@@ -37,7 +36,7 @@ public class DomainEmailSender : IDomainEmailSender
             .From(mailSettings.EmailAddressFrom)
             .ToRcepient(mailSettings.EmailAddressTo)
             .WithTextBody(message)
-            .WithSubject(_applicationSettings.Subject) // TODO: add subject to settings
+            .WithSubject(_applicationSettings.Subject)
             .Build();
         return buildedMessage;
     }
