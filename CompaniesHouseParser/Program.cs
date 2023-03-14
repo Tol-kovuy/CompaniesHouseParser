@@ -27,7 +27,7 @@ class Program
     /// <summary>
     /// TODO: 
     /// 1. request retry <----DONE
-    /// 2. Serilog ILogger and replace Console.Writeline -> ILogger.Log...
+    /// 2. Serilog ILogger and replace Console.Writeline -> ILogger.Log... <----DONE
     /// 3.AutoMaper
     /// </summary>
     /// <returns></returns>

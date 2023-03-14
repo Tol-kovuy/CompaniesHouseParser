@@ -4,12 +4,13 @@ namespace CompaniesHouseParser.Logging
 {
     public class Logging : ILogging
     {
+        private ILogger _logger;
         public void GetLogger<T>(LogLevel logLevel, string message)
         {
-            ILogger logger = LoggerFactory.Create(builder => builder.AddConsole())
+            _logger = LoggerFactory.Create(builder => builder.AddConsole())
             .CreateLogger<T>();
 
-            logger.Log(logLevel, message);
+            _logger.Log(logLevel, message);
         }
     }
 }
