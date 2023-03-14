@@ -4,7 +4,23 @@ namespace CompaniesHouseParser.IoC;
 
 public static class MyAssemblies
 {
-    public static IList<Assembly> GetAssemblies()
+    public static IList<Assembly> GetFiltredAssemlies(IList<Assembly> assemblies)
+    {
+        var filtredAssemblies = new List<Assembly>();
+        foreach (var assembly in assemblies)
+        {
+            if (assembly.FullName == null)
+            {
+                continue;
+            }
+            if (assembly.FullName.Contains("CompaniesHouseParser"))
+            {
+                filtredAssemblies.Add(assembly);
+            }
+        }
+        return filtredAssemblies;
+    }
+    public static IList<Assembly> GetAllAssemblies()
     {
         var returnAssemblies = new List<Assembly>();
         var loadedAssemblies = new HashSet<string>();

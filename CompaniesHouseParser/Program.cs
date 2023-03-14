@@ -10,20 +10,9 @@ class Program
 {
     static async Task Main()
     {
-        //var allAssemblies = AppDomain.CurrentDomain.GetAssemblies(); <---- eto xernya)))
-        var allAssemblies = MyAssemblies.GetAssemblies();
-        var filtredAssemblies = new List<Assembly>();
-        foreach (var assembly in allAssemblies)
-        {
-            if (assembly.FullName == null)
-            {
-                continue;
-            }
-            if (assembly.FullName.Contains("CompaniesHouseParser"))
-            {
-                filtredAssemblies.Add(assembly);
-            }
-        }
+        //var allAssemblies = AppDomain.CurrentDomain.GetAllAssemblies(); <---- eto xernya)))
+        var allAssemblies = MyAssemblies.GetAllAssemblies();
+        var filtredAssemblies = MyAssemblies.GetFiltredAssemlies(allAssemblies);
 
         IServiceCollection services = new ServiceCollection();
 
