@@ -11,8 +11,8 @@ class Program
     static async Task Main()
     {
         //var allAssemblies = AppDomain.CurrentDomain.GetAllAssemblies(); <---- eto xernya)))
-        var allAssemblies = MyAssemblies.GetAllAssemblies();
-        var filtredAssemblies = MyAssemblies.GetFiltredAssemlies(allAssemblies);
+        var allAssemblies = SolutionAssemblies.GetAllAssemblies();
+        var filtredAssemblies = SolutionAssemblies.GetFiltredAssemlies(allAssemblies);
 
         IServiceCollection services = new ServiceCollection();
 

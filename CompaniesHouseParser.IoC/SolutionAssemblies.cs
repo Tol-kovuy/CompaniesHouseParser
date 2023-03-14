@@ -2,7 +2,7 @@
 
 namespace CompaniesHouseParser.IoC;
 
-public static class MyAssemblies
+public static class SolutionAssemblies
 {
     public static IList<Assembly> GetFiltredAssemlies(IList<Assembly> assemblies)
     {
@@ -13,13 +13,14 @@ public static class MyAssemblies
             {
                 continue;
             }
-            if (assembly.FullName.Contains("CompaniesHouseParser"))
+            if (assembly.FullName.Contains(GetCurrentAssemlyName()))
             {
                 filtredAssemblies.Add(assembly);
             }
         }
         return filtredAssemblies;
     }
+
     public static IList<Assembly> GetAllAssemblies()
     {
         var returnAssemblies = new List<Assembly>();
@@ -46,5 +47,18 @@ public static class MyAssemblies
         }
 
         return returnAssemblies;
+    }
+
+    private static string GetCurrentAssemlyName()
+    {
+        Assembly currentAssembly = Assembly.GetExecutingAssembly();
+        string assamblyName = currentAssembly.GetName().Name;
+        int index = assamblyName.IndexOf('.');
+
+        if (index > 0)
+        {
+            assamblyName = assamblyName.Substring(0, index);
+        }
+        return assamblyName;
     }
 }
