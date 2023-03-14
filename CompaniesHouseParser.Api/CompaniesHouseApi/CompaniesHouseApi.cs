@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Net;
 
 namespace CompaniesHouseParser.Api;
 
@@ -73,8 +74,16 @@ public class CompaniesHouseApi : ICompaniesHouseApi
             Console.WriteLine(new string('-', 100));
             Console.WriteLine(request);
         }
-        catch (Exception)
+        catch (WebException e)
         {
+            if (e.Status == WebExceptionStatus.ProtocolError)
+            {
+                WebResponse resp = e.Response;
+                using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+                {
+                    Console.WriteLine(sr.ReadToEnd());
+                }
+            }
             throw;
         }
 
@@ -95,7 +104,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         }
         return jsonToObj;
     }
-    private string GetDate(DateTime date) // maybe is this extension method also? to do like Base64Encode?
+    private string GetDate(DateTime date)
     {
         return date.ToString("yyyy-MM-dd");
     }
