@@ -1,6 +1,10 @@
-﻿using CompaniesHouseParser.DomainParser;
+﻿using AutoMapper;
+using CompaniesHouseParser.DomainParser;
 using CompaniesHouseParser.IoC;
+using CompaniesHouseParser.Mapping;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using NetCore.AutoRegisterDi;
 
 namespace CompaniesHouseParser;
@@ -22,6 +26,9 @@ class Program
             .Where(typeOfClass => typeof(ISingletonDependency).IsAssignableFrom(typeOfClass))
             .AsPublicImplementedInterfaces(ServiceLifetime.Singleton);
 
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
+        //services.TryAdd(ServiceDescriptor.Singleton(typeof(MappingProfile)));
+
         return services;
     }
     /// <summary>
@@ -32,7 +39,7 @@ class Program
     /// </summary>
     /// <returns></returns>
     static async Task Main()
-    {
+    { 
         var services = ServicesRegistration();
         var serviceProvider = services.BuildServiceProvider();
         var app = serviceProvider.GetRequiredService<IParser>();

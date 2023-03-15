@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.IoC", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Logging", "..\CompaniesHouseParser.Logging\CompaniesHouseParser.Logging.csproj", "{8E013E0F-51CF-43F0-A371-438202503908}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Mapping", "..\CompaniesHouseParser.Mapping\CompaniesHouseParser.Mapping.csproj", "{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{8E013E0F-51CF-43F0-A371-438202503908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E013E0F-51CF-43F0-A371-438202503908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E013E0F-51CF-43F0-A371-438202503908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

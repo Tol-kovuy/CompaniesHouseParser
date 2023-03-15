@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="NetCore.AutoRegisterDi" Version="2.1.0" />
@@ -21,6 +23,7 @@
     <ProjectReference Include="..\CompaniesHouseParser.DomainParser\CompaniesHouseParser.DomainParser.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Mapping\CompaniesHouseParser.Mapping.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Search\CompaniesHouseParser.Search.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />

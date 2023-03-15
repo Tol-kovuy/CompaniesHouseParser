@@ -123,7 +123,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     {
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
-            .OrResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
+            .OrResult<HttpResponseMessage>(response => !response.IsSuccessStatusCode)
             .WaitAndRetryAsync(3, retryAttemp => TimeSpan.FromMilliseconds(_delayFromMileseconds));
 
         var httpClient = _clientFactory.GetHttpClient(token);
