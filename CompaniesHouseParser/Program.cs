@@ -1,17 +1,10 @@
-﻿using AutoMapper;
-using CompaniesHouseParser.Api;
-using CompaniesHouseParser.DomainParser;
+﻿using CompaniesHouseParser.DomainParser;
 using CompaniesHouseParser.IoC;
-using CompaniesHouseParser.Mapping;
-using CompaniesHouseParser.MappingHelper;
 using CompaniesHouseParser.Profile;
-using CompaniesHouseParser.Settings;
 using CompaniesHouseParser.SharedHelpers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using NetCore.AutoRegisterDi;
-using System;
+
 
 namespace CompaniesHouseParser;
 
@@ -33,7 +26,7 @@ class Program
             .AsPublicImplementedInterfaces(ServiceLifetime.Singleton);
 
         services.AddSingleton<IMappingHelper, MappingHelper.MappingHelper>();
-        services.AddAutoMapper(typeof(Program));
+        //services.AddAutoMapper(typeof(Program));
         services.AddAutoMapper(typeof(MapperProfile));
 
         return services;
@@ -49,22 +42,6 @@ class Program
     {
         var services = ServicesRegistration();
         var serviceProvider = services.BuildServiceProvider();
-
-
-        //var arg2 = serviceProvider.GetService<ICompaniesHouseApi>();
-        //var arg3 = serviceProvider.GetService<IApplicationSettingsAccessor>();
-        //var arg1 = serviceProvider.GetService<IMapper>();
-        //var mappingProfile = new MappingProfile(arg1, arg2, arg3);
-
-        //var configuration = new MapperConfiguration(cfg =>
-        //{
-        //    cfg.AddProfile(mappingProfile);
-        //});
-        //var mapper = new Mapper(configuration);
-
-        //services.AddSingleton<IMapper>(mapper);
-        //services.AddAutoMapper(typeof(MappingProfile));
-        //services.AddAutoMapper();
 
         var app = serviceProvider.GetRequiredService<IParser>();
         await app.ExecuteAsync();

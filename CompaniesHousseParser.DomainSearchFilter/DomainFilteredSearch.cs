@@ -22,7 +22,6 @@ public class DomainFilteredSearch : IDomainFilteredSearch
     public async Task<IList<ICompany>> GetFilteredCompaniesAsync()
     {
         var companies = await GetNewCompaniesAsync();
-        //var companyWithOfficers = await HasOfficerWithNationalityAsync(companies);
         var companiesByNatioality = await FindByNationality(companies);
         return companiesByNatioality;
     }

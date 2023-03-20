@@ -50,16 +50,7 @@ public class Company : ICompany
         var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
         foreach (var officerFromDto in officersFromDto)
         {
-            //var officer = _mapper.Map<OfficerDto, Officer>(officerFromDto); // mozno li mappit Interfaces?
             var officer = _mapper.Map<OfficerDto, Officer>(officerFromDto);
-            //var officer = new Officer()
-            //{
-            //    Name = officerFromDto.Name,
-            //    Role = officerFromDto.Role,
-            //    Nationality = officerFromDto.Nationality,
-            //    City = officerFromDto.Address.City,
-            //    Country = officerFromDto.Address.Country
-            //};
             _officers.Add(officer);
         }
         return _officers;

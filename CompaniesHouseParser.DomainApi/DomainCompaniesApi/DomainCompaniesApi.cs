@@ -39,13 +39,6 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         foreach (var companyFromDto in companiesDtos)
         {
             var company = _mapper.GetMapper().Map<Company>(companyFromDto);
-
-            //var company = new Company(_mapper, _companiesHouseApi, _applicationSettings)
-            //{
-            //    Id = companyFromDto.Id,
-            //    Name = companyFromDto.Name,
-            //    CreatedDate = companyFromDto.DateOfCreation
-            //};
             companies.Add(company);
         }
         return companies;
