@@ -47,7 +47,7 @@ public class Company : ICompany
         };
 
         _officers = new List<IOfficer>();
-        var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
+        var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest); 
         foreach (var officerFromDto in officersFromDto)
         {
             var officer = _mapper.Map<OfficerDto, Officer>(officerFromDto);
