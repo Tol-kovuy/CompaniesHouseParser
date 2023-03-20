@@ -14,8 +14,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
-    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.Settings\CompaniesHouseParser.Settings.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParsser.SharedHelpers\CompaniesHouseParser.SharedHelpers.csproj" />
   </ItemGroup>
 
 </Project>

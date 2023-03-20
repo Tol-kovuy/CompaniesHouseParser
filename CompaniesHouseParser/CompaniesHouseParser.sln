@@ -27,9 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.IoC", "..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj", "{DDB53530-21FD-47F4-B74A-0A5CC7160464}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Logging", "..\CompaniesHouseParser.Logging\CompaniesHouseParser.Logging.csproj", "{8E013E0F-51CF-43F0-A371-438202503908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Logging", "..\CompaniesHouseParser.Logging\CompaniesHouseParser.Logging.csproj", "{8E013E0F-51CF-43F0-A371-438202503908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Mapping", "..\CompaniesHouseParser.Mapping\CompaniesHouseParser.Mapping.csproj", "{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Mapping", "..\CompaniesHouseParser.Mapping\CompaniesHouseParser.Mapping.csproj", "{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.MappingHelper", "..\CompaniesHouseParser.MappingHelper\CompaniesHouseParser.MappingHelper.csproj", "{5295B66E-FAD9-4DF6-B531-3A3BC338771C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.SharedHelpers", "..\CompaniesHouseParsser.SharedHelpers\CompaniesHouseParser.SharedHelpers.csproj", "{F2C077AF-1E6E-4EBB-9951-149BF24B6047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Profile", "..\CompaniesHouseParser.Profile\CompaniesHouseParser.Profile.csproj", "{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +99,18 @@ Global
 		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5E976A2-9F97-46B4-82CC-B2EEF9F05051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5295B66E-FAD9-4DF6-B531-3A3BC338771C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5295B66E-FAD9-4DF6-B531-3A3BC338771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5295B66E-FAD9-4DF6-B531-3A3BC338771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5295B66E-FAD9-4DF6-B531-3A3BC338771C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C077AF-1E6E-4EBB-9951-149BF24B6047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C077AF-1E6E-4EBB-9951-149BF24B6047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C077AF-1E6E-4EBB-9951-149BF24B6047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C077AF-1E6E-4EBB-9951-149BF24B6047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

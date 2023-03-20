@@ -15,7 +15,6 @@ public class DomainCompanyEmailSender : IDomainCompanyEmailSender
     public async Task SendAsync(ICompany message)
     {
         var mailBody = await CreateEmailBodyAsync(message);
-        //var emailMesasge = _domainEmailSender.BuildEmailMessage(mailBody);
         _domainEmailSender.SendTextMessage(mailBody);
     }
 

@@ -2,6 +2,7 @@
 using CompaniesHouseParser.Api;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
+using CompaniesHouseParser.SharedHelpers;
 
 namespace CompaniesHouseParser.DomainApi;
 
@@ -9,10 +10,10 @@ public class DomainCompaniesApi : IDomainCompaniesApi
 {
     private ICompaniesHouseApi _companiesHouseApi;
     private IApplicationSettingsAccessor _applicationSettings;
-    private readonly IMapper _mapper;
+    private IMappingHelper _mapper;
 
     public DomainCompaniesApi(
-        IMapper mapper,
+        IMappingHelper mapper,
         ICompaniesHouseApi companiesHouseApi,
         IApplicationSettingsAccessor settingsAccessor
         )
@@ -37,7 +38,7 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         var companies = new List<ICompany>();
         foreach (var companyFromDto in companiesDtos)
         {
-            var company = _mapper.Map<CompanyDto, Company>(companyFromDto);
+            var company = _mapper.GetMapper().Map<Company>(companyFromDto);
 
             //var company = new Company(_mapper, _companiesHouseApi, _applicationSettings)
             //{
@@ -47,9 +48,6 @@ public class DomainCompaniesApi : IDomainCompaniesApi
             //};
             companies.Add(company);
         }
-
-        
-
         return companies;
     }
 }

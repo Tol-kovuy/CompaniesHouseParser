@@ -36,6 +36,7 @@ public class DomainSearch : IDomainSearch
             IncorporatedFrom = _applicationStorageCreatedDate.GetLastIncorporatedFromDate()
         };
         var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
+      
         return getCompanies;
     }
 

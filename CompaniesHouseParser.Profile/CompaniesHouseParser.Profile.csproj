@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.DomainApi\CompaniesHouseParser.DomainApi.csproj" />
   </ItemGroup>
 

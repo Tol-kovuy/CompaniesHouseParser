@@ -19,7 +19,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     {
         _logger = logger;
         _clientFactory = clientFactory;
-    }
+     }
 
     private void SetLastResponseDate()
     {
