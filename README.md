@@ -36,3 +36,23 @@ This configuration is only required the first time the application is launched. 
      - "EmailAddressFrom": "email_sender@gmail.com", <---for example
      - "EmailAddressTo": "email_recipient@gmail.com" <---for example
     }
+###	How to get an API token key
+- You must register a user account with Companies House to explore and perform tests with the Companies House API.
+- Sign in to create an application.
+- Provide a name and description for the application.
+- Choose whether you want a test application for use against our sandbox environment or a live application for use in production.
+- Provide optional links to the privacy policy URL and terms and conditions URL of your service.
+- Select 'Create'.
+- A new application will be created. You can then create API clients for your application. API clients created for to your application can then be used to interact with the Companies House API and OAuth 2.0 service. There are 3 types of API client: API key, stream key and OAuth web client. Сhoose API key.
+### how to set up smtp server gmail
+- Go to your Google Account.
+- Select Security.
+- Under "Signing in to Google," select App Passwords. You may need to sign in. If you don’t have this option, it might be because:
+- 2-Step Verification is not set up for your account.
+- 2-Step Verification is only set up for security keys.
+- Your account is through work, school, or other organization.
+- You turned on Advanced Protection.
+- At the bottom, choose Select app and choose the app you using and then Select device and choose the device you’re using and then Generate.
+- Follow the instructions to enter the App Password. The App Password is the 16-character code in the yellow bar on your device.
+- Tap Done.
+- Tip: Most of the time, you’ll only have to enter an App Password once per app or device, so don’t worry about memorizing it.
