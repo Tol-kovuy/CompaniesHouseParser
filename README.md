@@ -10,5 +10,5 @@ Console application which use CompaniesHouse Advanced Search API to get all comp
   - ParsingSettings\ModifiedSettings
   - StaticSettings
   
-  ### В файле "ModifiedSettings" Вы можете установить дату, с которой Вы хотите начать поиск. В графе LastIncorporatedFrom задайте год, месяц и число с которых Вы хотите начать поиск. Обратите свое внимание, что дата по умолчанию 2023-02-01T00:00:00.
-  #### {"Companies":{"LastIncorporatedFrom":"2023-02-01T00:00:00"}}
+### In the file "ModifiedSettings" you can set the date from which you want to start the search. In the LastIncorporatedFrom column, specify the year, month, and day from which you want to start the search. Please note that the default date is 2023-02-01T00:00:00. 
+#### {"Companies":{"LastIncorporatedFrom":"2023-02-01T00:00:00"}}
