@@ -1,4 +1,3 @@
-﻿namespace CompaniesHouseParser.IoC
-{
-    public interface ITransientDependency { }
-}
+﻿namespace CompaniesHouseParser.IoC;
+
+public interface ITransientDependency { }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CompaniesHouseParser.Api;
+using CompaniesHouseParser.Domain;
 using CompaniesHouseParser.DomainApi;
 
 namespace CompaniesHouseParser.Profile;

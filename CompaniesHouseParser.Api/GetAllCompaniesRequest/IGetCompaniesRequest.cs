@@ -1,11 +1,10 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Api
+namespace CompaniesHouseParser.Api;
+
+public interface IGetCompaniesRequest : ITransientDependency
 {
-    public interface IGetCompaniesRequest : ITransientDependency
-    {
-        int CompaniesCount { get; set; }
-        DateTime IncorporatedFrom { get; set; }
-        string ApiToken { get; set; }
-    }
+    int CompaniesCount { get; set; }
+    DateTime IncorporatedFrom { get; set; }
+    string ApiToken { get; set; }
 }

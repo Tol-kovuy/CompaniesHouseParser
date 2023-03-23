@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using CompaniesHouseParser.Api;
+﻿using CompaniesHouseParser.Api;
+using CompaniesHouseParser.Domain;
 using CompaniesHouseParser.DomainShared;
+using CompaniesHouseParser.Mapping;
 using CompaniesHouseParser.Settings;
-using CompaniesHouseParser.SharedHelpers;
 
 namespace CompaniesHouseParser.DomainApi;
 
@@ -10,15 +10,15 @@ public class DomainCompaniesApi : IDomainCompaniesApi
 {
     private ICompaniesHouseApi _companiesHouseApi;
     private IApplicationSettingsAccessor _applicationSettings;
-    private IMappingHelper _mapper;
+    private ICompanyMapperFactory _companyMapperFactory;
 
     public DomainCompaniesApi(
-        IMappingHelper mapper,
+        ICompanyMapperFactory companyMapperFactory,
         ICompaniesHouseApi companiesHouseApi,
         IApplicationSettingsAccessor settingsAccessor
         )
     {
-        _mapper = mapper;
+        _companyMapperFactory = companyMapperFactory;
         _companiesHouseApi = companiesHouseApi;
         _applicationSettings = settingsAccessor;
     }
@@ -38,7 +38,7 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         var companies = new List<ICompany>();
         foreach (var companyFromDto in companiesDtos)
         {
-            var company = _mapper.GetMapper().Map<Company>(companyFromDto);
+            var company = _companyMapperFactory.Get().Map<Company>(companyFromDto);
             companies.Add(company);
         }
         return companies;

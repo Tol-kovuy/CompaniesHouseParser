@@ -1,5 +1,4 @@
-﻿using CompaniesHouseParser.Logging;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 
 namespace CompaniesHouseParser.Api;
@@ -7,11 +6,11 @@ namespace CompaniesHouseParser.Api;
 public class HttpClientFactory : IHttpClientFactory
 {
     private HttpClient _httpClient;
-    private readonly ILogging _logger;
+    public ILogger Logger { get; set; }
 
-    public HttpClientFactory(ILogging logger)
+    public HttpClientFactory(ILogger<HttpClientFactory> logger)
     {
-        _logger = logger;
+        Logger = logger;
     }
 
     public HttpClient GetHttpClient(string token)
@@ -30,8 +29,8 @@ public class HttpClientFactory : IHttpClientFactory
         }
         catch (Exception ex)
         {
-            _logger.GetLogger<HttpClientFactory>(LogLevel.Error, "\nException Caught!");
-            _logger.GetLogger<HttpClientFactory>(LogLevel.Error, ex.Message);
+            Logger.LogError("\nException Caught!");
+            Logger.LogError(ex.Message);
         }
         return _httpClient;
     }

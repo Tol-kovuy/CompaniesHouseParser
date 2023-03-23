@@ -1,9 +1,8 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Settings
+namespace CompaniesHouseParser.Settings;
+
+public interface INotificationFor : ITransientDependency
 {
-    public interface INotificationFor : ITransientDependency
-    {
-        IResultMailingAddress EmailAddresses { get; }
-    }
+    IResultMailingAddress EmailAddresses { get; }
 }

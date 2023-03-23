@@ -8,7 +8,7 @@ public class DomainFilteredSearch : IDomainFilteredSearch
 {
     private IDomainSearch _domainSearch;
     private IApplicationCompanyFilter _applicationCompanyFilter;
-    private string _filterBy;
+    private string? _filterBy;
 
     public DomainFilteredSearch(
         IDomainSearch domainSearch,

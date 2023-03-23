@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.SharedHelpers
+namespace CompaniesHouseParser.SharedHelpers;
+
+public interface IMappingHelper : ISingletonDependency
 {
-    public interface IMappingHelper : ISingletonDependency
-    {
-        IMapper GetMapper();
-    }
+    IMapper GetMapper();
 }

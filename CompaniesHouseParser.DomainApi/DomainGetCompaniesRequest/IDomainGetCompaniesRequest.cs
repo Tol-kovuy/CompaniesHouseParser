@@ -1,9 +1,8 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.DomainApi
+namespace CompaniesHouseParser.DomainApi;
+
+public interface IDomainGetCompaniesRequest : ITransientDependency
 {
-    public interface IDomainGetCompaniesRequest : ITransientDependency
-    {
-        DateTime IncorporatedFrom { get; set; }
-    }
+    DateTime IncorporatedFrom { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Api
+namespace CompaniesHouseParser.Api;
+
+public interface ICompaniesHouseApi : ITransientDependency
 {
-    public interface ICompaniesHouseApi : ITransientDependency
-    {
-        Task<IList<CompanyDto>> GetCompaniesAsync(IGetCompaniesRequest request);
-        Task<IList<OfficerDto>> GetOfficers(IGetOfficerRequest request);
-    }
+    Task<IList<CompanyDto>> GetCompaniesAsync(IGetCompaniesRequest request);
+    Task<IList<OfficerDto>> GetOfficers(IGetOfficerRequest request);
 }

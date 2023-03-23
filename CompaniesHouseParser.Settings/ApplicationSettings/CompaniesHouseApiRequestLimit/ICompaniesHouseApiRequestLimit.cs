@@ -1,10 +1,9 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Settings
+namespace CompaniesHouseParser.Settings;
+
+public interface ICompaniesHouseApiRequestLimit : ITransientDependency
 {
-    public interface ICompaniesHouseApiRequestLimit : ITransientDependency
-    {
-        int Count { get; }
-        TimeSpan Interval { get; }
-    }
+    int Count { get; }
+    TimeSpan Interval { get; }
 }

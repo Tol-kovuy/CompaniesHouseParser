@@ -1,10 +1,9 @@
 ﻿using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.DomainApi
+namespace CompaniesHouseParser.DomainApi;
+
+public interface IDomainCompaniesApi : ITransientDependency
 {
-    public interface IDomainCompaniesApi : ITransientDependency
-    {
-        Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi);
-    }
+    Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi);
 }

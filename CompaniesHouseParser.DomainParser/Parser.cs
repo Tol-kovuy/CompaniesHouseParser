@@ -1,5 +1,4 @@
 ﻿using CompaniesHouseParser.DomainShared;
-using CompaniesHouseParser.Logging;
 using CompaniesHousseParser.DomainSearchFilter;
 using Microsoft.Extensions.Logging;
 
@@ -9,14 +8,15 @@ public class Parser : IParser
 {
     private IDomainFilteredSearch _domainFilteredSearch;
     private IDomainCompanyEmailSender _emailSender;
-    private readonly ILogging _logger;
+    public ILogger Logger { get; set; }
 
-    public Parser(ILogging logger,
+    public Parser(
+        ILogger<Parser> logger,
         IDomainFilteredSearch domainFilteredSearch,
         IDomainCompanyEmailSender emailSender
         )
     {
-        _logger = logger;
+        Logger = logger;
         _domainFilteredSearch = domainFilteredSearch;
         _emailSender = emailSender;
     }
@@ -26,7 +26,7 @@ public class Parser : IParser
         var companies = await GetFilteredCompaniesAsync();
         if (companies.Count == 0)
         {
-            _logger.GetLogger<Parser>(LogLevel.Information,
+            Logger.LogInformation(
                 $"No newly created companies for at this time {DateTime.Now}");
         }
         else

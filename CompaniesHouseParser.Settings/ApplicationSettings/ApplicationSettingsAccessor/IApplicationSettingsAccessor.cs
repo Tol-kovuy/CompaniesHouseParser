@@ -1,9 +1,8 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Settings
+namespace CompaniesHouseParser.Settings;
+
+public interface IApplicationSettingsAccessor : ITransientDependency
 {
-    public interface IApplicationSettingsAccessor : ITransientDependency
-    {
-        IApplicationSettings Get();
-    }
+    IApplicationSettings Get();
 }

@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace CompaniesHouseParser.Api
+namespace CompaniesHouseParser.Api;
+
+public class LinkDto
 {
-    public class LinkDto
-    {
-        [JsonProperty(PropertyName = "self")]
-        public string Self { get; set; }
-        [JsonProperty(PropertyName = "officer")]
-        public AppointmentDto OfficerAppointments { get; set; }
-    }
+    [JsonProperty(PropertyName = "self")]
+    public string Self { get; set; }
+    [JsonProperty(PropertyName = "officer")]
+    public AppointmentDto OfficerAppointments { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace CompaniesHouseParser.Api
+namespace CompaniesHouseParser.Api;
+
+public class CompaniesListDto
 {
-    public class CompaniesListDto
-    {
-        [JsonProperty(PropertyName = "items")]
-        public List<CompanyDto> Companies { get; set; }
-    }
+    [JsonProperty(PropertyName = "items")]
+    public List<CompanyDto> Companies { get; set; }
 }

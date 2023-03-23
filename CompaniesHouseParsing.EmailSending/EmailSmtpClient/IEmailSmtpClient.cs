@@ -1,9 +1,8 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Email
+namespace CompaniesHouseParser.Email;
+
+public interface IEmailSmtpClient : ITransientDependency
 {
-    public interface IEmailSmtpClient : ITransientDependency
-    {
-        void Send(IEmailMessage message);
-    }
+    void Send(IEmailMessage message);
 }

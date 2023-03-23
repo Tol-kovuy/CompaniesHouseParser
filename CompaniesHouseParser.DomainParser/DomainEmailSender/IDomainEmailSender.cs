@@ -1,9 +1,8 @@
 ﻿using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.DomainParser
+namespace CompaniesHouseParser.DomainParser;
+
+public interface IDomainEmailSender : ITransientDependency
 {
-    public interface IDomainEmailSender : ITransientDependency
-    {
-        void SendTextMessage(string message);
-    }
+    void SendTextMessage(string message);
 }

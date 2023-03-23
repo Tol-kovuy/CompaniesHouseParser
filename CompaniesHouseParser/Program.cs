@@ -1,10 +1,10 @@
 ﻿using CompaniesHouseParser.DomainParser;
 using CompaniesHouseParser.IoC;
 using CompaniesHouseParser.Profile;
-using CompaniesHouseParser.SharedHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NetCore.AutoRegisterDi;
-
+using NetEscapades.Extensions.Logging.RollingFile;
 
 namespace CompaniesHouseParser;
 
@@ -25,19 +25,29 @@ class Program
             .Where(typeOfClass => typeof(ISingletonDependency).IsAssignableFrom(typeOfClass))
             .AsPublicImplementedInterfaces(ServiceLifetime.Singleton);
 
-        services.AddSingleton<IMappingHelper, MappingHelper.MappingHelper>();
-        //services.AddAutoMapper(typeof(Program));
         services.AddAutoMapper(typeof(MapperProfile));
 
+
+        services.AddLogging(builder =>
+            {
+                builder.AddSimpleConsole(options =>
+                    {
+                        options.TimestampFormat = "HH:mm:ss   ";
+                    });
+                // Uncommet for loggin in txt file 
+
+                //builder.AddFile(options => { 
+                //    options.FileName = "parserLogs";
+                //    options.LogDirectory = AppContext.BaseDirectory; 
+                //    options.FileSizeLimit = 20 * 1024 * 1024; 
+                //    options.FilesPerPeriodicityLimit = 200;
+                //    options.Extension = "txt"; 
+                //    options.Periodicity = PeriodicityOptions.Hourly; 
+                //    });
+            });
+       
         return services;
     }
-    /// <summary>
-    /// TODO: 
-    /// 1. request retry <----DONE
-    /// 2. Serilog ILogger and replace Console.Writeline -> ILogger.Log... <----DONE
-    /// 3.AutoMaper
-    /// </summary>
-    /// <returns></returns>
     static async Task Main()
     {
         var services = ServicesRegistration();

@@ -1,4 +1,3 @@
-﻿namespace CompaniesHouseParser.IoC
-{
-    public interface ISingletonDependency { }
-}
+﻿namespace CompaniesHouseParser.IoC;
+
+public interface ISingletonDependency { }

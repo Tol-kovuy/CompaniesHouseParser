@@ -1,5 +1,4 @@
-﻿using CompaniesHouseParser.Logging;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using System.Net;
@@ -11,15 +10,16 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     private const string _apiBaseUrl = "https://api.company-information.service.gov.uk";
     private DateTime _lastResponseDate = DateTime.MinValue;
     private const double _delayFromMileseconds = 0.5;
-    private readonly ILogging _logger;
     private readonly IHttpClientFactory _clientFactory;
+    public ILogger Logger { get;  set; }
 
-    public CompaniesHouseApi(ILogging logger,
+    public CompaniesHouseApi(
+        ILogger<CompaniesHouseApi> logger,
         IHttpClientFactory clientFactory)
     {
-        _logger = logger;
+        Logger = logger;
         _clientFactory = clientFactory;
-     }
+    }
 
     private void SetLastResponseDate()
     {
@@ -34,7 +34,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
 
     private async Task DelayBetweenRequest()
     {
-        var delaybetweenRequests = TimeSpan.FromSeconds(_delayFromMileseconds);// from config;
+        var delaybetweenRequests = TimeSpan.FromSeconds(_delayFromMileseconds);
         var timeElapsedSinceLastRequest = GetTimeElapsedSinceLastRequest();
         var delayInterval = delaybetweenRequests - timeElapsedSinceLastRequest;
         if (delayInterval.TotalMilliseconds > 0)
@@ -79,7 +79,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         try
         {
             using var response = await httpClient.GetAsync(url);
-            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, response.ToString());
+            Logger.LogInformation(response.ToString());
 
             if (response.StatusCode == HttpStatusCode.BadGateway)
             {
@@ -88,8 +88,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
             else
             {
                 request = await response.Content.ReadAsStringAsync();
-                _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, new string('-', 100));
-                _logger.GetLogger<CompaniesHouseApi>(LogLevel.Information, request);
+                Logger.LogInformation(request);
             }
         }
         catch (Exception)
@@ -108,8 +107,8 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         }
         catch (Exception ex)
         {
-            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Error, "\nException Caught!");
-            _logger.GetLogger<CompaniesHouseApi>(LogLevel.Error, ex.Message);
+            Logger.LogError("\nException Caught!");
+            Logger.LogError($"{ex.Message}");
             throw;
         }
         return jsonToObj;
@@ -118,7 +117,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     {
         return date.ToString("yyyy-MM-dd");
     }
-    
+
     private async Task<string> RetryRequestsAsync(string url, string token)
     {
         var retryPolicy = Policy

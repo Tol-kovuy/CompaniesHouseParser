@@ -1,10 +1,9 @@
 ﻿using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.IoC;
 
-namespace CompaniesHouseParser.Search
+namespace CompaniesHouseParser.Search;
+
+public interface IDomainSearch : ITransientDependency
 {
-    public interface IDomainSearch : ITransientDependency
-    {
-        Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync();
-    }
+    Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync();
 }

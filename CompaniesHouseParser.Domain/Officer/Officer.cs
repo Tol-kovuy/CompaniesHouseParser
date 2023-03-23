@@ -1,6 +1,6 @@
 ﻿using CompaniesHouseParser.DomainShared;
 
-namespace CompaniesHouseParser.DomainApi;
+namespace CompaniesHouseParser.Domain;
 
 public class Officer : IOfficer
 {

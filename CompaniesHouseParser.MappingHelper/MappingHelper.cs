@@ -2,22 +2,19 @@
 using CompaniesHouseParser.Mapping;
 using CompaniesHouseParser.SharedHelpers;
 
-namespace CompaniesHouseParser.MappingHelper
+namespace CompaniesHouseParser.MappingHelper;
+
+public class MappingHelper : IMappingHelper
 {
-    public class MappingHelper : IMappingHelper
+
+    private ICompanyMapperFactory _companyMapperFactory;
+    public MappingHelper(ICompanyMapperFactory companyMapperFactory)
     {
-
-        private ICompanyMapperFactory _companyMapperFactory;
-        public MappingHelper(ICompanyMapperFactory companyMapperFactory)
-        {
-            _companyMapperFactory = companyMapperFactory;
-        }
-
-        public IMapper GetMapper()
-        {
-            var mapper = _companyMapperFactory.Create();
-            return mapper;
-        }
+        _companyMapperFactory = companyMapperFactory;
     }
 
+    public IMapper GetMapper()
+    {
+        return _companyMapperFactory.Create(); ;
+    }
 }

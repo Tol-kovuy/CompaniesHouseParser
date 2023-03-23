@@ -1,6 +1,4 @@
-﻿using NetCore.AutoRegisterDi;
-
-namespace CompaniesHouseParser.Email;
+﻿namespace CompaniesHouseParser.Email;
 
 public class EmailMessage : IEmailMessage
 {

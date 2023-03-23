@@ -2,9 +2,8 @@
 using CompaniesHouseParser.Api;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Settings;
-using CompaniesHouseParser.SharedHelpers;
 
-namespace CompaniesHouseParser.DomainApi;
+namespace CompaniesHouseParser.Domain;
 
 public class Company : ICompany
 {
@@ -47,7 +46,7 @@ public class Company : ICompany
         };
 
         _officers = new List<IOfficer>();
-        var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest); 
+        var officersFromDto = await _companiesHouseApi.GetOfficers(officerRequest);
         foreach (var officerFromDto in officersFromDto)
         {
             var officer = _mapper.Map<OfficerDto, Officer>(officerFromDto);
