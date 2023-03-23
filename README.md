@@ -16,7 +16,7 @@ This configuration is only required the first time the application is launched. 
 
 ##### In the "StaticSettings" file, you need to set the following: 
 - API token key, which you will generate directly on the site.
--- "CompaniesHouseApi": {
+  - "CompaniesHouseApi": {
 	"Token": "YOUR API token key",
     "SearchCompaniesPerRequest": 5000,
     "RequestLimit": {
@@ -24,14 +24,14 @@ This configuration is only required the first time the application is launched. 
       "Interval": "00:00:00.7000000"
     }
 - Smtp settings for the mailbox from which the search results will be sent.
--- "Smtp": {
+  - "Smtp": {
     "Email": "email_sender@gmail.com", <---for example
     "UserName": "email_sender@gmail.com",
     "Password": "The password that you will receive when setting up the smtp server",
     "Host": "smtp.gmail.com", <---for example
     "Port": 587 <---for example
 - Specify the email address from which messages will be sent and specify which email address messages will be sent to
--- "Email": {
+  - "Email": {
     "EmailAddresses": {
       "EmailAddressFrom": "email_sender@gmail.com", <---for example
       "EmailAddressTo": "email_recipient@gmail.com" <---for example
