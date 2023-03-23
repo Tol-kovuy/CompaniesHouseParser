@@ -6,6 +6,9 @@ Console application which use CompaniesHouse Advanced Search API to get all comp
 ### To set up this application, you will need:
 - Set up an smtp mail server from which the found employees will be sent
 - Get api token key from https://www.gov.uk/government/organisations/companies-house.
-- Enter these settings into the application and configure it, for this you need only two files with configurations in the root directory
-  - StaticSettings
+- Enter these settings into the application and configure it, for this you need only two files with configurations in the root directory:
   - ParsingSettings\ModifiedSettings
+  - StaticSettings
+  
+  ### В файле "ModifiedSettings" Вы можете установить дату, с которой Вы хотите начать поиск. В графе LastIncorporatedFrom задайте год, месяц и число с которых Вы хотите начать поиск. Обратите свое внимание, что дата по умолчанию 2023-02-01T00:00:00.
+  #### {"Companies":{"LastIncorporatedFrom":"2023-02-01T00:00:00"}}
