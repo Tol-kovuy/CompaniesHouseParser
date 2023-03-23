@@ -25,14 +25,14 @@ This configuration is only required the first time the application is launched. 
     }
 - Smtp settings for the mailbox from which the search results will be sent.
   - "Smtp": {
-    "Email": "email_sender@gmail.com", <---for example
-    "UserName": "email_sender@gmail.com",
-    "Password": "The password that you will receive when setting up the smtp server",
-    "Host": "smtp.gmail.com", <---for example
-    "Port": 587 <---for example
+   - "Email": "email_sender@gmail.com", <---for example
+   - "UserName": "email_sender@gmail.com",
+   - "Password": "The password that you will receive when setting up the smtp server",
+   - "Host": "smtp.gmail.com", <---for example
+   - "Port": 587 <---for example
 - Specify the email address from which messages will be sent and specify which email address messages will be sent to
   - "Email": {
-    "EmailAddresses": {
-      "EmailAddressFrom": "email_sender@gmail.com", <---for example
-      "EmailAddressTo": "email_recipient@gmail.com" <---for example
+   - "EmailAddresses": {
+     - "EmailAddressFrom": "email_sender@gmail.com", <---for example
+     - "EmailAddressTo": "email_recipient@gmail.com" <---for example
     }
