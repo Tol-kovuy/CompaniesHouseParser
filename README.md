@@ -7,5 +7,5 @@ Console application which use CompaniesHouse Advanced Search API to get all comp
 - Set up an smtp mail server from which the found employees will be sent
 - Get api token key from https://www.gov.uk/government/organisations/companies-house.
 - Enter these settings into the application and configure it, for this you need only two files with configurations in the root directory
--- StaticSettings
--- ParsingSettings\ModifiedSettings
+  - StaticSettings
+  - ParsingSettings\ModifiedSettings
