@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.DomainShared\CompaniesHouseParser.DomainShared.csproj" />  
     <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
   </ItemGroup>
 
