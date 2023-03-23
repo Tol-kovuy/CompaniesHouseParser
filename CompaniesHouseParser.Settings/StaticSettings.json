@@ -8,9 +8,9 @@
     }
   },
   "Smtp": {
-    "Email": "smarty.maks13@gmail.com",
-    "UserName": "smarty.maks13@gmail.com",
-    "Password": "mtiwdvblpymxtifx",
+    "Email": " ",
+    "UserName": "  ",
+    "Password": "",
     "Host": "smtp.gmail.com",
     "Port": 587
   },
@@ -18,8 +18,8 @@
     { "Officer": { "Nationality": "Israeli" } },
   "Email": {
     "EmailAddresses": {
-      "EmailAddressFrom": "smarty.maks13@gmail.com",
-      "EmailAddressTo": "krotkrotowskij@gmail.com"
+      "EmailAddressFrom": " ",
+      "EmailAddressTo": " "
     }
   },
   "Subject": "CompaniesHouseParsingResult"

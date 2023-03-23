@@ -44,7 +44,7 @@ This configuration is only required the first time the application is launched. 
 - Provide optional links to the privacy policy URL and terms and conditions URL of your service.
 - Select 'Create'.
 - A new application will be created. You can then create API clients for your application. API clients created for to your application can then be used to interact with the Companies House API and OAuth 2.0 service. There are 3 types of API client: API key, stream key and OAuth web client. Сhoose API key.
-### how to set up smtp server gmail
+### How to set up smtp server gmail
 - Go to your Google Account.
 - Select Security.
 - Under "Signing in to Google," select App Passwords. You may need to sign in. If you don’t have this option, it might be because:
