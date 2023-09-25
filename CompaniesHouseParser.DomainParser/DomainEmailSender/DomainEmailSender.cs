@@ -1,5 +1,6 @@
 ﻿using CompaniesHouseParser.Email;
 using CompaniesHouseParser.Settings;
+using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace CompaniesHouseParser.DomainParser;
@@ -8,14 +9,17 @@ public class DomainEmailSender : IDomainEmailSender
 {
     private readonly IApplicationSettings _applicationSettings;
     private readonly IEmailMessageBuilder _emailMessageBuilder;
+    private readonly ILogger<EmailSmtpClient> _logger;
 
     public DomainEmailSender(
         IApplicationSettingsAccessor settingsAccessor,
-        IEmailMessageBuilder emailMessageBuilder
+        IEmailMessageBuilder emailMessageBuilder,
+        ILogger<EmailSmtpClient> logger
         )
     {
         _applicationSettings = settingsAccessor.Get();
         _emailMessageBuilder = emailMessageBuilder;
+        _logger = logger;
     }
 
     public void SendTextMessage(string message)
@@ -43,7 +47,7 @@ public class DomainEmailSender : IDomainEmailSender
 
     private IEmailSmtpClient BuildSmtpClient()
     {
-        var emailSmtpFactory = new EmailSmtpClientFactory();
+        var emailSmtpFactory = new EmailSmtpClientFactory(_logger);
         var smtpSettings = _applicationSettings.Smtp;
         var emailSmtpClient = emailSmtpFactory.Create(
             smtpSettings.Host,

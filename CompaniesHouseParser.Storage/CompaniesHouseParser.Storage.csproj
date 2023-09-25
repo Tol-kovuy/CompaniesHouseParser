@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <None Update="ParsingSettings\ModifiedSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

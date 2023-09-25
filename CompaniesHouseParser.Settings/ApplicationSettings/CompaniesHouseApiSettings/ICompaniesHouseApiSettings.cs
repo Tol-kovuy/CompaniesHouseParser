@@ -7,4 +7,5 @@ public interface ICompaniesHouseApiSettings : ITransientDependency
     string Token { get; }
     int SearchCompaniesPerRequest { get; }
     ICompaniesHouseApiRequestLimit RequestLimit { get; }
+    DateTime SearchIncorporatedFrom { get; }
 }

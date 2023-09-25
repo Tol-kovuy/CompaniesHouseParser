@@ -1,4 +1,5 @@
-﻿using CompaniesHouseParser.DomainShared;
+﻿using CompaniesHouseParser.DomainApi;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Search;
 using CompaniesHouseParser.Settings;
 
@@ -19,11 +20,15 @@ public class DomainFilteredSearch : IDomainFilteredSearch
         _applicationCompanyFilter = applicationSettingsAccessor.Get().Filters;
     }
 
-    public async Task<IList<ICompany>> GetFilteredCompaniesAsync()
+    public async Task<IDomainGetCompaniesResponse> GetFilteredCompaniesAsync()
     {
-        var companies = await GetNewCompaniesAsync();
-        var companiesByNatioality = await FindByNationality(companies);
-        return companiesByNatioality;
+        var response = await GetNewCompaniesAsync();
+        var companiesByNatioality = await FindByNationality(response.Companies);
+        return new DomainGetCompaniesResponse
+        {
+            Companies = companiesByNatioality,
+            CanFetchMoreCompanies = response.CanFetchMoreCompanies
+        };
     }
 
     private async Task<IList<ICompany>> FindByNationality(IList<ICompany> companies)
@@ -32,6 +37,12 @@ public class DomainFilteredSearch : IDomainFilteredSearch
         var companiesWithFiltredOfficersByNationality = new List<ICompany>();
         foreach (var company in companies)
         {
+            if (string.IsNullOrWhiteSpace(_filterBy))
+            {
+                companiesWithFiltredOfficersByNationality.Add(company);
+                continue;
+            }
+
             if (await company.HasOfficerWithNationalityAsync(_filterBy))
             {
                 companiesWithFiltredOfficersByNationality.Add(company);
@@ -40,7 +51,7 @@ public class DomainFilteredSearch : IDomainFilteredSearch
         }
         return companiesWithFiltredOfficersByNationality;
     }
-    private async Task<IList<ICompany>> GetNewCompaniesAsync()
+    private async Task<IDomainGetCompaniesResponse> GetNewCompaniesAsync()
     {
         return await _domainSearch.GetNewlyIncorporatedCompaniesAsync();
     }

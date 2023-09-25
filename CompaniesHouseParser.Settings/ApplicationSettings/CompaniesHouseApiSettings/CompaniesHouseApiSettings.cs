@@ -9,5 +9,7 @@ public class CompaniesHouseApiSettings : ICompaniesHouseApiSettings
     public int SearchCompaniesPerRequest { get; set; }
     public CompaniesHouseApiRequestLimit RequestLimit { get; set; }
 
+    public DateTime SearchIncorporatedFrom { get; set; }
+
     ICompaniesHouseApiRequestLimit ICompaniesHouseApiSettings.RequestLimit => RequestLimit;
 }

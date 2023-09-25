@@ -17,6 +17,7 @@ where TClass : class, TInterface
     }
 
     public TClass Deserialize()
+    
     {
         var settings = File.ReadAllText(_path);
 

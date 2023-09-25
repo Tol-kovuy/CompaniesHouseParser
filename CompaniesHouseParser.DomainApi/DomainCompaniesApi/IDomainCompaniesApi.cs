@@ -5,5 +5,5 @@ namespace CompaniesHouseParser.DomainApi;
 
 public interface IDomainCompaniesApi : ITransientDependency
 {
-    Task<IList<ICompany>> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi);
+    Task<IDomainGetCompaniesResponse> GetCompaniesAsync(IDomainGetCompaniesRequest requestApi);
 }

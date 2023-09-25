@@ -1,4 +1,5 @@
-﻿using CompaniesHouseParser.DomainShared;
+﻿using CompaniesHouseParser.DomainApi;
+using CompaniesHouseParser.DomainShared;
 using CompaniesHousseParser.DomainSearchFilter;
 using Microsoft.Extensions.Logging;
 
@@ -23,15 +24,15 @@ public class Parser : IParser
 
     public async Task ExecuteAsync()
     {
-        var companies = await GetFilteredCompaniesAsync();
-        if (companies.Count == 0)
+        var response = await GetFilteredCompaniesAsync();
+        if (!response.CanFetchMoreCompanies)
         {
             Logger.LogInformation(
                 $"No newly created companies for at this time {DateTime.Now}");
         }
         else
         {
-            foreach (var company in companies)
+            foreach (var company in response.Companies)
             {
                 await _emailSender.SendAsync(company);
             }
@@ -39,7 +40,7 @@ public class Parser : IParser
         }
     }
 
-    private async Task<IList<ICompany>> GetFilteredCompaniesAsync()
+    private async Task<IDomainGetCompaniesResponse> GetFilteredCompaniesAsync()
     {
         return await _domainFilteredSearch.GetFilteredCompaniesAsync();
     }

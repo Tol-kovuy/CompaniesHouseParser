@@ -24,16 +24,16 @@ public class ApplicationStorageCreatedDateCompany
         _state = Deserialize();
     }
 
-    public DateTime GetLastIncorporatedFromDate()
+    public DateTime GetSearchIncorporatedFromDate()
     {
         EnsureFileLoaded();
-        return _state.Companies.LastIncorporatedFrom;
+        return _state.Companies.SearchIncorporatedFrom;
     }
 
-    public void SetLastIncorporatedFromDate(DateTime dates)
+    public void SetSearchIncorporatedFromDate(DateTime dates)
     {
         EnsureFileLoaded();
-        _state.Companies.LastIncorporatedFrom = dates;
+        _state.Companies.SearchIncorporatedFrom = dates;
         SaveLastDate();
     }
 

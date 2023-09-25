@@ -20,24 +20,28 @@ public class DomainSearch : IDomainSearch
         _applicationStorageCreatedDate = applicationStorageCreatedDate;
     }
 
-    public async Task<IList<ICompany>> GetNewlyIncorporatedCompaniesAsync()
+    public async Task<IDomainGetCompaniesResponse> GetNewlyIncorporatedCompaniesAsync()
     {
-        var newlyIncorporatedCompanies = await GetCompaniesAsync();
+        var getCompaniesResponse = await GetCompaniesAsync();
+        var newlyIncorporatedCompanies = getCompaniesResponse.Companies;
         var filterredCompanites = FilterIncorporatedCompanies(newlyIncorporatedCompanies);
         SaveNewIds(filterredCompanites);
         SaveNewDate(filterredCompanites);
-        return filterredCompanites;
+        return new DomainGetCompaniesResponse
+        {
+            Companies = filterredCompanites,
+            CanFetchMoreCompanies = getCompaniesResponse.CanFetchMoreCompanies
+        };
     }
 
-    private async Task<IList<ICompany>> GetCompaniesAsync()
+    private async Task<IDomainGetCompaniesResponse> GetCompaniesAsync()
     {
         var domainRequest = new DomainGetCompaniesRequest
         {
-            IncorporatedFrom = _applicationStorageCreatedDate.GetLastIncorporatedFromDate()
+            IncorporatedFrom = _applicationStorageCreatedDate.GetSearchIncorporatedFromDate()
         };
-        var getCompanies = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
-      
-        return getCompanies;
+        var response = await _domainCompaniesApi.GetCompaniesAsync(domainRequest);
+        return response;
     }
 
     private IList<ICompany> FilterIncorporatedCompanies(IList<ICompany> newlyIncorporatedCompanies)
@@ -58,8 +62,12 @@ public class DomainSearch : IDomainSearch
     {
         if (companies.Count != 0)
         {
-            var date = companies.Max(d => d.CreatedDate);
-            _applicationStorageCreatedDate.SetLastIncorporatedFromDate(date);
+            var searchIncorporatedFrom = companies
+                .Max(d => d.CreatedDate)
+                .AddDays(1);
+
+            _applicationStorageCreatedDate
+                .SetSearchIncorporatedFromDate(searchIncorporatedFrom);
         }
         return;
     }

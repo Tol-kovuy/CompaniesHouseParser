@@ -46,16 +46,43 @@ public class CompaniesHouseApi : ICompaniesHouseApi
     public async Task<IList<CompanyDto>> GetCompaniesAsync(IGetCompaniesRequest requestApi)
     {
         await DelayBetweenRequest();
-        var incorporatedFrom = GetDate(requestApi.IncorporatedFrom);
-        var incorporatedTo = GetDate(DateTime.UtcNow.AddDays(1));
+        var incorporatedFrom = GetDate(requestApi.SearchIncorporatedFrom);
+        var incorporatedTo = incorporatedFrom;
         var countCompanies = requestApi.CompaniesCount;
-        var url = $"{_apiBaseUrl}/advanced-search/companies?incorporated_from={incorporatedFrom}" +
-                         $"&incorporated_to={incorporatedTo}&size={countCompanies}";
 
+        var startIndex = 0;
+        var result = new List<CompanyDto>(countCompanies);
         var apiToken = requestApi.ApiToken;
-        var response = await GetResponse<CompaniesListDto>(url, apiToken);
+        while (true)
+        {
+            var url = $"{_apiBaseUrl}/advanced-search/companies?incorporated_from={incorporatedFrom}" +
+                $"&incorporated_to={incorporatedTo}" +
+                $"&size={countCompanies}" +
+                $"&start_index={startIndex}";
+
+            var response = await GetResponse<CompaniesListDto>(url, apiToken);
+            var responseCompanies = response.Companies;
+            if (responseCompanies == null)
+            {
+                break;
+            }
+
+            result.AddRange(responseCompanies);
+
+            if (responseCompanies.Count < countCompanies)
+            {
+                break;
+            }
+
+            startIndex += responseCompanies.Count;
+        }
+
+        result = result
+            .DistinctBy(x => x.Id)
+            .ToList();
+
         SetLastResponseDate();
-        return response.Companies;
+        return result;
     }
 
     public async Task<IList<OfficerDto>> GetOfficers(IGetOfficerRequest requestApi)
@@ -70,7 +97,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         }
         return new List<OfficerDto>();
     }
-
+    
     private async Task<TClass> GetResponse<TClass>(string url, string token)
     {
         var httpClient = _clientFactory.GetHttpClient(token);

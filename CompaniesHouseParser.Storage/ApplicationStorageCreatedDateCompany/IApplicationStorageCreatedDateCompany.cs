@@ -4,6 +4,6 @@ namespace CompaniesHouseParser.Storage;
 
 public interface IApplicationStorageCreatedDateCompany : ITransientDependency
 {
-    DateTime GetLastIncorporatedFromDate();
-    void SetLastIncorporatedFromDate(DateTime dates);
+    DateTime GetSearchIncorporatedFromDate();
+    void SetSearchIncorporatedFromDate(DateTime dates);
 }
