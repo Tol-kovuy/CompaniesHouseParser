@@ -53,6 +53,7 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         var startIndex = 0;
         var result = new List<CompanyDto>(countCompanies);
         var apiToken = requestApi.ApiToken;
+
         while (true)
         {
             var url = $"{_apiBaseUrl}/advanced-search/companies?incorporated_from={incorporatedFrom}" +

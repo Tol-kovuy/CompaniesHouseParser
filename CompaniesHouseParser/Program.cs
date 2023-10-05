@@ -34,16 +34,17 @@ class Program
                     {
                         options.TimestampFormat = "HH:mm:ss   ";
                     });
-                // Uncommet for loggin in txt file 
+                //Uncommet for loggin in txt file
 
-                //builder.AddFile(options => { 
-                //    options.FileName = "parserLogs";
-                //    options.LogDirectory = AppContext.BaseDirectory; 
-                //    options.FileSizeLimit = 20 * 1024 * 1024; 
-                //    options.FilesPerPeriodicityLimit = 200;
-                //    options.Extension = "txt"; 
-                //    options.Periodicity = PeriodicityOptions.Hourly; 
-                //    });
+               builder.AddFile(options =>
+               {
+                   options.FileName = "parserLogs";
+                   options.LogDirectory = AppContext.BaseDirectory;
+                   options.FileSizeLimit = 20 * 1024 * 1024;
+                   options.FilesPerPeriodicityLimit = 10;
+                   options.Extension = "txt";
+                   options.Periodicity = PeriodicityOptions.Daily;
+               });
             });
        
         return services;

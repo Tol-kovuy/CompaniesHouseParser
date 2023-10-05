@@ -42,7 +42,6 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         {
             ApiToken = settings.Token,
             CompaniesCount = settings.SearchCompaniesPerRequest,
-            IncorporatedFrom = requestApi.IncorporatedFrom,
             SearchIncorporatedFrom = requestApi.IncorporatedFrom
         };
 
@@ -67,7 +66,10 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         var response = new DomainGetCompaniesResponse
         {
             Companies = companies,
-            CanFetchMoreCompanies = companies.Count == settings.SearchCompaniesPerRequest
+            // for today date we will return COMPANIES but
+            // SearchIncorporatedFrom <  DateTime.Now will return false
+            // and CanFetchMoreCompanies will be false
+            CanFetchMoreCompanies = request.SearchIncorporatedFrom.Date < DateTime.Now.Date
         };
         return response;
     }
