@@ -1,0 +1,30 @@
+{
+  "CompaniesHouseApi": {
+    "Token": "52b9a019-1d98-42ad-a627-a0698562e7a0",
+    "SearchCompaniesPerRequest": 5000, //Max limit  5000 companies
+    "RequestLimit": {
+      "Count": 600,
+      "Interval": "00:00:00.7000000"
+    }
+  },
+  "Smtp": {
+    "Email": "smarty.maks13@gmail.com",
+    "UserName": "smarty.maks13@gmail.com",
+    "Password": "tzqbuozhllmtnzsj",
+    "Host": "smtp.gmail.com",
+    "Port": 587
+  },
+  "Filters": {
+    "Officer": {
+      "Nationality": "British",
+      "CountryOfResidence": "United Kingdom"
+    }
+  },
+  "Email": {
+    "EmailAddresses": {
+      "EmailAddressFrom": "smarty.maks13@gmail.com",
+      "EmailAddressTo": "krotkrotowskij@gmail.com"
+    }
+  },
+  "Subject": "CompaniesHouseParsingResult"
+}
