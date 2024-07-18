@@ -352,3 +352,4 @@ MigrationBackup/
 /CompaniesHouseParser.App.deps.json
 /CompaniesHouseParser.App.runtimeconfig.json
 *.exe
+/CompaniesHouseParser.Api/CompaniesHouseApi/CompaniesHouseApi.cs

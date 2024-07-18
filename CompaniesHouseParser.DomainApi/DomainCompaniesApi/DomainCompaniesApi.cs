@@ -3,6 +3,7 @@ using CompaniesHouseParser.Domain;
 using CompaniesHouseParser.DomainShared;
 using CompaniesHouseParser.Mapping;
 using CompaniesHouseParser.Settings;
+using CompaniesHouseParser.Shared;
 
 namespace CompaniesHouseParser.DomainApi;
 
@@ -45,10 +46,12 @@ public class DomainCompaniesApi : IDomainCompaniesApi
             SearchIncorporatedFrom = requestApi.IncorporatedFrom
         };
 
-        IList<CompanyDto> companiesDtos;
+        IList<CompanyDto> activeCompaniesDtos;
         try
         {
-            companiesDtos = await _companiesHouseApi.GetCompaniesAsync(request);
+            var companiesDtos = await _companiesHouseApi.GetCompaniesAsync(request);
+            await WriteCompanyIdsToFile(companiesDtos);
+            activeCompaniesDtos = GetActiveCompanies(companiesDtos);
         }
         catch (Exception)
         {
@@ -57,7 +60,7 @@ public class DomainCompaniesApi : IDomainCompaniesApi
         }
         
         var companies = new List<ICompany>();
-        foreach (var companyFromDto in companiesDtos)
+        foreach (var companyFromDto in activeCompaniesDtos)
         {
             var company = _companyMapperFactory.Get().Map<Company>(companyFromDto);
             companies.Add(company);
@@ -72,6 +75,47 @@ public class DomainCompaniesApi : IDomainCompaniesApi
             CanFetchMoreCompanies = request.SearchIncorporatedFrom.Date < DateTime.Now.Date
         };
         return response;
+    }
+    
+    private async Task WriteCompanyIdsToFile(IList<CompanyDto> companies)
+    {
+        var directoryName = FilePaths.AllCompaniesDirectoryName;
+        var fileName = FilePaths.AllCompaniesFileName;
+
+        if (!Directory.Exists(directoryName))
+        {
+            Directory.CreateDirectory(directoryName);
+        }
+
+        var filePath = Path.Combine(directoryName, fileName);
+
+        using (var writer = new StreamWriter(filePath, append: true))
+        {
+            foreach (var companyDto in companies)
+            {
+                await writer.WriteLineAsync(companyDto.Id);
+            }
+        }
+    }
+
+    public async Task<ICompany> GetCompanyByIdAsync(string id)
+    {
+        var settings = _applicationSettings.Get().CompaniesHouseApi;
+
+        var request = new GetOfficerRequest()
+        {
+            CompanyId = id,
+            ApiToken = settings.Token
+        };
+        var companyDto  = await _companiesHouseApi.GetCompanyById(request);
+        var company = _companyMapperFactory.Get().Map<Company>(companyDto);
+
+        return company;
+    }
+
+    private IList<CompanyDto> GetActiveCompanies(IList<CompanyDto> allCompanies)
+    {
+        return allCompanies.Where(company => company.StatusIsActive).ToList(); 
     }
 }
 

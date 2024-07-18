@@ -10,15 +10,22 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="CsvHelper" Version="30.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="NetCore.AutoRegisterDi" Version="2.1.0" />
     <PackageReference Include="NetEscapades.Extensions.Logging.RollingFile" Version="2.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\CompaniesHouseParser.ParsingRestore\CompaniesHouseParser.ParsingRestore.csproj" />
-	<ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Api\CompaniesHouseParser.Api.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Storage\CompaniesHouseParser.Storage.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 </Project>

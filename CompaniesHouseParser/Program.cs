@@ -34,14 +34,13 @@ class Program
                     {
                         options.TimestampFormat = "HH:mm:ss   ";
                     });
-                //Uncommet for loggin in txt file
 
+                //Uncommet for loggin in txt file
                builder.AddFile(options =>
                {
-                   options.FileName = "parserLogs";
-                   options.LogDirectory = AppContext.BaseDirectory;
+                   options.LogDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
                    options.FileSizeLimit = 20 * 1024 * 1024;
-                   options.FilesPerPeriodicityLimit = 10;
+                   options.FilesPerPeriodicityLimit = 20;
                    options.Extension = "txt";
                    options.Periodicity = PeriodicityOptions.Daily;
                });

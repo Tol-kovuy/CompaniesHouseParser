@@ -60,15 +60,29 @@ public class DomainSearch : IDomainSearch
 
     private void SaveNewDate(IList<ICompany> companies)
     {
-        if (companies.Count != 0)
+        if (companies.Count == 0)
         {
-            var searchIncorporatedFrom = companies
-                .Max(d => d.CreatedDate)
-                .AddDays(1);
+            var _previousDate = _applicationStorageCreatedDate
+                .GetSearchIncorporatedFromDate().AddDays(1);
 
             _applicationStorageCreatedDate
-                .SetSearchIncorporatedFromDate(searchIncorporatedFrom);
+                .SetSearchIncorporatedFromDate(_previousDate);
+
+            return;
         }
-        return;
+
+        var searchIncorporatedFrom = companies
+            .Max(d => d.CreatedDate)
+            .AddDays(1);
+
+        _applicationStorageCreatedDate
+            .SetSearchIncorporatedFromDate(searchIncorporatedFrom);
+    }
+
+    public async Task<ICompany> GetCompanyByIdAsync(string companyId)
+    {
+        var company = await _domainCompaniesApi.GetCompanyByIdAsync(companyId);
+
+        return company;
     }
 }

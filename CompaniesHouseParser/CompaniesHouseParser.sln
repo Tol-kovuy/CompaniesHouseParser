@@ -31,7 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Mappin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Profile", "..\CompaniesHouseParser.Profile\CompaniesHouseParser.Profile.csproj", "{69F32CFA-B7E8-4F47-A8EA-9A468E0C2F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Domain", "..\CompaniesHouseParser.Domain\CompaniesHouseParser.Domain.csproj", "{34571C6F-0E1D-4417-91D4-FE3D0205CC6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.Domain", "..\CompaniesHouseParser.Domain\CompaniesHouseParser.Domain.csproj", "{34571C6F-0E1D-4417-91D4-FE3D0205CC6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.ExportData", "..\CompaniesHouseParser.ExportData\CompaniesHouseParser.ExportData.csproj", "{37DE23EA-BE3E-4D6B-894D-AE8F60559876}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompaniesHouseParser.ParsingRestore", "..\CompaniesHouseParser.ParsingRestore\CompaniesHouseParser.ParsingRestore.csproj", "{D893E647-71C1-410A-97A3-2C9FB6CFDC87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompaniesHouseParser.Shared", "..\CompaniesHouseParser.Shared\CompaniesHouseParser.Shared.csproj", "{710E248F-7BB8-49DD-91E9-8E5128524C77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +105,18 @@ Global
 		{34571C6F-0E1D-4417-91D4-FE3D0205CC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34571C6F-0E1D-4417-91D4-FE3D0205CC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34571C6F-0E1D-4417-91D4-FE3D0205CC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37DE23EA-BE3E-4D6B-894D-AE8F60559876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37DE23EA-BE3E-4D6B-894D-AE8F60559876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37DE23EA-BE3E-4D6B-894D-AE8F60559876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37DE23EA-BE3E-4D6B-894D-AE8F60559876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D893E647-71C1-410A-97A3-2C9FB6CFDC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D893E647-71C1-410A-97A3-2C9FB6CFDC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D893E647-71C1-410A-97A3-2C9FB6CFDC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D893E647-71C1-410A-97A3-2C9FB6CFDC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{710E248F-7BB8-49DD-91E9-8E5128524C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710E248F-7BB8-49DD-91E9-8E5128524C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710E248F-7BB8-49DD-91E9-8E5128524C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710E248F-7BB8-49DD-91E9-8E5128524C77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

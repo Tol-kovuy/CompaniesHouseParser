@@ -22,5 +22,4 @@ public interface IOfficer : ITransientDependency
     string Self { get; }
 
     bool IsNationality(string nationality);
-
 }

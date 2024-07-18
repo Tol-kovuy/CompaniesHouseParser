@@ -1,4 +1,5 @@
 ﻿using CompaniesHouseParser.Common;
+using CompaniesHouseParser.Shared;
 using Newtonsoft.Json;
 
 namespace CompaniesHouseParser.Storage;
@@ -7,11 +8,10 @@ public class ApplicationStorageCreatedDateCompany
     : AccessorBase<ApplicationParsingState, IApplicationParsingState>
     , IApplicationStorageCreatedDateCompany
 {
-    private static string pathToCreatedDates = @"ParsingSettings\\ModifiedSettings.json";
     private ApplicationParsingState _state;
 
     public ApplicationStorageCreatedDateCompany()
-        : base(pathToCreatedDates)
+        : base(FilePaths.ParsingSettingsJsonPath)
     {
     }
 
@@ -38,8 +38,11 @@ public class ApplicationStorageCreatedDateCompany
     }
 
     private void SaveLastDate()
-    {
-        string json = JsonConvert.SerializeObject(_state);
-        File.WriteAllText(pathToCreatedDates, json);
+    { 
+        if (_state.Companies.SearchIncorporatedFrom.Date <= DateTime.Now.Date)
+        {
+            string json = JsonConvert.SerializeObject(_state);
+            File.WriteAllText(FilePaths.ParsingSettingsJsonPath, json);
+        }
     }
 }

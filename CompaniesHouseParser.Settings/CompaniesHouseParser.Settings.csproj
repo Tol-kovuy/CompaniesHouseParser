@@ -19,11 +19,12 @@
   <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Shared\CompaniesHouseParser.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="StaticSettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="ApplicationSettings\StaticSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

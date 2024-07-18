@@ -32,6 +32,7 @@ public class Officer : IOfficer
         {
             return true;
         }
+
         return false;
     }
 }

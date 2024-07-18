@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CompaniesHouseParser.Common\CompaniesHouseParser.Common.csproj" />
     <ProjectReference Include="..\CompaniesHouseParser.IoC\CompaniesHouseParser.IoC.csproj" />
+    <ProjectReference Include="..\CompaniesHouseParser.Shared\CompaniesHouseParser.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

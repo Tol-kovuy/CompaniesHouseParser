@@ -1,0 +1,22 @@
+{
+  "CompaniesHouseApi": {
+    //Your TOKEN for app site CompaniesHouse
+    "Token": "52b9a019-1d98-42ad-a627-a0698562e7a0",
+    //Max limit 5000 companies for one request
+    "SearchCompaniesPerRequest": 5000,
+    "RequestLimit": {
+      //Quantity requests for a 5min
+      "Count": 600,
+      //Interval betwen requests
+      "Interval": "00:00:00.8000000",
+      //Time waiting if requests is > 600 for a 5min
+      "WaitingTime": "00:05:20.0000000"
+    }
+  },
+  "Filters": {
+    "Officer": {
+      //Searching by nationality
+      "Nationality": ""
+    }
+  }
+}

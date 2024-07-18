@@ -6,4 +6,5 @@ public interface ICompaniesHouseApiRequestLimit : ITransientDependency
 {
     int Count { get; }
     TimeSpan Interval { get; }
+    TimeSpan WaitingTime { get; set; }
 }

@@ -1,47 +1,42 @@
-﻿using CompaniesHouseParser.DomainApi;
-using CompaniesHouseParser.DomainShared;
-using CompaniesHousseParser.DomainSearchFilter;
+﻿using CompaniesHouseParser.ParsingRestore;
 using Microsoft.Extensions.Logging;
 
 namespace CompaniesHouseParser.DomainParser;
 
 public class Parser : IParser
 {
-    private IDomainFilteredSearch _domainFilteredSearch;
-    private IDomainCompanyEmailSender _emailSender;
+    private bool _isAppStartsFirstTime;
     public ILogger Logger { get; set; }
+
+    private ILastParsingRestore _lastParsing;
 
     public Parser(
         ILogger<Parser> logger,
-        IDomainFilteredSearch domainFilteredSearch,
-        IDomainCompanyEmailSender emailSender
-        )
+        ILastParsingRestore lastParsing)
     {
         Logger = logger;
-        _domainFilteredSearch = domainFilteredSearch;
-        _emailSender = emailSender;
+        _lastParsing = lastParsing;
     }
 
     public async Task ExecuteAsync()
     {
-        var response = await GetFilteredCompaniesAsync();
+        if (!_isAppStartsFirstTime)
+        {
+            await _lastParsing.WriteNorParsedCompaniesAsync();
+            _isAppStartsFirstTime = true;
+        }
+
+        var response = await _lastParsing.GetFilteredCompaniesAsync();
+
         if (!response.CanFetchMoreCompanies)
         {
-            Logger.LogInformation(
-                $"No newly created companies for at this time {DateTime.Now}");
-        }
-        else
-        {
-            foreach (var company in response.Companies)
-            {
-                await _emailSender.SendAsync(company);
-            }
-            await ExecuteAsync();
-        }
-    }
+            Logger.LogInformation($"No newly created companies for at this time {DateTime.Now}");
 
-    private async Task<IDomainGetCompaniesResponse> GetFilteredCompaniesAsync()
-    {
-        return await _domainFilteredSearch.GetFilteredCompaniesAsync();
+            return;
+        }
+
+        await _lastParsing.WriteParsedOfficersToResultAsync(response.Companies);
+
+        await ExecuteAsync();
     }
 }
