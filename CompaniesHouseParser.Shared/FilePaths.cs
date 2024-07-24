@@ -6,6 +6,7 @@
         public static string AbsolutePathToParsedOfficers { get; } = @"SuccessfulParsedOfficersByCompanyID//SuccessfulCompanyIDs.txt";
         public static string AllCompaniesDirectoryName { get; } = "AllCompanyIds";
         public static string AllCompaniesFileName { get; } = "allCompanyIds.txt";
+        public static string AbsoluteAllCompaniesPath { get; } = @"AllCompanyIds//allCompanyIds.txt";
         public static string ExistingCompanyNumbersFilePath { get; } = @"ExistingActiveCompanyIds//ExistingCompanyNumbers.txt";
         public static string SuccessfulCompanyIDsFilePath { get; } = @"SuccessfulParsedOfficersByCompanyID//SuccessfulCompanyIDs.txt";
         public static string ParsingResultsDirectoryName { get; } = "ParsingResults";

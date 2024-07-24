@@ -1,4 +1,6 @@
-﻿using CompaniesHouseParser.ParsingRestore;
+﻿using CompaniesHouseParser.CleanCacheFileMng;
+using CompaniesHouseParser.ParsingRestore;
+using CompaniesHouseParser.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace CompaniesHouseParser.DomainParser;
@@ -9,13 +11,17 @@ public class Parser : IParser
     public ILogger Logger { get; set; }
 
     private ILastParsingRestore _lastParsing;
+    private readonly ICleanFileManager _cleanFile;
 
     public Parser(
         ILogger<Parser> logger,
-        ILastParsingRestore lastParsing)
+        ILastParsingRestore lastParsing,
+        ICleanFileManager cleanFile
+        )
     {
         Logger = logger;
         _lastParsing = lastParsing;
+        _cleanFile = cleanFile;
     }
 
     public async Task ExecuteAsync()
@@ -37,6 +43,20 @@ public class Parser : IParser
 
         await _lastParsing.WriteParsedOfficersToResultAsync(response.Companies);
 
+        CleanCacheFiles();
+
         await ExecuteAsync();
+    }
+
+    private void CleanCacheFiles()
+    {
+        var pathList = new List<string>
+        {
+            FilePaths.AbsoluteAllCompaniesPath,
+            FilePaths.ExistingCompanyNumbersFilePath,
+            FilePaths.SuccessfulCompanyIDsFilePath
+        };
+
+        _cleanFile.CleanFiles(pathList);
     }
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\CompaniesHouseParser.CleanCacheFileMng\CompaniesHouseParser.CleanCacheFileMng.csproj" />
 	<ProjectReference Include="..\CompaniesHouseParser.ParsingRestore\CompaniesHouseParser.ParsingRestore.csproj" />
 	<ProjectReference Include="..\CompaniesHouseParsing.EmailSending\CompaniesHouseParser.Email.csproj" />
   </ItemGroup>
