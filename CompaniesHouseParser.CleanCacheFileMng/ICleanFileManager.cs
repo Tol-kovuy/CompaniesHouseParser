@@ -2,7 +2,8 @@
 
 namespace CompaniesHouseParser.CleanCacheFileMng
 {
-    public interface ICleanFileManager : ITransientDependency
+    public interface ICleanFileManager 
+        : ITransientDependency
     {
         void CleanFiles(IList<string> filePath);
     }

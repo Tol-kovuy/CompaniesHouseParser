@@ -7,7 +7,7 @@ namespace CompaniesHouseParser.CleanCacheFileMng
     {
         public ILogger Logger { get; set; }
 
-        public CleanFileManager(ILogger logger)
+        public CleanFileManager(ILogger<CleanFileManager> logger)
         {
             Logger = logger;
         }
