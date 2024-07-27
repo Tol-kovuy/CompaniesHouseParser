@@ -65,6 +65,11 @@ namespace CompaniesHouseParser.ParsingRestore
 
             foreach (var company in notParsedCompanies)
             {
+                if (company == null)
+                { 
+                    continue; 
+                }
+
                 var result = await company.GetOfficersAsync();
                 var filteredResult = result;
 
@@ -106,17 +111,17 @@ namespace CompaniesHouseParser.ParsingRestore
 
         private List<CompanyTableModel> GetNotParsedIds()
         {
-            if (!File.Exists(FilePaths.SuccessfulCompanyIDsFilePath))
+            if (!File.Exists(FilePaths.AbsoluteSuccessfulCompanyIDsFilePath))
             {
                 return new List<CompanyTableModel>();
             }
 
             var existingCompanyNumbers = File
-                .ReadAllLines(FilePaths.ExistingCompanyNumbersFilePath)
+                .ReadAllLines(FilePaths.AbsoluteExistingCompanyNumbersFilePath)
                 .Distinct()
                 .ToList();
             var successfulCompanyIDs = File
-                .ReadAllLines(FilePaths.SuccessfulCompanyIDsFilePath)
+                .ReadAllLines(FilePaths.AbsoluteSuccessfulCompanyIDsFilePath)
                 .Distinct()
                 .ToList();
 

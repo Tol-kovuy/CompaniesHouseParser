@@ -53,8 +53,8 @@ public class Parser : IParser
         var pathList = new List<string>
         {
             FilePaths.AbsoluteAllCompaniesPath,
-            FilePaths.ExistingCompanyNumbersFilePath,
-            FilePaths.SuccessfulCompanyIDsFilePath
+            FilePaths.AbsoluteExistingCompanyNumbersFilePath,
+            FilePaths.AbsoluteSuccessfulCompanyIDsFilePath
         };
 
         _cleanFile.CleanFiles(pathList);

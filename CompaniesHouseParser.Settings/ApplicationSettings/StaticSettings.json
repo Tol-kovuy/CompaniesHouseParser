@@ -1,7 +1,7 @@
 {
   "CompaniesHouseApi": {
     //Your TOKEN for app site CompaniesHouse
-    "Token": "52b9a019-1d98-42ad-a627-a0698562e7a0",
+    "Token": "c9e07ed4-d471-4623-af9d-4a3c3e067b40",
     //Max limit 5000 companies for one request
     "SearchCompaniesPerRequest": 5000,
     "RequestLimit": {

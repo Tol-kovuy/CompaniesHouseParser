@@ -245,17 +245,48 @@ public class CompaniesHouseApi : ICompaniesHouseApi
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .OrResult<HttpResponseMessage>(response => !response.IsSuccessStatusCode)
-            .WaitAndRetryAsync(3, retryAttemp => _requestLimit.Get().CompaniesHouseApi.RequestLimit.Interval);
+            .WaitAndRetryAsync(
+                retryCount: 3,
+                sleepDurationProvider: retryAttempt =>
+                {
+                    var delay = _requestLimit.Get().CompaniesHouseApi.RequestLimit.Interval;
+                    Console.WriteLine($"Attempt {retryAttempt + 1}: Retry in {delay}...");
+                    return delay;
+                },
+                onRetry: (exception, timeSpan, retryCount, context) =>
+                {
+                    Console.WriteLine($"Attempt error {retryCount}: {exception?.Exception.Message ?? "Unknown error"}");
+                });
 
-        var httpClient = _clientFactory.GetHttpClient(token);
-        using var response = await retryPolicy.ExecuteAsync(async () => await httpClient.GetAsync(url));
-        var result = await response.Content.ReadAsStringAsync();
-        return result;
+        try
+        {
+            var httpClient = _clientFactory.GetHttpClient(token);
+
+            using var response = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Unsuccessful answer: {(int)response.StatusCode} {response.ReasonPhrase}");
+            }
+
+            var result = await response.Content.ReadAsStringAsync();
+            return result;
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Critical request error: {e.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"There was an error: {ex.Message}");
+            throw;
+        }
     }
 
     private void WriteSuccessfulParsedIdsToFile(string companyId)
     {
-        var filePath = FilePaths.AbsolutePathToParsedOfficers;
+        var filePath = FilePaths.AbsoluteSuccessfulCompanyIDsFilePath;
 
         string directoryPath = Path.GetDirectoryName(filePath);
 
